@@ -25,6 +25,7 @@ options {
 // which packages should be imported?
 @header {
     import fr.ensimag.deca.tree.*;
+    import fr.ensimag.deca.tools.SymbolTable;
     import java.io.PrintStream;
 }
 
@@ -73,32 +74,44 @@ list_decl returns[ListDeclVar tree]
     ;
 
 decl_var_set[ListDeclVar l]
-    : type list_decl_var[$l,$type.tree] SEMI
+    : type list_decl_var[$l, $type.tree] SEMI
     ;
 
 list_decl_var[ListDeclVar l, AbstractIdentifier t]
     : dv1=decl_var[$t] {
-        $l.add($dv1.tree);
-        } (COMMA dv2=decl_var[$t] {
+    assert($dv1.tree != null);
+    $l.add($dv1.tree);
+    }
+     (COMMA dv2=decl_var[$t] {
+        assert($dv2.tree != null);
+         $l.add($dv2.tree);
         }
       )*
     ;
 
 decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
 @init   {
+            AbstractInitialization init = new NoInitialization();
         }
     : i=ident {
+            assert($i.tree != null);
         }
       (EQUALS e=expr {
+            init = new Initialization($e.tree);
         }
       )? {
+            assert($t != null);
+            $tree = new DeclVar($t, $i.tree, init);
+
         }
     ;
 
 list_inst returns[ListInst tree]
 @init {
+            $tree = new ListInt();
 }
     : (inst {
+    assert($inst.tree
         }
       )*
     ;
@@ -186,6 +199,7 @@ or_expr returns[AbstractExpr tree]
     | e1=or_expr OR e2=and_expr {
             assert($e1.tree != null);
             assert($e2.tree != null);
+
        }
     ;
 
