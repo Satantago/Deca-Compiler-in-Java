@@ -102,7 +102,6 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
       )? {
             assert($t != null);
             $tree = new DeclVar($t, $i.tree, init);
-
         }
     ;
 
@@ -123,11 +122,13 @@ inst returns[AbstractInst tree]
             $tree = $e1.tree;
         }
     | SEMI {
-        // TODO
+            $tree = new NoOperation();
+            setLocation($tree, $SEMI);
         }
     | PRINT OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
             $tree = new Print(false, $list_expr.tree);
+            setLocation($tree, $PRINT);
 
         }
     | PRINTLN OPARENT list_expr CPARENT SEMI {
@@ -138,12 +139,12 @@ inst returns[AbstractInst tree]
     | PRINTX OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null); 
             $tree = new Print(true, $list_expr.tree);
-
+            setLocation($tree, $PRINTX);
         }
     | PRINTLNX OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
             $tree = new Println(true, $list_expr.tree);
-
+            setLocation($tree, $PRINTLNX);
         }
     | if_then_else {
             assert($if_then_else.tree != null);
@@ -152,17 +153,21 @@ inst returns[AbstractInst tree]
     | WHILE OPARENT condition=expr CPARENT OBRACE body=list_inst CBRACE {
             assert($condition.tree != null);
             assert($body.tree != null);
+            setLocation($tree, $WHILE);
+
         }
     | RETURN expr SEMI {
             assert($expr.tree != null);
+            setLocation($tree, $RETURN);
+
         }
     ;
 
 if_then_else returns[IfThenElse tree]
 @init {
-    // AbstractExpr expr = ;
-    // ListInst then_list =  ; 
-    // ListInst else_list = ;
+    // AbstractExpr expr = new AbstractExpr();
+    // ListInst then_list =  new ListInst(); 
+    // ListInst else_list = new ListInst();
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
 
