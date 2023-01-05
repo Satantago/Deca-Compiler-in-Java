@@ -133,6 +133,7 @@ inst returns[AbstractInst tree]
     | PRINTLN OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
             $tree = new Println(false, $list_expr.tree);
+            setLocation($tree, $PRINTLN);
         }
     | PRINTX OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null); 
@@ -324,7 +325,7 @@ mult_expr returns[AbstractExpr tree]
     | e1=mult_expr SLASH e2=unary_expr {
             assert($e1.tree != null);                                         
             assert($e2.tree != null);
-           $tree = new Divide($e1.tree,$e2.tree);
+            $tree = new Divide($e1.tree,$e2.tree);
         }
     | e1=mult_expr PERCENT e2=unary_expr {
             assert($e1.tree != null);                                                                          
@@ -344,6 +345,7 @@ unary_expr returns[AbstractExpr tree]
         }
     | select_expr {
             assert($select_expr.tree != null);
+            $tree = $select_expr.tree;
 
         }
     ;
@@ -399,6 +401,8 @@ primary_expr returns[AbstractExpr tree]
     | literal {
             assert($literal.tree != null);
             $tree = $literal.tree;
+            setLocation($tree, $literal.start);
+
         }
     ;
 
@@ -435,8 +439,12 @@ ident returns[AbstractIdentifier tree]
 /****     Class related rules     ****/
 
 list_classes returns[ListDeclClass tree]
+@init{
+        $tree = new ListDeclClass();
+    }
     :
       (c1=class_decl {
+        //todo
         }
       )*
     ;
