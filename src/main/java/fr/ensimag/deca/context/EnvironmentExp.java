@@ -29,15 +29,16 @@ public class EnvironmentExp {
 
     // on utilise une table de hachage pour associer un nom à une définition 
     // chaque nom est associé à une définition
-    Hashtable <nom,definition > env ;  
+    HashMap <nom,definition > env ;  
 
     EnvironmentExp parentEnvironment;
     
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
-        this.env = new Hashtable <nom,definition >();
+        this.env = new HashMap <nom,definition >();
     }
 
+    //TODO
     public static class DoubleDefException extends Exception {
         private static final long serialVersionUID = -2733379901827316441L;
     }
