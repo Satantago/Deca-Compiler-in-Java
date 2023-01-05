@@ -61,6 +61,8 @@ ASM :'asm' ;
 
 ESPACE : (' ') { skip();};
 
+TAB : '\t' {skip();};
+
 fragment LETTER : ('a' .. 'z' | 'A' .. 'Z') ;
 IDENT :(LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
