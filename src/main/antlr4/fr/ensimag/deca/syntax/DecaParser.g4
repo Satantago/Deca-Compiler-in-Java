@@ -193,7 +193,7 @@ list_expr returns[ListExpr tree]
 expr returns[AbstractExpr tree]
     : assign_expr {
             assert($assign_expr.tree != null);
-            $tree = assign_expr.tree;
+            $tree = $assign_expr.tree;
         } 
     ;
 
@@ -207,11 +207,11 @@ assign_expr returns[AbstractExpr tree]
         EQUALS e2=assign_expr {
             assert($e.tree != null);
             assert($e2.tree != null);
-            $tree = new Assign($e.tree,$e2.tree);
+            $tree = new Assign( (AbstractLValue) $e.tree,$e2.tree);
         }
       | /* epsilon */ {
             assert($e.tree != null);
-            //$tree = 
+            $tree = $e.tree;
         }
       )
     ;
@@ -297,61 +297,75 @@ inequality_expr returns[AbstractExpr tree]
 sum_expr returns[AbstractExpr tree]
     : e=mult_expr {
             assert($e.tree != null);
+            $tree = $e.tree;
         }
     | e1=sum_expr PLUS e2=mult_expr {
             assert($e1.tree != null);
             assert($e2.tree != null);
+            $tree = new Plus($e1.tree,$e2.tree);
         }
     | e1=sum_expr MINUS e2=mult_expr {
             assert($e1.tree != null);
             assert($e2.tree != null);
+            $tree = new Minus($e1.tree,$e2.tree);
         }
     ;
 
 mult_expr returns[AbstractExpr tree]
     : e=unary_expr {
             assert($e.tree != null);
+            $tree = $e.tree;
         }
     | e1=mult_expr TIMES e2=unary_expr {
             assert($e1.tree != null);                                         
             assert($e2.tree != null);
+            $tree = new Multiply($e1.tree,$e2.tree);
         }
     | e1=mult_expr SLASH e2=unary_expr {
             assert($e1.tree != null);                                         
             assert($e2.tree != null);
+           $tree = new Divide($e1.tree,$e2.tree);
         }
     | e1=mult_expr PERCENT e2=unary_expr {
             assert($e1.tree != null);                                                                          
             assert($e2.tree != null);
+            $tree = new Modulo($e1.tree,$e2.tree);
         }
     ;
 
 unary_expr returns[AbstractExpr tree]
     : op=MINUS e=unary_expr {
             assert($e.tree != null);
+            $tree = new UnaryMinus($e.tree);
         }
     | op=EXCLAM e=unary_expr {
             assert($e.tree != null);
+            $tree = new Not($e.tree);
         }
     | select_expr {
             assert($select_expr.tree != null);
+
         }
     ;
 
 select_expr returns[AbstractExpr tree]
     : e=primary_expr {
             assert($e.tree != null);
+            $tree = $e.tree;
         }
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
             assert($i.tree != null);
+            //$tree = ;
         }
         (o=OPARENT args=list_expr CPARENT {
             // we matched "e1.i(args)"
             assert($args.tree != null);
+            //$tree = $args.tree;
         }
         | /* epsilon */ {
             // we matched "e.i"
+            //$tree = ;
         }
         )
     ;
@@ -359,13 +373,16 @@ select_expr returns[AbstractExpr tree]
 primary_expr returns[AbstractExpr tree]
     : ident {
             assert($ident.tree != null);
+            $tree = $ident.tree;
         }
     | m=ident OPARENT args=list_expr CPARENT {
             assert($args.tree != null);
             assert($m.tree != null);
+
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);
+            $tree = $expr.tree;
         }
     | READINT OPARENT CPARENT {
         }
@@ -373,6 +390,7 @@ primary_expr returns[AbstractExpr tree]
         }
     | NEW ident OPARENT CPARENT {
             assert($ident.tree != null);
+            $tree = $ident.tree;
         }
     | cast=OPARENT type CPARENT OPARENT expr CPARENT {
             assert($type.tree != null);
@@ -380,12 +398,14 @@ primary_expr returns[AbstractExpr tree]
         }
     | literal {
             assert($literal.tree != null);
+            $tree = $literal.tree;
         }
     ;
 
 type returns[AbstractIdentifier tree]
     : ident {
             assert($ident.tree != null);
+            $tree = $ident.tree;
         }
     ;
 
@@ -394,7 +414,8 @@ literal returns[AbstractExpr tree]
         }
     | fd=FLOAT {
         }
-    | STRING {
+    | st=STRING {
+            $tree = new StringLiteral($st.text);
         }
     | TRUE {
         }
