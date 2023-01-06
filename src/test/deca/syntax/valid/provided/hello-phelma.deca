@@ -1,0 +1,11 @@
+// Description:
+//    Programme utilisant println.
+//
+// Resultats:
+//    Hello Phelma 
+//
+// Historique:
+//    cree le 04/01/2023
+{println("Hello Phelma ");}
+
+/*  Commentaire  */
