@@ -370,7 +370,7 @@ select_expr returns[AbstractExpr tree]
             assert($e.tree != null);
             $tree = $e.tree;
         }
-    | e1=select_expr DOT i=ident {
+    | e1=select_expr DOT i=ident {  // Dot il faut cree un fichier .java dans tree 
             assert($e1.tree != null);
             assert($i.tree != null);
             //$tree = ;
@@ -381,8 +381,9 @@ select_expr returns[AbstractExpr tree]
             //$tree = $args.tree;
         }
         | /* epsilon */ {
-            // we matched "e.i"
-            //$tree = ;
+            // we matched "e.i"  // Q au prof
+            assert($e.tree != null);
+            $tree = $e.tree;
         }
         )
     ;
@@ -429,20 +430,25 @@ type returns[AbstractIdentifier tree]
     ;
 
 literal returns[AbstractExpr tree]
-    : INT {
+    : in=INT {
+          // $tree = new IntLiteral($in.text);
         }
     | fd=FLOAT {
+           // $tree = new FloatLiteral($fd.text);
         }
     | st=STRING {
             $tree = new StringLiteral($st.text);
         }
-    | TRUE {
+    | blt=TRUE {
+           $tree = new BooleanLiteral(true);
         }
-    | FALSE {
+    | blf=FALSE {
+           $tree = new BooleanLiteral(false);
         }
     | THIS {
         }
     | NULL {
+           //$tree = new NullLiteral();
         }
     ;
 
