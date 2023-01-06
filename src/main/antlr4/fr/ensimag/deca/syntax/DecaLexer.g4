@@ -12,5 +12,86 @@ options {
 }
 
 // Deca lexer rules.
-DUMMY_TOKEN: .; // A FAIRE : Règle bidon qui reconnait tous les caractères.
-                // A FAIRE : Il faut la supprimer et la remplacer par les vraies règles.
+
+
+// Deca lexer rules.
+PLUS: '+' ;
+MINUS: '-' ;
+OBRACE :'{' ;
+CBRACE : '}' ;
+COMMA :',' ;
+EQUALS : '=' ;
+PRINT : 'print' ;
+PRINTLN : 'println' ;
+PRINTX  : 'printx' ;
+PRINTLNX : 'printlnx' ;
+OPARENT : '(' ;
+CPARENT : ')' ;
+SEMI : ';';
+IF : 'if' ;
+ELSE : 'else';
+WHILE : 'while';
+RETURN : 'return' ;
+AND  : '||' ;
+EQEQ : '==' ;
+OR  : '&&' ;
+NEQ : '!=' ;
+LEQ : '<=' ;
+GEQ : '>=' ;
+GT  : '>' ;
+LT  : '<' ;
+INSTANCEOF : 'instanceof' ;
+EXCLAM :'!';
+DOT : '.' ;
+
+TRUE: 'true';
+FALSE:'false';
+THIS: 'this';
+NULL:'null';
+CLASS:'class' ;
+EXTENDS:'extends' ;
+PROTECTED:'protected' ;
+TIMES : '*' ;
+SLASH :'/' ;
+PERCENT :'%' ;
+READINT :'readint' ;
+READFLOAT :'readfloat' ;
+NEW : 'new' ;
+ASM :'asm' ;
+
+ESPACE : (' ') { skip();};
+
+TAB : '\t' {skip();};
+
+fragment LETTER : ('a' .. 'z' | 'A' .. 'Z') ;
+IDENT :(LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
+
+
+NUM : DIGIT+;
+fragment POSITIVE_DIGIT : '1' .. '9' ;
+INT : '0' | POSITIVE_DIGIT DIGIT*;
+SIGN : ('+' | '-') ;
+EXP : ('E' | 'e') SIGN NUM ;
+DEC : NUM '.' NUM;
+
+FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ) ;
+fragment DIGIT : '0' .. '9';
+
+fragment DIGITHEX : ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f') ;
+NUMHEX : DIGITHEX+ ;
+FLOATHEX : ('0x' |'0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | ) ;
+FLOAT : FLOATDEC | FLOATDEC ;
+
+EOL : ('\n') { skip(); };
+STRING_CAR : ~('"'|'\\'| '\n' ) ;
+STRING : '"'(STRING_CAR | '\\"' | '\\\\')* '"';
+MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"' ;
+
+COMMENTAIRE :(  ('/*' .*? '*/') | ('//' .*? '\n' ) ) { skip(); } ;
+
+
+
+
+FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
+INCLUDE : '#include' (' ')* '"' FILENAME '"' ;
+
