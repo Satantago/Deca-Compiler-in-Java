@@ -63,8 +63,12 @@ ESPACE : (' ') { skip();};
 
 TAB : '\t' {skip();};
 
+
+fragment DIGIT : '0' .. '9';
+
 fragment LETTER : ('a' .. 'z' | 'A' .. 'Z') ;
 IDENT :(LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
+
 
 
 fragment NUM : DIGIT+;
@@ -72,10 +76,9 @@ fragment POSITIVE_DIGIT : '1' .. '9' ;
 INT : '0' | POSITIVE_DIGIT DIGIT*;
 SIGN : ('+' | '-') ;
 EXP : ('E' | 'e') SIGN NUM ;
-DEC : NUM '.' NUM;
+fragment DEC : NUM '.' NUM;
+fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ) ;
 
-FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ) ;
-fragment DIGIT : '0' .. '9';
 
 fragment DIGITHEX : ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f') ;
 NUMHEX : DIGITHEX+ ;
