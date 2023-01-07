@@ -44,9 +44,19 @@ public class CompilerOptions {
     
     public void parseArgs(String[] args) throws CLIException {
         // A FAIRE : parcourir args pour positionner les options correctement.
-        for(int i = 0 ; i <args.length ; i++) { 
-            sourceFiles.add(new File(args[i]));
+        for(int i = 0 ; i <args.length ; i++){
+            if(args[i].equals("-b")){
+                printBanner = true;
+            }
+            else if(args[i].equals("-p")){
+                parallel = true ;
+            } 
+            else{
+                sourceFiles.add(new File(args[i]));
+            }
         }
+
+        
         Logger logger = Logger.getRootLogger();
         // map command-line debug option to log4j's level.
         switch (getDebug()) {

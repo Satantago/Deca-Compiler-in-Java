@@ -28,6 +28,8 @@ public class EnvironmentExp {
     
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
+
+        
     }
 
     public static class DoubleDefException extends Exception {
