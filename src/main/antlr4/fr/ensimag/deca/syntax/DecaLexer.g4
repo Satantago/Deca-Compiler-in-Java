@@ -67,7 +67,7 @@ fragment LETTER : ('a' .. 'z' | 'A' .. 'Z') ;
 IDENT :(LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
 
-NUM : DIGIT+;
+fragment NUM : DIGIT+;
 fragment POSITIVE_DIGIT : '1' .. '9' ;
 INT : '0' | POSITIVE_DIGIT DIGIT*;
 SIGN : ('+' | '-') ;

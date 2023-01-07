@@ -23,14 +23,21 @@ public class SymbolTable {
      * 
      * If a symbol already exists with the same name in this table, then return
      * this Symbol. Otherwise, create a new Symbol and add it to the table.
+     * 
+     * 
      */
+    
+
+
+     
+
     public Symbol create(String name) {
-        Symbol s = map.get(name);
-        if (s == null) {
-            s = new Symbol(name);
-            map.put(name, s);
+        Symbol sym = map.get(name);
+        if (sym == null) {
+            sym = new Symbol(name);
+            map.put(name, sym);
         }
-        return s; 
+        return sym;
     }
 
     public static class Symbol {
