@@ -165,30 +165,29 @@ inst returns[AbstractInst tree]
 
 if_then_else returns[IfThenElse tree]
 @init {
-    AbstractExpr exp;
-    ListInst then_list ; 
+    // AbstractExpr exp;
+    // ListInst then_list ; 
     ListInst else_list = null;
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
             assert($condition.tree != null);
             assert($li_if.tree != null);
-            then_list = $li_if.tree;
-            exp = $condition.tree;
+           $tree = new IfThenElse( $condition.tree, $li_if.tree, else_list) ;
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
-            // assert($elsif_cond.tree != null);
-            // assert($elsif_li.tree != null);
+            assert($elsif_cond.tree != null);
+            assert($elsif_li.tree != null);
+            //$tree = new IfThenElse( $elsif_cond.tree , $elsif_li.tree, else_list) ;
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
             assert($li_else.tree != null);
-            else_list = $li_else.tree;
+            //else_list = $li_else.tree;
         }
       )?
      {
-            $tree = new IfThenElse(exp, then_list, else_list) ;
+            //$tree = new IfThenElse(exp, then_list, else_list) ;
      }
-      
     ;
 
 list_expr returns[ListExpr tree]
@@ -373,12 +372,12 @@ select_expr returns[AbstractExpr tree]
     | e1=select_expr DOT i=ident {  // Dot il faut cree un fichier .java dans tree 
             assert($e1.tree != null);
             assert($i.tree != null);
-            //$tree = ;
+            //ToDo sans objet
         }
         (o=OPARENT args=list_expr CPARENT {
             // we matched "e1.i(args)"
             assert($args.tree != null);
-            //$tree = $args.tree;
+            //ToDo sans objet
         }
         | /* epsilon */ {
             // we matched "e.i"  // Q au prof
@@ -396,15 +395,19 @@ primary_expr returns[AbstractExpr tree]
     | m=ident OPARENT args=list_expr CPARENT {
             assert($args.tree != null);
             assert($m.tree != null);
-
+            //ToDo sans objet MethodCall
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);
             $tree = $expr.tree;
         }
     | READINT OPARENT CPARENT {
+            $tree = new ReadInt();
+            setLocation($tree, $READINT);
         }
     | READFLOAT OPARENT CPARENT {
+            $tree = new ReadFloat();
+            setLocation($tree, $READFLOAT);
         }
     | NEW ident OPARENT CPARENT {
             assert($ident.tree != null);
@@ -418,7 +421,6 @@ primary_expr returns[AbstractExpr tree]
             assert($literal.tree != null);
             $tree = $literal.tree;
             setLocation($tree, $literal.start);
-
         }
     ;
 
@@ -431,10 +433,10 @@ type returns[AbstractIdentifier tree]
 
 literal returns[AbstractExpr tree]
     : in=INT {
-          // $tree = new IntLiteral($in.text);
+          $tree = new IntLiteral(Integer.parseInt($in.text));
         }
     | fd=FLOAT {
-           // $tree = new FloatLiteral($fd.text);
+           $tree = new FloatLiteral(Float.parseFloat($fd.text));
         }
     | st=STRING {
             $tree = new StringLiteral($st.text);
@@ -453,8 +455,11 @@ literal returns[AbstractExpr tree]
     ;
 
 ident returns[AbstractIdentifier tree]
-    : IDENT {
-        }
+    : id=IDENT {
+        SymbolTable.Symbol s = new SymbolTable().create($id.text);
+        $tree = new Identifier(s);
+        setLocation($tree, $id);
+        }   
     ;
 
 /****     Class related rules     ****/
