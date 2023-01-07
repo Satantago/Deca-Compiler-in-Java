@@ -25,11 +25,13 @@ public class DecacMain {
             options.displayUsage();
             System.exit(1);
         }
+
+
         if (options.getPrintBanner()) {
-            throw new UnsupportedOperationException("decac -b not yet implemented");
+            //throw new UnsupportedOperationException("decac -b not yet implemented");
         }
         if (options.getSourceFiles().isEmpty()) {
-            throw new UnsupportedOperationException("decac without argument not yet implemented");
+            //throw new UnsupportedOperationException("decac without argument not yet implemented");
         }
         if (options.getParallel()) {
             // A FAIRE : instancier DecacCompiler pour chaque fichier à
@@ -39,6 +41,8 @@ public class DecacMain {
             throw new UnsupportedOperationException("Parallel build not yet implemented");
         } else {
             for (File source : options.getSourceFiles()) {
+                //System.out.println("lol");
+
                 DecacCompiler compiler = new DecacCompiler(options, source);
                 if (compiler.compile()) {
                     error = true;
