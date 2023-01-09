@@ -155,46 +155,54 @@ inst returns[AbstractInst tree]
     | WHILE OPARENT condition=expr CPARENT OBRACE body=list_inst CBRACE {
             assert($condition.tree != null);
             assert($body.tree != null);
+            $tree = new While($condition.tree,$body.tree);
             setLocation($tree, $WHILE);
-
         }
     | RETURN expr SEMI {
             assert($expr.tree != null);
             setLocation($tree, $RETURN);
-
         }
     ;
 
-if_then_else returns[IfThenElse tree]
+if_then_else returns[IfElse tree]
 @init {
-    int t = 0;
     AbstractExpr exp;
     ListInst then_list ; 
-    ListInst else_list  ;
+    ListIfElse elseif = new ListIfElse();
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
             assert($condition.tree != null);
             assert($li_if.tree != null);
             exp =  $condition.tree;
             then_list = $li_if.tree;
-            else_list = $li_if.tree;
-            //$tree = new IfThenElse( $condition.tree, $li_if.tree,$li_if.tree) ;
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
             assert($elsif_cond.tree != null);
             assert($elsif_li.tree != null);
-            //$tree = new IfThenElse($elsif_cond.tree , $elsif_li.tree, else_list) ;
+            IfElse treeElseIf = new IfElse($elsif_cond.tree, $elsif_li.tree,null);
+            setLocation(treeElseIf,$ELSE);
+            elseif.add(treeElseIf);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
             assert($li_else.tree != null);
-            t = 1;
-            else_list = $li_else.tree;
+            AbstractExpr CdtElseTrue = new BooleanLiteral(true);
+            setLocation(CdtElseTrue,$ELSE);
+            IfElse treeElse = new IfElse(CdtElseTrue, $li_else.tree,null);
+            setLocation(treeElse,$ELSE);
+            elseif.add(treeElse);
         }
       )?
      {
-                $tree = new IfThenElse(exp, then_list, else_list) ;
-            
+            if(!elseif.isEmpty()){
+                for(int i=elseif.size()-1;i>0;i--){
+                    elseif.size();
+                    elseif.getIndex(i-1).setArbe( elseif.getIndex(i));
+                }
+                    $tree = new IfElse(exp, then_list, elseif.getFirst()) ;
+            }
+            else $tree = new IfElse(exp, then_list, null) ;      
+            setLocation($tree,$if1);     
      }
     ;
 
@@ -231,6 +239,7 @@ assign_expr returns[AbstractExpr tree]
             assert($e.tree != null);
             assert($e2.tree != null);
             $tree = new Assign( (AbstractLValue) $e.tree,$e2.tree);
+            setLocation($tree,$EQUALS);
         }
       | /* epsilon */ {
             assert($e.tree != null);
@@ -451,18 +460,23 @@ type returns[AbstractIdentifier tree]
 literal returns[AbstractExpr tree]
     : in=INT {
           $tree = new IntLiteral(Integer.parseInt($in.text));
+          setLocation($tree,$in);
         }
     | fd=FLOAT {
            $tree = new FloatLiteral(Float.parseFloat($fd.text));
+           setLocation($tree,$fd);
         }
     | st=STRING {
             $tree = new StringLiteral($st.text);
+            setLocation($tree,$st);
         }
     | blt=TRUE {
            $tree = new BooleanLiteral(true);
+           setLocation($tree,$blt);
         }
     | blf=FALSE {
            $tree = new BooleanLiteral(false);
+           setLocation($tree,$blf);
         }
     | THIS {
         }
