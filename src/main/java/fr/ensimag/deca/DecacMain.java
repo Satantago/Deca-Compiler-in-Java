@@ -44,36 +44,9 @@ public class DecacMain {
             //throw new UnsupportedOperationException("decac without argument not yet implemented");
         }
         if (options.getParallel()) {
-            List<DecacCompiler> compilers = new ArrayList<>();
-            for (File source : options.getSourceFiles()) {
-              DecacCompiler compiler = new DecacCompiler(options, source);
-              compilers.add(compiler);
-            }
-          
-            // utilisez le paquetage java.util.concurrent pour lancer la compilation de chaque fichier en parallèle
-            int numWorkers = Runtime.getRuntime().availableProcessors(); // nombre de threads
-            ExecutorService executorService = Executors.newFixedThreadPool(numWorkers); // pool de threads
-            List<Future<Boolean>> futures = new ArrayList<>(); // liste des résultats des threads
-          
-            for (DecacCompiler compiler : compilers) {
-
-              Future<Boolean> future = executorService.submit(() -> compiler.compile()); // lance le thread
-
-              futures.add(future);
-            }
-          
-            for (Future<Boolean> future : futures) {
-              try {
-                if (!future.get()) { // attend la fin du thread et récupère le résultat (true si pas d'erreur)  
-                  error = true;
-                }
-              } catch (InterruptedException | ExecutionException e) {
-                // gérer les exceptions
-              }
-            }
-
-
-        } else {
+            throw new UnsupportedOperationException("decac without argument not yet implemented");
+        } 
+        else {
             for (File source : options.getSourceFiles()) {
                 //System.out.println("lol");
 
