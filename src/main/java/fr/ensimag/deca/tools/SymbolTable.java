@@ -40,6 +40,10 @@ public class SymbolTable {
         return sym;
     }
 
+    
+
+
+
     public static class Symbol {
         // Constructor is private, so that Symbol instances can only be created
         // through SymbolTable.create factory (which thus ensures uniqueness
@@ -59,5 +63,6 @@ public class SymbolTable {
         }
 
         private String name;
+
     }
 }
