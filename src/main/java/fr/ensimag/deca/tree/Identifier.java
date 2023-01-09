@@ -163,12 +163,20 @@ public class Identifier extends AbstractIdentifier {
         Validate.notNull(name);
         this.name = name;
     }
+    private static final Logger LOG = Logger.getLogger(Initialization.class);
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        //throw new UnsupportedOperationException("not yet implemented");
+        if (localEnv.get(name)==null) {
+            throw new ContextualError("name is not in localEnv", getLocation());
+        }
+        return localEnv.get(name).getType();
+        
+
     }
+
 
     /**
      * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
@@ -176,7 +184,14 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        //throw new UnsupportedOperationException("not yet implemented");
+        // condition (__, type) = env_types(name)
+        LOG.debug("verify verftype non terminal: start");
+        //System.out.println(compiler.environmentType.defOfType(compiler.createSymbol("int")));
+        if (compiler.environmentType.defOfType(compiler.createSymbol(name.getName())) == null) {
+            throw new ContextualError("non defined type", getLocation());
+        }
+        return compiler.environmentType.defOfType(compiler.createSymbol(name.getName())).getType();
     }
     
     

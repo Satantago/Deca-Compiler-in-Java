@@ -1,10 +1,12 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -33,6 +35,27 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
+        // non terminal type
+        Type veriftype = this.type.verifyType(compiler);
+        assert(type != null);
+        this.type.setType(veriftype);
+        if (this.type.getType().isVoid()){
+            throw new ContextualError("type different de void", this.type.getLocation());
+        }
+        //identifier ici variable
+        VariableDefinition defvar = new VariableDefinition(veriftype, this.varName.getLocation());
+        // forcé à utiliser l'exception
+        try{
+        localEnv.declare(this.varName.getName(), defvar);
+        } catch (EnvironmentExp.DoubleDefException e) {
+            throw new ContextualError("type already defined", this.varName.getLocation());
+        }
+        this.varName.setDefinition(defvar);
+        //inialisation non terminal
+        this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
+        this.varName.verifyExpr(compiler, localEnv, currentClass);
+
+
     }
 
     
