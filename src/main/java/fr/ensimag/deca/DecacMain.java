@@ -1,15 +1,7 @@
 package fr.ensimag.deca;
 
 import java.io.File;
-import java.io.IOException;
-
 import org.apache.log4j.Logger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * Main class for the command-line Deca compiler.
@@ -20,7 +12,7 @@ import java.util.concurrent.Future;
 public class DecacMain {
     private static Logger LOG = Logger.getLogger(DecacMain.class);
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // example log4j message.
         LOG.info("Decac compiler started");
         boolean error = false;
@@ -33,50 +25,22 @@ public class DecacMain {
             options.displayUsage();
             System.exit(1);
         }
-
-
         if (options.getPrintBanner()) {
-            System.out.println("Equipe 32 ");
-
+            
+            
 
         }
         if (options.getSourceFiles().isEmpty()) {
-            //throw new UnsupportedOperationException("decac without argument not yet implemented");
+            throw new UnsupportedOperationException("decac without argument not yet implemented");
         }
         if (options.getParallel()) {
-            List<DecacCompiler> compilers = new ArrayList<>();
-            for (File source : options.getSourceFiles()) {
-              DecacCompiler compiler = new DecacCompiler(options, source);
-              compilers.add(compiler);
-            }
-          
-            // utilisez le paquetage java.util.concurrent pour lancer la compilation de chaque fichier en parallèle
-            int numWorkers = Runtime.getRuntime().availableProcessors(); // nombre de threads
-            ExecutorService executorService = Executors.newFixedThreadPool(numWorkers); // pool de threads
-            List<Future<Boolean>> futures = new ArrayList<>(); // liste des résultats des threads
-          
-            for (DecacCompiler compiler : compilers) {
-
-              Future<Boolean> future = executorService.submit(() -> compiler.compile()); // lance le thread
-
-              futures.add(future);
-            }
-          
-            for (Future<Boolean> future : futures) {
-              try {
-                if (!future.get()) { // attend la fin du thread et récupère le résultat (true si pas d'erreur)  
-                  error = true;
-                }
-              } catch (InterruptedException | ExecutionException e) {
-                // gérer les exceptions
-              }
-            }
-
-
+            // A FAIRE : instancier DecacCompiler pour chaque fichier à
+            // compiler, et lancer l'exécution des méthodes compile() de chaque
+            // instance en parallèle. Il est conseillé d'utiliser
+            // java.util.concurrent de la bibliothèque standard Java.
+            throw new UnsupportedOperationException("Parallel build not yet implemented");
         } else {
             for (File source : options.getSourceFiles()) {
-                //System.out.println("lol");
-
                 DecacCompiler compiler = new DecacCompiler(options, source);
                 if (compiler.compile()) {
                     error = true;

@@ -12,6 +12,9 @@ import org.apache.commons.lang.Validate;
  */
 public abstract class AbstractBinaryExpr extends AbstractExpr {
 
+    private AbstractExpr leftOperand;
+    private AbstractExpr rightOperand;
+
     public AbstractExpr getLeftOperand() {
         return leftOperand;
     }
@@ -29,9 +32,6 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         Validate.notNull(rightOperand);
         this.rightOperand = rightOperand;
     }
-
-    private AbstractExpr leftOperand;
-    private AbstractExpr rightOperand;
 
     public AbstractBinaryExpr(AbstractExpr leftOperand,
             AbstractExpr rightOperand) {
