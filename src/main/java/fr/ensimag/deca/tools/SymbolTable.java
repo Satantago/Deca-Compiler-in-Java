@@ -39,6 +39,11 @@ public class SymbolTable {
         }
         return sym;
     }
+    
+
+    
+
+
 
     public static class Symbol {
         // Constructor is private, so that Symbol instances can only be created
@@ -59,5 +64,21 @@ public class SymbolTable {
         }
 
         private String name;
+
+        @Override
+        public int hashCode(){
+            return name.hashCode();
+        }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            Symbol other = (Symbol) obj;
+            return name.equals(other.name);
+        }
     }
 }
