@@ -47,12 +47,14 @@ public class DeclVar extends AbstractDeclVar {
         // forcé à utiliser l'exception
         try{
         localEnv.declare(this.varName.getName(), defvar);
+        System.out.println(localEnv.get(this.varName.getName()));
         } catch (EnvironmentExp.DoubleDefException e) {
             throw new ContextualError("type already defined", this.varName.getLocation());
         }
         this.varName.setDefinition(defvar);
         //inialisation non terminal
         this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
+        //verify exp
         this.varName.verifyExpr(compiler, localEnv, currentClass);
 
 

@@ -33,7 +33,7 @@ public class Main extends AbstractMain {
         // (mais ce n'est à priori pas nécessaire).
         EnvironmentExp notre = new EnvironmentExp(null);
         declVariables.verifyListDeclVariable(compiler, notre, null);
-        insts.verifyListInst(compiler, null, null, null);
+        insts.verifyListInst(compiler, notre, null, null);
         LOG.debug("verify Main: end");
     }
 

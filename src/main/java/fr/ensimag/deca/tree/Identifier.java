@@ -169,7 +169,7 @@ public class Identifier extends AbstractIdentifier {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         //throw new UnsupportedOperationException("not yet implemented");
-        if (localEnv.get(name)==null) {
+        if (localEnv.get(name) == null) {
             throw new ContextualError("name is not in localEnv", getLocation());
         }
         return localEnv.get(name).getType();
@@ -191,6 +191,7 @@ public class Identifier extends AbstractIdentifier {
         if (compiler.environmentType.defOfType(compiler.createSymbol(name.getName())) == null) {
             throw new ContextualError("non defined type", getLocation());
         }
+        LOG.debug("verify verftype non terminal: sortie");
         return compiler.environmentType.defOfType(compiler.createSymbol(name.getName())).getType();
     }
     
