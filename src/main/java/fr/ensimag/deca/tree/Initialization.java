@@ -58,4 +58,5 @@ public class Initialization extends AbstractInitialization {
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         expression.prettyPrint(s, prefix, true);
     }
+
 }

@@ -12,7 +12,7 @@ import org.apache.commons.lang.Validate;
  * @author gl32
  * @date 01/01/2023
  */
-public abstract class TreeList<TreeType extends Tree> extends Tree {
+public abstract class TreeList<TreeType extends Tree> extends Tree{ 
     /*
      * We could allow external iterators by adding
      * "implements Iterable<AbstractInst>" but it's cleaner to provide our own
@@ -38,7 +38,12 @@ public abstract class TreeList<TreeType extends Tree> extends Tree {
     public TreeType set(int index, TreeType element) {
         return list.set(index, element);
     }
-
+    public TreeType getFirst(){
+        return list.get(0);
+    }
+    public TreeType getIndex(int i){
+        return list.get(i);
+    }
     public boolean isEmpty() {
         return list.isEmpty();
     }
@@ -46,7 +51,12 @@ public abstract class TreeList<TreeType extends Tree> extends Tree {
     public Iterator<TreeType> iterator() {
         return list.iterator();
     }
-
+    // public Boolean HasNext(){
+    //     return list.iterator().hasNext();
+    // }
+    // public TreeType Next(){
+    //     return list.iterator().next();
+    // }
     public int size() {
         return list.size();
     }
