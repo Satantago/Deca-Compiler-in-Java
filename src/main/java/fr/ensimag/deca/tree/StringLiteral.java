@@ -29,7 +29,7 @@ public class StringLiteral extends AbstractStringLiteral {
 
     public StringLiteral(String value) {
         Validate.notNull(value);
-        this.value = value.substring(1,value.length()-1);
+        this.value = value;
     }
 
     @Override
@@ -37,7 +37,8 @@ public class StringLiteral extends AbstractStringLiteral {
             ClassDefinition currentClass) throws ContextualError {
         // expression is a String  we use environmentExp to check if the variable is declared in the environment 
         // return the type of the expression which is a String
-        return new StringType(compiler.createSymbol("String")); 
+        this.setType(compiler.environmentType.STRING);
+        return new StringType(compiler.createSymbol("String"));
      }
 
     @Override
