@@ -18,8 +18,8 @@ public class Plus extends AbstractOpArith {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(new ImmediateInteger(1), Register.R1));
-        compiler.addInstruction(new LOAD(new ImmediateInteger(1), Register.R0));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(),Register.R1));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(), Register.R0));
         compiler.addInstruction(new ADD(Register.R0, Register.R1 ));
         compiler.addInstruction(new WINT());
     }
