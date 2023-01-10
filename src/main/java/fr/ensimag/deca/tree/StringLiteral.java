@@ -37,7 +37,8 @@ public class StringLiteral extends AbstractStringLiteral {
             ClassDefinition currentClass) throws ContextualError {
         // expression is a String  we use environmentExp to check if the variable is declared in the environment 
         // return the type of the expression which is a String
-        return new StringType(compiler.createSymbol("String")); 
+        this.setType(compiler.environmentType.STRING);
+        return new StringType(compiler.createSymbol("String"));
      }
 
     @Override

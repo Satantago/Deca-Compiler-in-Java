@@ -21,7 +21,7 @@ public class IfElse extends AbstractInst   {
     private ListInst thenBranch;
     private IfElse arbe;
 
-    public IfElse(AbstractExpr condition, ListInst thenBranch, IfElse arbe ) {
+    public IfElse(AbstractExpr condition, ListInst thenBranch, IfElse arbre ) {
         Validate.notNull(condition);
         Validate.notNull(thenBranch);
         //Validate.notNull(elseBranch);
@@ -30,7 +30,7 @@ public class IfElse extends AbstractInst   {
         // while(this.arbe != null){
         //     this.arbe = IfElse(this.arbe.condition,this.arbe.thenBranch);
         // }    
-        this.arbe= arbe;
+        this.arbe= arbre;
     }
 
 
@@ -64,7 +64,13 @@ public class IfElse extends AbstractInst   {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-    }
+
+            this.condition.verifyCondition(compiler, localEnv, currentClass);
+            this.thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
+            if (this.arbe != null) { 
+                this.arbe.verifyInst(compiler, localEnv, currentClass, returnType);
+            }
+    } 
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
