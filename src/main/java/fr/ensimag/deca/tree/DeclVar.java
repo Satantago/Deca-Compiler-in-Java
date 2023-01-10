@@ -87,6 +87,10 @@ public class DeclVar extends AbstractDeclVar {
 
     }
 
+    @Override
+    protected void codeGenDeclVar(DecacCompiler compiler){
+        //initialization.codeGenInitialization(compiler);
+    }
     
     @Override
     public void decompile(IndentPrintStream s) {

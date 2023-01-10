@@ -96,5 +96,5 @@ COMMENTAIRE :(  ('/*' .*? '*/') | ('//' .*? '\n' ) ) { skip(); } ;
 
 
 FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
-INCLUDE : '#include' (' ')* '"' FILENAME '"' ;
+INCLUDE : '#include' (' ')* '"' FILENAME '"' ;   // FAux
 

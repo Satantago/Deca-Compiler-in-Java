@@ -15,6 +15,14 @@ import fr.ensimag.deca.context.EnvironmentExp;
 public abstract class AbstractDeclVar extends Tree {
     
     /**
+     * Generate assembly code for the instruction.
+     * 
+     * @param compiler
+     */
+    protected abstract void codeGenDeclVar(DecacCompiler compiler);
+
+
+    /**
      * Implements non-terminal "decl_var" of [SyntaxeContextuelle] in pass 3
      * @param compiler contains "env_types" attribute
      * @param localEnv 

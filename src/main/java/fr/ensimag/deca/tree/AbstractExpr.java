@@ -127,9 +127,15 @@ public abstract class AbstractExpr extends AbstractInst {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
+    // public ListExpr getArguments() {
+    //     return arguments;
+    // }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+       // throw new UnsupportedOperationException("not yet implemented AbstractExpr");
+    //    for (AbstractExpr a : getList()) {
+    //         a.codeGenPrint(compiler);
+    //     }
     }
     
 

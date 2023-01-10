@@ -9,6 +9,9 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
+import fr.ensimag.ima.pseudocode.Register;
+
+
 /**
  * @author gl32
  * @date 01/01/2023
@@ -37,6 +40,13 @@ public class Initialization extends AbstractInitialization {
             throws ContextualError {
                 this.expression.verifyRValue(compiler, localEnv, currentClass, t);
     }
+
+    
+    // protected  void codeGenInitialization(DecacCompiler compiler){
+        
+    //     //compiler.addInstruction(new LOAD());
+    //     //compiler.addInstruction(new STORE(Register.getR(2),void));
+    // }
 
 
     @Override
