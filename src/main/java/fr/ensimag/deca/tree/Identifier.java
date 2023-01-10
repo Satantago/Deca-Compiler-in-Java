@@ -26,6 +26,9 @@ import org.apache.log4j.Logger;
  */
 public class Identifier extends AbstractIdentifier {
     
+    private Symbol name;
+    private Definition definition;
+
     @Override
     protected void checkDecoration() {
         if (getDefinition() == null) {
@@ -157,7 +160,6 @@ public class Identifier extends AbstractIdentifier {
         return name;
     }
 
-    private Symbol name;
 
     public Identifier(Symbol name) {
         Validate.notNull(name);
@@ -168,9 +170,8 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //throw new UnsupportedOperationException("not yet implemented");
         if (localEnv.get(name) == null) {
-            throw new ContextualError("name is not in localEnv", getLocation());
+            throw new ContextualError(name +" is not in localEnv", getLocation());
         }
         return localEnv.get(name).getType();
         
@@ -181,22 +182,23 @@ public class Identifier extends AbstractIdentifier {
     /**
      * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
      * @param compiler contains "env_types" attribute
+     * @return the type corresponding to this identifier 
+     * (corresponds to the "type" attribute)
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
         //throw new UnsupportedOperationException("not yet implemented");
         // condition (__, type) = env_types(name)
         LOG.debug("verify verftype non terminal: start");
-        //System.out.println(compiler.environmentType.defOfType(compiler.createSymbol("int")));
-        if (compiler.environmentType.defOfType(compiler.createSymbol(name.getName())) == null) {
+        if (compiler.environmentType.defOfType(name) == null) {
             throw new ContextualError("non defined type", getLocation());
         }
+        //System.out.println("++++" + compiler.environmentType.defOfType(name).getType());
         LOG.debug("verify verftype non terminal: sortie");
-        return compiler.environmentType.defOfType(compiler.createSymbol(name.getName())).getType();
+        return compiler.environmentType.defOfType(name).getType();
     }
     
     
-    private Definition definition;
 
 
     @Override

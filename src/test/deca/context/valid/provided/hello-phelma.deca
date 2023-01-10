@@ -1,11 +1,7 @@
-// Description:
-//    Programme utilisant println.
-//
-// Resultats:
-//    Hello Phelma 
-//
-// Historique:
-//    cree le 04/01/2023
-{println("Hello Phelma ");}
+
+{int x = 2;
+x = 5;
+int y = readfloat();
+}
 
 /*  Commentaire  */

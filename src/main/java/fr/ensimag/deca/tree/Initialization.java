@@ -35,11 +35,7 @@ public class Initialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        Type type2 = this.expression.verifyExpr(compiler, localEnv, currentClass);
-        boolean b = !((type2.isFloat()) && (t.isInt()));
-        if (!(b || t.sameType(type2))) {
-            throw new ContextualError("incompatible types", getLocation());
-        }
+                this.expression.verifyRValue(compiler, localEnv, currentClass, t);
     }
 
 
@@ -58,5 +54,4 @@ public class Initialization extends AbstractInitialization {
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         expression.prettyPrint(s, prefix, true);
     }
-
 }
