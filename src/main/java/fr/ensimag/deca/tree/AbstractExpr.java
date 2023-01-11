@@ -8,8 +8,13 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import fr.ensimag.deca.tools.*;
 
 /**
  * Expression, i.e. anything that has a value.
@@ -124,18 +129,16 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("AbstractExp print vide");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
-
-    // public ListExpr getArguments() {
-    //     return arguments;
-    // }
+    protected void codeGen(DecacCompiler compiler) {
+        System.out.println("AbstractExp print vide");
+        //throw new UnsupportedOperationException("not yet implemented");
+    }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-       // throw new UnsupportedOperationException("not yet implemented AbstractExpr");
-    //    for (AbstractExpr a : getList()) {
-    //         a.codeGenPrint(compiler);
-    //     }
+        System.out.println("AbstractExp Inst vide ");
     }
     
 
