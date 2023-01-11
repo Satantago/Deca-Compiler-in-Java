@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -173,9 +174,8 @@ public class Identifier extends AbstractIdentifier {
         if (localEnv.get(name) == null) {
             throw new ContextualError(name +" is not in localEnv", getLocation());
         }
+        this.setDefinition(localEnv.get(name));
         return localEnv.get(name).getType();
-        
-
     }
 
 
@@ -187,13 +187,14 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        //throw new UnsupportedOperationException("not yet implemented");
         // condition (__, type) = env_types(name)
         LOG.debug("verify verftype non terminal: start");
+
         if (compiler.environmentType.defOfType(name) == null) {
             throw new ContextualError("non defined type", getLocation());
         }
-        //System.out.println("++++" + compiler.environmentType.defOfType(name).getType());
+        this.setDefinition(compiler.environmentType.defOfType(name));
+
         LOG.debug("verify verftype non terminal: sortie");
         return compiler.environmentType.defOfType(name).getType();
     }

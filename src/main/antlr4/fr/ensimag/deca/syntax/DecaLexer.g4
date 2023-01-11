@@ -15,8 +15,8 @@ options {
 
 
 // Deca lexer rules.
-PLUS: '+' ;
 MINUS: '-' ;
+PLUS: '+' ;
 OBRACE :'{' ;
 CBRACE : '}' ;
 COMMA :',' ;
@@ -95,6 +95,6 @@ COMMENTAIRE :(  ('/*' .*? '*/') | ('//' .*? '\n' ) ) { skip(); } ;
 
 
 
-FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
+fragment FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
 INCLUDE : '#include' (' ')* '"' FILENAME '"' ;
 

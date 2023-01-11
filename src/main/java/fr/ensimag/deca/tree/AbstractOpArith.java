@@ -36,9 +36,13 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
             returnType = compiler.environmentType.INT;
         }
         else if (leftType.isInt() && rightType.isFloat()) {
+            setLeftOperand(new ConvFloat(leftOperand));
+            leftOperand.setType(compiler.environmentType.FLOAT);
             returnType = compiler.environmentType.FLOAT;
         }
         else if (leftType.isFloat() && rightType.isInt()) {  
+            setRightOperand(new ConvFloat(rightOperand));
+            rightOperand.setType(compiler.environmentType.FLOAT);
             returnType = compiler.environmentType.FLOAT;
         }
         else if (leftType.isFloat() && rightType.isFloat()) { 
