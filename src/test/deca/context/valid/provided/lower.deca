@@ -1,0 +1,9 @@
+//lower
+{
+    if (2<1){
+        println("groupe_32");
+    }
+    else if (2<=1){
+        println("SEKKKAL");
+    }
+}
