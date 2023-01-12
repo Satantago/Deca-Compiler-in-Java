@@ -40,8 +40,9 @@ public class Assign extends AbstractBinaryExpr {
         getRightOperand().verifyRValue(compiler, localEnv, currentClass, typleft);
         this.setType(typleft);
         return typleft;
-        
     }
+        
+
 
 
     @Override
@@ -51,19 +52,6 @@ public class Assign extends AbstractBinaryExpr {
         super.getRightOperand().codeGen(compiler);
         System.out.println("out of assign");
     } 
-
-    @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
-        AbstractExpr leftOperand = this.getLeftOperand();
-        AbstractExpr rightOperand = this.getRightOperand();
-
-        Type typeLeft = leftOperand.verifyExpr(compiler, localEnv, currentClass);
-        rightOperand.verifyRValue(compiler, localEnv, currentClass, typeLeft); 
-        this.setType(typeLeft);
-        return typeLeft;
-    }
-
 
     @Override
     protected String getOperatorName() {
