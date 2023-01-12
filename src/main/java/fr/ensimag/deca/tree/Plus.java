@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
 
 
@@ -15,9 +16,11 @@ public class Plus extends AbstractOpArith {
         super(leftOperand, rightOperand);
     }
 
-    public void codeGenBinaryOp(DecacCompiler compiler,GPRegister lefReg,GPRegister rightReg ){
-        System.out.println("plus");
-        compiler.addInstruction(new ADD(lefReg,rightReg));
+    public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
+        System.out.println("aaa");
+        compiler.addInstruction(new ADD(Register.getR(lefReg),Register.getR(rightReg)));
+        compiler.getRegisterAllocator().triRegister(rightReg);
+
     } 
 
     @Override

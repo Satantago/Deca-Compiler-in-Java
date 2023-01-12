@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.QUO;
 
 /**
  *
@@ -11,6 +14,11 @@ public class Divide extends AbstractOpArith {
         super(leftOperand, rightOperand);
     }
 
+    public void codeGenBinaryOp(DecacCompiler compiler ,int lefReg,int rightReg ){
+        System.out.println("/");
+        compiler.addInstruction(new QUO(Register.getR(rightReg),Register.getR(lefReg)));
+        compiler.getRegisterAllocator().triRegister(lefReg);
+    } 
 
     @Override
     protected String getOperatorName() {

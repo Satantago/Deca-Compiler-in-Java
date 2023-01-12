@@ -11,7 +11,7 @@ public class RegisterAllocator {
     
     // Constructeur
     public RegisterAllocator(){
-        this.nbrGB = 0;
+        this.nbrGB = 1;
         this.registerStatus = new boolean[nbreMaxRegistre];
         this.registerUsed = new ArrayDeque<>();
         this.registerStatus[0]=true;
@@ -35,13 +35,19 @@ public class RegisterAllocator {
     
     // Méthode pour obtenir le dernier registre utilisé
     public int popRegister(){
-        assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé";
+        assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé pop";
+        return this.registerUsed.peekLast();
+    }
+    public int triRegister(int lastUsed){
+        assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé tri ";
+        this.registerUsed.remove(lastUsed);
+        this.registerUsed.add(lastUsed);
         return this.registerUsed.peekLast();
     }
     
     // Méthode pour libérer le dernier registre utilisé
     public void freeRegistre(){
-        assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé";
+        assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé free";
         int registreLibere = this.registerUsed.poll();
         this.registerStatus[registreLibere]=false;
     }

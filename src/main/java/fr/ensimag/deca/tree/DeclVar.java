@@ -11,6 +11,10 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
 /**
  * @author gl32
  * @date 01/01/2023
@@ -35,36 +39,11 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-
-        Type upType = this.type.verifyType(compiler);
-        assert(type != null);
-
-        
-        if (upType.isVoid()) { // lokhra li lt7t 3tatni 
-    // java.lang.NullPointerException: Cannot invoke "fr.ensimag.deca.context.Type.isVoid()
-            throw new ContextualError("Type of a variable should be different than void", getLocation());
-        }
-        VariableDefinition upVariableIdentifier = new VariableDefinition(upType, this.varName.getLocation());
-
-        try {
-            localEnv.declare(this.varName.getName(), upVariableIdentifier);
-        } 
-        catch (EnvironmentExp.DoubleDefException e) {
-            throw new ContextualError("Variable already defined", this.varName.getLocation());
-        }
-        
-        this.varName.verifyExpr(compiler, localEnv, currentClass);
-
-        this.varName.setDefinition(upVariableIdentifier);
-        
-        this.initialization.verifyInitialization(compiler, upType, localEnv, currentClass);
-
-        /*
-         * // non terminal type
+        // non terminal type
         Type veriftype = this.type.verifyType(compiler);
         assert(type != null);
         this.type.setType(veriftype);
-        if (this.type.getType().isVoid()){
+        if (veriftype.isVoid()){
             throw new ContextualError("type different de void", this.type.getLocation());
         }
         //identifier ici variable
@@ -72,26 +51,27 @@ public class DeclVar extends AbstractDeclVar {
         // forcé à utiliser l'exception
         try{
         localEnv.declare(this.varName.getName(), defvar);
-        System.out.println(localEnv.get(this.varName.getName()));
         } catch (EnvironmentExp.DoubleDefException e) {
-            throw new ContextualError("type already defined", this.varName.getLocation());
+            throw new ContextualError("variable already defined", this.varName.getLocation());
         }
         this.varName.setDefinition(defvar);
         //inialisation non terminal
         this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
         //verify exp
-        this.varName.verifyExpr(compiler, localEnv, currentClass)
-         */
-        ;
+        this.varName.verifyExpr(compiler, localEnv, currentClass);
 
 
     }
 
+    
     @Override
     protected void codeGenDeclVar(DecacCompiler compiler){
-        //initialization.codeGenInitialization(compiler);
+        initialization.codeGenInitialization(compiler);
+        DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
+        this.varName.getExpDefinition().setOperand(GBAdresse);
+        System.out.println("KEEEVVIIN");
+        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
     }
-    
     @Override
     public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("not yet implemented");

@@ -1,16 +1,16 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
+import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
+
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
 
-import java.io.PrintStream;
-import org.apache.commons.lang.Validate;
-
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.tools.*;
+
+
 
 /**
  * Binary expressions.
@@ -55,9 +55,9 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     protected void codeGenInst(DecacCompiler compiler) {
         System.out.println("AbstractBinaryExpr inst");
         getLeftOperand().codeGen(compiler);
-        GPRegister lefReg =  Register.getR(compiler.getRegisterAllocator().popRegister());
+        int lefReg = compiler.getRegisterAllocator().popRegister();
         getRightOperand().codeGen(compiler);
-        GPRegister rightReg = Register.getR(compiler.getRegisterAllocator().popRegister()) ;
+        int rightReg = compiler.getRegisterAllocator().popRegister();
         codeGenBinaryOp(compiler,lefReg,rightReg);
     }
     @Override
@@ -69,13 +69,13 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
         System.out.println("Print ");
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
+        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
         compiler.addInstruction(new WINT());
     }
    
-    public void codeGenBinaryOp(DecacCompiler compiler,GPRegister lefReg,GPRegister rightReg ){
-
+    public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg){
     }
- 
+
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("(");

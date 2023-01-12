@@ -8,13 +8,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.WINT;
-
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-import fr.ensimag.deca.tools.*;
 
 /**
  * Expression, i.e. anything that has a value.
@@ -81,21 +76,19 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param localEnv corresponds to the "env_exp" attribute
      * @param currentClass corresponds to the "class" attribute
      * @param expectedType corresponds to the "type1" attribute            
-     * @return this with an additional ConvFloat if needed...
+     * @return this with an additional ConvFloat if needed ...
      */
     public AbstractExpr verifyRValue(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass, 
             Type expectedType)
             throws ContextualError {
-                
             Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
-            boolean b = !((type2.isFloat()) && (expectedType.isInt()));
+            boolean b = ((expectedType.isFloat()) && (type2.isInt()));
             if (!(b || expectedType.sameType(type2))) {
-                throw new ContextualError("incompatible types", getLocation());
+                throw new ContextualError("incompatible types", this.getLocation());
             }
             return this;
     }
-    
     
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -133,7 +126,7 @@ public abstract class AbstractExpr extends AbstractInst {
         //throw new UnsupportedOperationException("not yet implemented");
     }
     protected void codeGen(DecacCompiler compiler) {
-        System.out.println("AbstractExp print vide");
+        System.out.println("AbstractExp gen vide");
         //throw new UnsupportedOperationException("not yet implemented");
     }
     @Override

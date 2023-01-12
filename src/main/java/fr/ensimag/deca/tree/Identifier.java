@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -17,6 +18,10 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
+
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 
 /**
  * Deca Identifier
@@ -173,9 +178,8 @@ public class Identifier extends AbstractIdentifier {
         if (localEnv.get(name) == null) {
             throw new ContextualError(name +" is not in localEnv", getLocation());
         }
+        this.setDefinition(localEnv.get(name));
         return localEnv.get(name).getType();
-        
-
     }
 
 
@@ -187,17 +191,35 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        //throw new UnsupportedOperationException("not yet implemented");
         // condition (__, type) = env_types(name)
         LOG.debug("verify verftype non terminal: start");
+
         if (compiler.environmentType.defOfType(name) == null) {
             throw new ContextualError("non defined type", getLocation());
         }
-        //System.out.println("++++" + compiler.environmentType.defOfType(name).getType());
+        this.setDefinition(compiler.environmentType.defOfType(name));
+
         LOG.debug("verify verftype non terminal: sortie");
         return compiler.environmentType.defOfType(name).getType();
     }
     
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("ident inst");
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister())));
+    }
+    @Override
+    protected void codeGen(DecacCompiler compiler) {
+        System.out.println("ident Gen");
+        codeGenInst(compiler);
+    }
+    @Override // Neeed IT??????
+    protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+        System.out.println("IDent Print");
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
+        compiler.addInstruction(new WINT());
+    }
     
 
 
