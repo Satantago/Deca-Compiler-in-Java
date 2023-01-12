@@ -15,8 +15,8 @@ options {
 
 
 // Deca lexer rules.
-PLUS: '+' ;
 MINUS: '-' ;
+PLUS: '+' ;
 OBRACE :'{' ;
 CBRACE : '}' ;
 COMMA :',' ;
@@ -32,9 +32,9 @@ IF : 'if' ;
 ELSE : 'else';
 WHILE : 'while';
 RETURN : 'return' ;
-AND  : '||' ;
+AND  : '&&' ;
 EQEQ : '==' ;
-OR  : '&&' ;
+OR  : '||' ;
 NEQ : '!=' ;
 LEQ : '<=' ;
 GEQ : '>=' ;
@@ -63,19 +63,22 @@ ESPACE : (' ') { skip();};
 
 TAB : '\t' {skip();};
 
+
+fragment DIGIT : '0' .. '9';
+
 fragment LETTER : ('a' .. 'z' | 'A' .. 'Z') ;
 IDENT :(LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
 
-NUM : DIGIT+;
+
+fragment NUM : DIGIT+;
 fragment POSITIVE_DIGIT : '1' .. '9' ;
 INT : '0' | POSITIVE_DIGIT DIGIT*;
 SIGN : ('+' | '-') ;
 EXP : ('E' | 'e') SIGN NUM ;
-DEC : NUM '.' NUM;
+fragment DEC : NUM '.' NUM;
+fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ) ;
 
-FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ) ;
-fragment DIGIT : '0' .. '9';
 
 fragment DIGITHEX : ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f') ;
 NUMHEX : DIGITHEX+ ;
@@ -93,5 +96,5 @@ COMMENTAIRE :(  ('/*' .*? '*/') | ('//' .*? '\n' ) ) { skip(); } ;
 
 
 FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
-INCLUDE : '#include' (' ')* '"' FILENAME '"' ;
+INCLUDE : '#include' (' ')* '"' FILENAME '"' ;   // FAux
 

@@ -1,0 +1,10 @@
+
+{int x = 2;
+x = 5;
+int y = readint();
+int z = readfloat() ; 
+ z= y 
+ print(z);
+}
+
+/*  Commentaire  */

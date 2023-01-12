@@ -35,10 +35,15 @@ public class Initialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+                this.expression.verifyRValue(compiler, localEnv, currentClass, t);
     }
 
 
+    @Override
+    protected  void codeGenInitialization(DecacCompiler compiler){
+        this.expression.codeGen(compiler);
+    }
+    
     @Override
     public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("Not yet implemented");

@@ -4,6 +4,14 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+
+import fr.ensimag.deca.DecacCompiler;
+
+
+
 /**
  * Binary expressions.
  *
@@ -11,6 +19,9 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2023
  */
 public abstract class AbstractBinaryExpr extends AbstractExpr {
+
+    private AbstractExpr leftOperand;
+    private AbstractExpr rightOperand;
 
     public AbstractExpr getLeftOperand() {
         return leftOperand;
@@ -30,9 +41,6 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         this.rightOperand = rightOperand;
     }
 
-    private AbstractExpr leftOperand;
-    private AbstractExpr rightOperand;
-
     public AbstractBinaryExpr(AbstractExpr leftOperand,
             AbstractExpr rightOperand) {
         Validate.notNull(leftOperand, "left operand cannot be null");
@@ -42,6 +50,30 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         this.rightOperand = rightOperand;
     }
 
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("AbstractBinaryExpr inst");
+        getLeftOperand().codeGen(compiler);
+        int lefReg = compiler.getRegisterAllocator().popRegister();
+        getRightOperand().codeGen(compiler);
+        int rightReg = compiler.getRegisterAllocator().popRegister();
+        codeGenBinaryOp(compiler,lefReg,rightReg);
+    }
+    @Override
+    protected void codeGen(DecacCompiler compiler) {
+        System.out.println("AbstractBinaryExpr print");
+        codeGenInst(compiler);
+    }
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+        compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
+        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
+        compiler.addInstruction(new WINT());
+    }
+   
+    public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg){
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {

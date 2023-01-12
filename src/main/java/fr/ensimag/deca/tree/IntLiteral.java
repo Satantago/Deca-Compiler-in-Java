@@ -5,7 +5,17 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.IntType;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.Instruction;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
+
 import java.io.PrintStream;
 
 /**
@@ -28,13 +38,34 @@ public class IntLiteral extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+         this.setType(compiler.environmentType.INT);
+         return new IntType(compiler.createSymbol("int"));
     }
 
 
     @Override
     String prettyPrintNode() {
         return "Int (" + getValue() + ")";
+    }
+
+
+
+    // @Override
+    // protected void codeGenInst(DecacCompiler compiler) { 
+    //     System.out.println("intliteral inst");
+    //     GPRegister reg =  Register.getR(compiler.getRegisterAllocator().newRegister()) ;
+    //     compiler.addInstruction(new LOAD(this.getValue(),reg));
+    //     // compiler.addInstruction(new WINT());
+        
+    // }
+    @Override
+    protected void codeGen(DecacCompiler compiler) { 
+        System.out.println("intliteral Print");
+       // codeGenInst(compiler);
+       // compiler.addInstruction(new LOAD(this.getValue(),Register.R1));
+       GPRegister reg =  Register.getR(compiler.getRegisterAllocator().newRegister()) ;
+       compiler.addInstruction(new LOAD(this.getValue(),reg));  
+        //compiler.addInstruction(new WINT());
     }
 
     @Override

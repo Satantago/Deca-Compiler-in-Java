@@ -7,6 +7,13 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
 
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
+
+/**
+
 /**
  * Assignment, i.e. lvalue = expr.
  *
@@ -29,9 +36,22 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type typleft = getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        getRightOperand().verifyRValue(compiler, localEnv, currentClass, typleft);
+        this.setType(typleft);
+        return typleft;
     }
+        
 
+
+
+    @Override
+    public void codeGenInst(DecacCompiler compiler){
+        System.out.println("=");
+        super.getLeftOperand().codeGen(compiler);
+        super.getRightOperand().codeGen(compiler);
+        System.out.println("out of assign");
+    } 
 
     @Override
     protected String getOperatorName() {

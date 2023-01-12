@@ -1,0 +1,14 @@
+// Description:
+//   
+// Resultats:
+//    
+//
+// Historique:
+//    cree le 06/01/2023
+
+{
+    string z = "T && I = L";
+    int x = 10;
+    float y = 5.6; 
+
+}

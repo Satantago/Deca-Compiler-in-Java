@@ -39,14 +39,31 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        for (AbstractExpr a : getArguments().getList()) {
+            Type t = a.verifyExpr(compiler, localEnv, currentClass);
+            
+        if (!(t.isString() || t.isInt() || t.isFloat())) {
+            throw new ContextualError("Faute dans print", a.getLocation());
+        }
+                        
+        }
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         for (AbstractExpr a : getArguments().getList()) {
-            a.codeGenPrint(compiler);
+            System.out.println("AbstractPsrint inst");
+            a.codeGenInst(compiler);
         }
+    }
+    protected void codeGenPrint(DecacCompiler compiler) {
+        AbstractExpr b = null;
+        for (AbstractExpr a : getArguments().getList()) {
+           // System.out.println("AbstractPsrint print");
+           // a.codeGenPrint(compiler);
+           b = a;
+        }
+        b.codeGenPrint(compiler);
     }
 
     private boolean getPrintHex() {

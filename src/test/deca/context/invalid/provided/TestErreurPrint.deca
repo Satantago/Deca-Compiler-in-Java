@@ -1,0 +1,5 @@
+//erreur print
+{
+    boolean bool = true;
+    println(bool);
+}

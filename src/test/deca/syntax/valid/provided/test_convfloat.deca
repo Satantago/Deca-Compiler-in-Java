@@ -1,0 +1,11 @@
+//test convfloat
+
+{
+    //declarations
+    int x = 5;
+    float y = 2;
+    y = y + x;
+    print(x);
+    print(y);
+
+}

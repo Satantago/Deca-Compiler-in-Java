@@ -1,7 +1,6 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -18,6 +17,10 @@ import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+
 /**
  * Deca Identifier
  *
@@ -26,6 +29,9 @@ import org.apache.log4j.Logger;
  */
 public class Identifier extends AbstractIdentifier {
     
+    private Symbol name;
+    private Definition definition;
+
     @Override
     protected void checkDecoration() {
         if (getDefinition() == null) {
@@ -157,30 +163,62 @@ public class Identifier extends AbstractIdentifier {
         return name;
     }
 
-    private Symbol name;
 
     public Identifier(Symbol name) {
         Validate.notNull(name);
         this.name = name;
     }
+    private static final Logger LOG = Logger.getLogger(Initialization.class);
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        if (localEnv.get(name) == null) {
+            throw new ContextualError(name +" is not in localEnv", getLocation());
+        }
+        this.setDefinition(localEnv.get(name));
+        return localEnv.get(name).getType();
     }
+
 
     /**
      * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
      * @param compiler contains "env_types" attribute
+     * @return the type corresponding to this identifier 
+     * (corresponds to the "type" attribute)
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        // condition (__, type) = env_types(name)
+        LOG.debug("verify verftype non terminal: start");
+
+        if (compiler.environmentType.defOfType(name) == null) {
+            throw new ContextualError("non defined type", getLocation());
+        }
+        this.setDefinition(compiler.environmentType.defOfType(name));
+
+        LOG.debug("verify verftype non terminal: sortie");
+        return compiler.environmentType.defOfType(name).getType();
     }
     
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("ident inst");
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister())));
+    }
+    @Override
+    protected void codeGen(DecacCompiler compiler) {
+        System.out.println("ident Gen");
+        codeGenInst(compiler);
+    }
+    @Override // Neeed IT??????
+    protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+        System.out.println("IDent Print");
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
+        compiler.addInstruction(new WINT());
+    }
     
-    private Definition definition;
 
 
     @Override

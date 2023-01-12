@@ -2,6 +2,9 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.ADD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 import fr.ensimag.ima.pseudocode.instructions.WNL;
 
 /**
@@ -20,9 +23,14 @@ public class Println extends AbstractPrint {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("pRINTLN Aavnt super");
         super.codeGenInst(compiler);
+        super.codeGenPrint(compiler);
+        System.out.println("pRINTLN apres super");
         compiler.addInstruction(new WNL());
-    }
+        // compiler.addInstruction(new ADD(Register.GB,Register.R0));
+        // compiler.addInstruction(new WINT());
+    }   
 
     @Override
     String getSuffix() {

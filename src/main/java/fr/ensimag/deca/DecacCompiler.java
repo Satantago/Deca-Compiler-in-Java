@@ -23,6 +23,8 @@ import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
 
+import fr.ensimag.deca.tools.*;
+
 /**
  * Decac compiler instance.
  *
@@ -40,6 +42,7 @@ import fr.ensimag.ima.pseudocode.Label;
  */
 public class DecacCompiler {
     private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
+    private RegisterAllocator RegisterAllocator;
     
     /**
      * Portable newline character.
@@ -50,6 +53,7 @@ public class DecacCompiler {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
+        this.RegisterAllocator = new RegisterAllocator();
     }
 
     /**
@@ -58,7 +62,9 @@ public class DecacCompiler {
     public File getSource() {
         return source;
     }
-
+    public RegisterAllocator getRegisterAllocator(){
+        return this.RegisterAllocator;
+    }
     /**
      * Compilation options (e.g. when to stop compilation, number of registers
      * to use, ...).
@@ -124,12 +130,13 @@ public class DecacCompiler {
  
 
     /** The global environment for types (and the symbolTable) */
-    public final EnvironmentType environmentType = new EnvironmentType(this);
     public final SymbolTable symbolTable = new SymbolTable();
 
+    public final EnvironmentType environmentType = new EnvironmentType(this);
+
     public Symbol createSymbol(String name) {
-        return null; // A FAIRE: remplacer par la ligne en commentaire ci-dessous
-        // return symbolTable.create(name);
+         // A FAIRE: remplacer par la ligne en commentaire ci-dessous
+        return symbolTable.create(name);
     }
 
     /**

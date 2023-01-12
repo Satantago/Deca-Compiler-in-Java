@@ -12,10 +12,11 @@ import org.apache.commons.lang.Validate;
  */
 public abstract class AbstractUnaryExpr extends AbstractExpr {
 
+    private AbstractExpr operand;
+
     public AbstractExpr getOperand() {
         return operand;
     }
-    private AbstractExpr operand;
     public AbstractUnaryExpr(AbstractExpr operand) {
         Validate.notNull(operand);
         this.operand = operand;

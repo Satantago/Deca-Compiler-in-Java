@@ -41,7 +41,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
     @Override
     protected void checkDecoration() {
-        if (getType() != null) {
+        if (getType() == null) {
             throw new DecacInternalError("Expression " + decompile() + " has no Type decoration");
         }
     }
@@ -76,21 +76,25 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param localEnv corresponds to the "env_exp" attribute
      * @param currentClass corresponds to the "class" attribute
      * @param expectedType corresponds to the "type1" attribute            
-     * @return this with an additional ConvFloat if needed...
+     * @return this with an additional ConvFloat if needed ...
      */
     public AbstractExpr verifyRValue(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass, 
             Type expectedType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+            Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
+            boolean b = ((expectedType.isFloat()) && (type2.isInt()));
+            if (!(b || expectedType.sameType(type2))) {
+                throw new ContextualError("incompatible types", this.getLocation());
+            }
+            return this;
     }
-    
     
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        this.verifyExpr(compiler, localEnv, currentClass);
     }
 
     /**
@@ -105,7 +109,11 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type upType = this.verifyExpr(compiler, localEnv, currentClass);
+        if (! upType.isBoolean()) {
+            throw new ContextualError("Condition does not return a boolean", getLocation());
+            }
+        this.setType(upType);
     }
 
     /**
@@ -114,12 +122,16 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("AbstractExp print vide");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
-
+    protected void codeGen(DecacCompiler compiler) {
+        System.out.println("AbstractExp gen vide");
+        //throw new UnsupportedOperationException("not yet implemented");
+    }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("AbstractExp Inst vide ");
     }
     
 

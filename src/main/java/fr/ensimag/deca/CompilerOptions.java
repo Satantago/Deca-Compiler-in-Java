@@ -44,9 +44,22 @@ public class CompilerOptions {
     
     public void parseArgs(String[] args) throws CLIException {
         // A FAIRE : parcourir args pour positionner les options correctement.
-        for(int i = 0 ; i <args.length ; i++) { 
-            sourceFiles.add(new File(args[i]));
+        for(int i = 0 ; i <args.length ; i++){
+            if(args[i].equals("-b")){
+                printBanner = true;
+            }
+            else if(args[i].equals("-P")){
+                parallel = true ;
+            }
+            else if(args[i].equals("-d")){
+                debug = 1  ;
+            }  
+            else{
+                sourceFiles.add(new File(args[i]));
+            }
         }
+
+        
         Logger logger = Logger.getRootLogger();
         // map command-line debug option to log4j's level.
         switch (getDebug()) {
@@ -74,6 +87,13 @@ public class CompilerOptions {
     }
 
     protected void displayUsage() {
-        throw new UnsupportedOperationException("not yet implemented");
+
+       System.out.println(". -b (banner) : affiche une bannière indiquant le nom de l'équipe \n ") ; 
+       System.out.println(". -p (parse) : arrête decac après l'étape de construction de l'arbre, et affiche la décompilation de ce dernier \n (i.e. s'il n'y a qu'un fichier source à compiler, la sortie doit être un programme deca syntaxiquement correct) \n ") ;
+       System.out.println(". -v (verification) : arrête decac après l'étape de vérifications produit aucune sortie en l'absence d'erreur) \n ") ; 
+       System.out.println(". -P (parallel) : s'il y a plusieurs fichiers sources,lance la compilation des fichiers en parallèle (pour accélérer la compilation)\n");
+
+    
     }
+    
 }
