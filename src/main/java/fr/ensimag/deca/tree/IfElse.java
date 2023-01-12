@@ -10,10 +10,10 @@ import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
 /**
- * Full if/else if/else statement.
+ *  if/else if/else statement.
  *
  * @author gl32
- * @date 01/01/2023
+ * @date 09/01/2023
  */
 public class IfElse extends AbstractInst   {
     
@@ -74,7 +74,10 @@ public class IfElse extends AbstractInst   {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        this.condition.codeGen(compiler);
+        this.thenBranch.codeGenListInst(compiler);
+        if(this.arbe != null) this.arbe.codeGenInst(compiler);
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

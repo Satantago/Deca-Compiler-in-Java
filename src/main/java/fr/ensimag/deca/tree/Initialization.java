@@ -40,6 +40,11 @@ public class Initialization extends AbstractInitialization {
 
 
     @Override
+    protected  void codeGenInitialization(DecacCompiler compiler){
+        this.expression.codeGen(compiler);
+    }
+    
+    @Override
     public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("Not yet implemented");
     }

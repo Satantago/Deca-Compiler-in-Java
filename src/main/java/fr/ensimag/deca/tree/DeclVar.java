@@ -11,6 +11,10 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
 /**
  * @author gl32
  * @date 01/01/2023
@@ -60,6 +64,14 @@ public class DeclVar extends AbstractDeclVar {
     }
 
     
+    @Override
+    protected void codeGenDeclVar(DecacCompiler compiler){
+        initialization.codeGenInitialization(compiler);
+        DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
+        this.varName.getExpDefinition().setOperand(GBAdresse);
+        System.out.println("KEEEVVIIN");
+        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
+    }
     @Override
     public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("not yet implemented");

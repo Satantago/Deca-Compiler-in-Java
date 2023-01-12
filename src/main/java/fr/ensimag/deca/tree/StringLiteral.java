@@ -43,6 +43,7 @@ public class StringLiteral extends AbstractStringLiteral {
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
+        System.out.println("String literalle  print");
         compiler.addInstruction(new WSTR(new ImmediateString(value)));
     }
 

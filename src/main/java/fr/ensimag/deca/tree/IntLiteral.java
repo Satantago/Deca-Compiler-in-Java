@@ -7,12 +7,14 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.IntType;
 import fr.ensimag.deca.tools.IndentPrintStream;
-// import fr.ensimag.ima.pseudocode.ImmediateInteger;
-// import fr.ensimag.ima.pseudocode.ImmediateString;
-// import fr.ensimag.ima.pseudocode.Register;
-// import fr.ensimag.ima.pseudocode.instructions.LOAD;
-// import fr.ensimag.ima.pseudocode.instructions.WINT;
-// import fr.ensimag.ima.pseudocode.instructions.WSTR;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.Instruction;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 import java.io.PrintStream;
 
@@ -46,12 +48,26 @@ public class IntLiteral extends AbstractExpr {
         return "Int (" + getValue() + ")";
     }
 
-    @Override
-    protected void codeGenPrint(DecacCompiler compiler) {
-        // compiler.addInstruction(new LOAD(new ImmediateInteger(value), Register.R1));
-        // compiler.addInstruction(new WINT());
 
+
+    // @Override
+    // protected void codeGenInst(DecacCompiler compiler) { 
+    //     System.out.println("intliteral inst");
+    //     GPRegister reg =  Register.getR(compiler.getRegisterAllocator().newRegister()) ;
+    //     compiler.addInstruction(new LOAD(this.getValue(),reg));
+    //     // compiler.addInstruction(new WINT());
+        
+    // }
+    @Override
+    protected void codeGen(DecacCompiler compiler) { 
+        System.out.println("intliteral Print");
+       // codeGenInst(compiler);
+       // compiler.addInstruction(new LOAD(this.getValue(),Register.R1));
+       GPRegister reg =  Register.getR(compiler.getRegisterAllocator().newRegister()) ;
+       compiler.addInstruction(new LOAD(this.getValue(),reg));  
+        //compiler.addInstruction(new WINT());
     }
+
     @Override
     public void decompile(IndentPrintStream s) {
         s.print(Integer.toString(value));

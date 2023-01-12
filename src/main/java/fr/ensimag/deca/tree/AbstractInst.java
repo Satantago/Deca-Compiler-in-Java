@@ -34,8 +34,7 @@ public abstract class AbstractInst extends Tree {
      * @param compiler
      */
     protected abstract void codeGenInst(DecacCompiler compiler);
-
-
+   
     /**
      * Decompile the tree, considering it as an instruction.
      *
