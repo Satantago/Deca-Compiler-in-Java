@@ -1,0 +1,5 @@
+//test types intérieurs à print
+{
+    boolean zero = false;
+    println(zero);
+}

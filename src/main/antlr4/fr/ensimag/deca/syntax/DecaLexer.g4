@@ -15,8 +15,8 @@ options {
 
 
 // Deca lexer rules.
-PLUS: '+' ;
 MINUS: '-' ;
+PLUS: '+' ;
 OBRACE :'{' ;
 CBRACE : '}' ;
 COMMA :',' ;

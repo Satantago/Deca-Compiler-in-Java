@@ -18,9 +18,7 @@ public class ReadFloat extends AbstractReadExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        if (!this.getType().isInt()) {
-            throw new ContextualError("Please Enter an Integer", getLocation());
-        }
+        this.setType(compiler.environmentType.FLOAT);
         return this.getType();            
     }
 

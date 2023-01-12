@@ -1,0 +1,7 @@
+//equals and not equals
+{
+boolean bool = (1==2);
+if (bool){
+    println("booom");
+}
+}

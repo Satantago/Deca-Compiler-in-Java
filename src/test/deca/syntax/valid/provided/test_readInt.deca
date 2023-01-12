@@ -1,0 +1,6 @@
+//test de readInt
+{
+    int x = 9;
+    x = readint();
+    println("readint ça marche");
+}

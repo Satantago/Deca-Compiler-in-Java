@@ -1,0 +1,6 @@
+//ifvide
+{
+    if(){
+        println("ifvide");
+    }
+}
