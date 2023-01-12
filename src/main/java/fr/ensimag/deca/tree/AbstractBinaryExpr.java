@@ -67,7 +67,6 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
-        System.out.println("Print ");
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
         compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
         compiler.addInstruction(new WINT());

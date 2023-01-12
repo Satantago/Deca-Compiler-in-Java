@@ -27,17 +27,9 @@ public class IfElse extends AbstractInst   {
         //Validate.notNull(elseBranch);
         this.condition = condition;
         this.thenBranch = thenBranch;
-        // while(this.arbe != null){
-        //     this.arbe = IfElse(this.arbe.condition,this.arbe.thenBranch);
-        // }    
         this.arbe= arbre;
     }
 
-
-    // public Iterator<IfElse> iterator() {
-    //     return list.iterator();
-    // }
-    
     public void setCondition(AbstractExpr condition){
         Validate.notNull(condition);
         this.condition = condition;
@@ -56,7 +48,6 @@ public class IfElse extends AbstractInst   {
         this.arbe = arbe;
     }
     public IfElse getArbe(){
-      //  System.out.println("ICI" + arbe == null  );
         return this.arbe ;
     }
 

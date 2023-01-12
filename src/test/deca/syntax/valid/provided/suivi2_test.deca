@@ -9,7 +9,7 @@
 //    cree le 11/01/2023
 
 {
-       int x = 5;; 
+       int x = 5;
        int y = 2 + 1; 
        println(3 - y + x);
 }
