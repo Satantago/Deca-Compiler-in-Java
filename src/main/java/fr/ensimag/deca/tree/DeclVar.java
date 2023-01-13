@@ -72,7 +72,12 @@ public class DeclVar extends AbstractDeclVar {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        type.decompile();
+        s.println(" ");
+        varName.decompile();
+        initialization.decompile();
+        s.println(";");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

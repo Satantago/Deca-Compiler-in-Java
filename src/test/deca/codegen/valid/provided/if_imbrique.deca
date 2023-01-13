@@ -1,0 +1,26 @@
+// Description:
+
+//
+
+//
+// Historique:
+//    cree le 01/01/2023
+
+// Un exemple de programme Deca
+
+{
+int x = 1 ;
+if(x==1){
+if(true){
+println("5edmetev");
+}
+else {
+println("heeern   2222222");
+}
+}
+else if(x == 1){
+println("heeere");
+}
+
+println("ouuuuuuuut");
+}

@@ -7,6 +7,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -36,19 +38,57 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // throw new UnsupportedOperationException("not yet implemented");
+        //compiler.addLabel(new Label("START_WHILE"));
+
+        Label lWhile =  new Label("START_WHILE"+compiler.getcmptLabelFin());
+        compiler.inccmptLabelFin();
+        compiler.addDqueLabelWhile(lWhile);
+
+
+        compiler.addLabel(compiler.popDqueLabelWhile());
+
+        System.out.println("while");
+
+        this.condition.codeGen(compiler);
+
+        this.body.codeGenListInst(compiler);
+
+        // Label lWhile =  new Label("START_WHILE"+compiler.getcmptLabelFin());
+        compiler.addInstruction(new BRA(lWhile));
+        // compiler.addDqueLabelWhile(lWhile);
+        // compiler.inccmptLabelFin();
+
+        // compiler.addInstruction(new BRA(new Label("START_WHILE")));
+
+        compiler.addLabel(compiler.popDdqueLabel());
+        compiler.inccmptLabelFin();
     }
+
+    // @Override
+    // protected void codeGenInst(DecacCompiler compiler) {
+    //     // throw new UnsupportedOperationException("not yet implemented");
+    //     System.out.println("while");
+
+    //     this.condition.codeGen(compiler);
+
+    //     this.body.codeGenListInst(compiler);
+    //     codeGenInst(compiler);
+
+    //     compiler.addLabel(new Label("FinIF"+compiler.getCmptLabel()));
+
+    // }
 
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass, Type returnType) {
+                              ClassDefinition currentClass, Type returnType) {
         try {
             this.condition.verifyCondition(compiler, localEnv, currentClass);
             this.body.verifyListInst(compiler, localEnv, currentClass, returnType);
         }
         catch (ContextualError e) {
             // A FAIRE
-        }      
+        }
     }
 
     @Override

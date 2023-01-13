@@ -18,6 +18,8 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2023
  */
 public abstract class AbstractExpr extends AbstractInst {
+
+    //public abstract AbstractIdentifier getAbstractIdentifier();
     /**
      * @return true if the expression does not correspond to any concrete token
      * in the source code (and should be decompiled to the empty string).
@@ -48,8 +50,8 @@ public abstract class AbstractExpr extends AbstractInst {
 
     /**
      * Verify the expression for contextual error.
-     * 
-     * implements non-terminals "expr" and "lvalue" 
+     *
+     * implements non-terminals "expr" and "lvalue"
      *    of [SyntaxeContextuelle] in pass 3
      *
      * @param compiler  (contains the "env_types" attribute)
@@ -64,35 +66,35 @@ public abstract class AbstractExpr extends AbstractInst {
      *            (corresponds to the "type" attribute)
      */
     public abstract Type verifyExpr(DecacCompiler compiler,
-            EnvironmentExp localEnv, ClassDefinition currentClass)
+                                    EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError;
 
     /**
-     * Verify the expression in right hand-side of (implicit) assignments 
-     * 
+     * Verify the expression in right hand-side of (implicit) assignments
+     *
      * implements non-terminal "rvalue" of [SyntaxeContextuelle] in pass 3
      *
      * @param compiler  contains the "env_types" attribute
      * @param localEnv corresponds to the "env_exp" attribute
      * @param currentClass corresponds to the "class" attribute
-     * @param expectedType corresponds to the "type1" attribute            
+     * @param expectedType corresponds to the "type1" attribute
      * @return this with an additional ConvFloat if needed ...
      */
     public AbstractExpr verifyRValue(DecacCompiler compiler,
-            EnvironmentExp localEnv, ClassDefinition currentClass, 
-            Type expectedType)
+                                     EnvironmentExp localEnv, ClassDefinition currentClass,
+                                     Type expectedType)
             throws ContextualError {
-            Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
-            boolean b = ((expectedType.isFloat()) && (type2.isInt()));
-            if (!(b || expectedType.sameType(type2))) {
-                throw new ContextualError("incompatible types", this.getLocation());
-            }
-            return this;
+        Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
+        boolean b = ((expectedType.isFloat()) && (type2.isInt()));
+        if (!(b || expectedType.sameType(type2))) {
+            throw new ContextualError("incompatible types", this.getLocation());
+        }
+        return this;
     }
-    
+
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass, Type returnType)
+                              ClassDefinition currentClass, Type returnType)
             throws ContextualError {
         this.verifyExpr(compiler, localEnv, currentClass);
     }
@@ -108,11 +110,11 @@ public abstract class AbstractExpr extends AbstractInst {
      *            the main program.
      */
     void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
+                         ClassDefinition currentClass) throws ContextualError {
         Type upType = this.verifyExpr(compiler, localEnv, currentClass);
         if (! upType.isBoolean()) {
             throw new ContextualError("Condition does not return a boolean", getLocation());
-            }
+        }
         this.setType(upType);
     }
 
@@ -133,7 +135,7 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
         System.out.println("AbstractExp Inst vide ");
     }
-    
+    protected void codeGenStore(DecacCompiler compiler) {}
 
     @Override
     protected void decompileInst(IndentPrintStream s) {

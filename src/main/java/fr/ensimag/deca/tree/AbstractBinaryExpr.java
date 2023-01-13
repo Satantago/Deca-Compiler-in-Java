@@ -42,7 +42,7 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     }
 
     public AbstractBinaryExpr(AbstractExpr leftOperand,
-            AbstractExpr rightOperand) {
+                              AbstractExpr rightOperand) {
         Validate.notNull(leftOperand, "left operand cannot be null");
         Validate.notNull(rightOperand, "right operand cannot be null");
         Validate.isTrue(leftOperand != rightOperand, "Sharing subtrees is forbidden");
@@ -71,8 +71,9 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
         compiler.addInstruction(new WINT());
     }
-   
+
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg){
+
     }
 
     @Override

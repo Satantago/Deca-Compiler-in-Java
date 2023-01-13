@@ -6,6 +6,12 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -16,8 +22,8 @@ import org.apache.commons.lang.Validate;
  * @date 09/01/2023
  */
 public class IfElse extends AbstractInst   {
-    
-    private AbstractExpr condition; 
+
+    private AbstractExpr condition;
     private ListInst thenBranch;
     private IfElse arbe;
 
@@ -53,22 +59,58 @@ public class IfElse extends AbstractInst   {
 
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass, Type returnType)
+                              ClassDefinition currentClass, Type returnType)
             throws ContextualError {
 
-            this.condition.verifyCondition(compiler, localEnv, currentClass);
-            this.thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
-            if (this.arbe != null) { 
-                this.arbe.verifyInst(compiler, localEnv, currentClass, returnType);
-            }
-    } 
+        this.condition.verifyCondition(compiler, localEnv, currentClass);
+        this.thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
+        if (this.arbe != null) {
+            this.arbe.verifyInst(compiler, localEnv, currentClass, returnType);
+        }
+    }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("IF");
         this.condition.codeGen(compiler);
+        System.out.println("cdt done");
+
         this.thenBranch.codeGenListInst(compiler);
-        if(this.arbe != null) this.arbe.codeGenInst(compiler);
+        System.out.println("inst done");
+
+        Label lFin =  new Label("Fin"+compiler.getcmptLabelFin());
+        compiler.addInstruction(new BRA(lFin));
+        compiler.addDqueLabelFin(lFin);
+        compiler.inccmptLabelFin();
+
+        System.out.println("pop ");
+        compiler.addLabel(compiler.popDdqueLabel());
+
+
+
+        if(this.arbe != null){
+            this.arbe.codeGenInst(compiler);
+        }
+
+        if(! compiler.isEmtyDqueLabelFin()){
+            System.out.println("pop Fin");
+            compiler.addLabel(compiler.popDqueLabelFin());
+
+        }
+
+
+
+
         //throw new UnsupportedOperationException("not yet implemented");
+        //codeGenCndt(compiler);
+        // this.thenBranch.codeGenListInst(compiler);
+        // if(this.arbe != null) this.arbe.codeGenInst(compiler);
+    }
+
+    protected void codeGenCndt(DecacCompiler compiler) {
+
+        // compiler.addInstruction(new CMP(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
+
     }
 
     @Override
@@ -78,13 +120,13 @@ public class IfElse extends AbstractInst   {
 
     @Override
     protected
-    /* Fait quoi cette fct */
+        /* Fait quoi cette fct */
     void iterChildren(TreeFunction f) {
         condition.iter(f);
         thenBranch.iter(f);
         if(this.arbe != null) arbe.iter(f);
 
-       // arbe.iter(f);
+        // arbe.iter(f);
     }
 
     @Override

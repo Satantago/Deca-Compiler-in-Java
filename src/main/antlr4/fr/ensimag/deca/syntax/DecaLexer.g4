@@ -83,7 +83,7 @@ fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ) ;
 fragment DIGITHEX : ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f') ;
 NUMHEX : DIGITHEX+ ;
 FLOATHEX : ('0x' |'0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | ) ;
-FLOAT : FLOATDEC | FLOATDEC ;
+FLOAT : FLOATDEC | FLOATHEX ;
 
 EOL : ('\n') { skip(); };
 STRING_CAR : ~('"'|'\\'| '\n' ) ;
@@ -95,6 +95,6 @@ COMMENTAIRE :(  ('/*' .*? '*/') | ('//' .*? '\n' ) ) { skip(); } ;
 
 
 
-FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
+fragment FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
 INCLUDE : '#include' (' ')* '"' FILENAME '"' ;   // FAux
 
