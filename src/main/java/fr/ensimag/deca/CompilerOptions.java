@@ -28,6 +28,10 @@ public class CompilerOptions {
         return parallel;
     }
 
+    public boolean getDecompiler() {
+        return decompiler;
+    }
+
     public boolean getPrintBanner() {
         return printBanner;
     }
@@ -38,6 +42,7 @@ public class CompilerOptions {
 
     private int debug = 0;
     private boolean parallel = false;
+    private boolean decompiler = false;
     private boolean printBanner = false;
     private List<File> sourceFiles = new ArrayList<File>();
 
@@ -50,6 +55,9 @@ public class CompilerOptions {
             }
             else if(args[i].equals("-P")){
                 parallel = true ;
+            }
+            else if(args[i].equals("-p")){
+                decompiler = true ;
             }
             else if(args[i].equals("-d")){
                 debug = 1  ;

@@ -244,7 +244,8 @@ public class DecacCompiler {
         }
         assert(prog.checkAllLocations());
 
-
+        if(getCompilerOptions().getDecompiler())
+            System.out.println(prog.decompile());
         prog.verifyProgram(this);
         assert(prog.checkAllDecorations());
 

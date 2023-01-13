@@ -121,11 +121,13 @@ public class IfElse extends AbstractInst   {
         s.print("(");
         condition.decompile(s);
         s.print(")");
-        s.print("{");
+        s.println("{");
+        s.indent();
         thenBranch.decompile(s);
-        s.print("}");
+        s.unindent();
+        s.println("}");
         if (this.arbe != null) {
-            if(this.isElse) {
+            if(this.arbe.isElse) {
                 arbe.decompileelse(s);
             }
             else{
@@ -139,14 +141,17 @@ public class IfElse extends AbstractInst   {
         s.print("(");
         condition.decompile(s);
         s.print(")");
-        s.print("{");
+        s.println("{");
+        s.indent();
         thenBranch.decompile(s);
+        s.unindent();
         s.print("}");
         if (this.arbe != null) {
-            if(this.isElse) {
+            if(this.arbe.isElse) {
                 arbe.decompileelse(s);
             }
             else{
+
                 arbe.decompileelseif(s);
             }
         }
@@ -155,8 +160,10 @@ public class IfElse extends AbstractInst   {
 
     public void decompileelse(IndentPrintStream s) {
         s.print("else");
-        s.print("{");
+        s.println("{");
+        s.indent();
         thenBranch.decompile(s);
+        s.unindent();
         s.print("}");
         //throw new UnsupportedOperationException("not yet implemented");
     }
