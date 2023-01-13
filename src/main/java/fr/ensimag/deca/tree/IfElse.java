@@ -26,12 +26,14 @@ public class IfElse extends AbstractInst   {
     private AbstractExpr condition;
     private ListInst thenBranch;
     private IfElse arbe;
+    private boolean isElse;
 
-    public IfElse(AbstractExpr condition, ListInst thenBranch, IfElse arbre ) {
+    public IfElse(AbstractExpr condition, ListInst thenBranch, boolean isElse, IfElse arbre ) {
         Validate.notNull(condition);
         Validate.notNull(thenBranch);
         //Validate.notNull(elseBranch);
         this.condition = condition;
+        this.isElse = isElse;
         this.thenBranch = thenBranch;
         this.arbe= arbre;
     }
@@ -72,7 +74,7 @@ public class IfElse extends AbstractInst   {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         System.out.println("IF");
-        this.condition.codeGen(compiler);
+        this.condition.codeGenIter(compiler);
         System.out.println("cdt done");
 
         this.thenBranch.codeGenListInst(compiler);
@@ -115,7 +117,48 @@ public class IfElse extends AbstractInst   {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("if");
+        s.print("(");
+        condition.decompile(s);
+        s.print(")");
+        s.print("{");
+        thenBranch.decompile(s);
+        s.print("}");
+        if (this.arbe != null) {
+            if(this.isElse) {
+                arbe.decompileelse(s);
+            }
+            else{
+                arbe.decompileelseif(s);
+            }
+        }
+        //throw new UnsupportedOperationException("not yet implemented");
+    }
+    public void decompileelseif(IndentPrintStream s) {
+        s.print("else if");
+        s.print("(");
+        condition.decompile(s);
+        s.print(")");
+        s.print("{");
+        thenBranch.decompile(s);
+        s.print("}");
+        if (this.arbe != null) {
+            if(this.isElse) {
+                arbe.decompileelse(s);
+            }
+            else{
+                arbe.decompileelseif(s);
+            }
+        }
+        //throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    public void decompileelse(IndentPrintStream s) {
+        s.print("else");
+        s.print("{");
+        thenBranch.decompile(s);
+        s.print("}");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

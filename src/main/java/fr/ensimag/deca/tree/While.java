@@ -50,7 +50,7 @@ public class While extends AbstractInst {
 
         System.out.println("while");
 
-        this.condition.codeGen(compiler);
+        this.condition.codeGenIter(compiler);
 
         this.body.codeGenListInst(compiler);
 

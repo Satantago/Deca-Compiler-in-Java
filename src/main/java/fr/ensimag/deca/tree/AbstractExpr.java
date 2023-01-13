@@ -136,6 +136,8 @@ public abstract class AbstractExpr extends AbstractInst {
         System.out.println("AbstractExp Inst vide ");
     }
     protected void codeGenStore(DecacCompiler compiler) {}
+    protected void codeGenIter(DecacCompiler compiler) {}
+
 
     @Override
     protected void decompileInst(IndentPrintStream s) {

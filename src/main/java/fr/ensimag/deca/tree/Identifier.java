@@ -14,13 +14,13 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
+
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.*;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
-import fr.ensimag.ima.pseudocode.instructions.WINT;
 
 /**
  * Deca Identifier
@@ -213,6 +213,19 @@ public class Identifier extends AbstractIdentifier {
         System.out.println("ident inst");
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister())));
     }
+
+    @Override
+    protected void codeGenIter(DecacCompiler compiler) {
+        System.out.println("ident inst");
+        Label l = new Label("FinIF" + compiler.getCmptLabel());
+        compiler.addInstruction(new LOAD(0,Register.R0));
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new CMP(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.R0));
+        compiler.addInstruction(new BEQ(l));
+        compiler.addDqueLabel(l);
+        compiler.incCmptLabel();
+    }
+
     @Override
     protected void codeGen(DecacCompiler compiler) {
         System.out.println("ident Gen");
@@ -239,7 +252,9 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public void decompile(IndentPrintStream s) {
+
         s.print(name.toString());
+
     }
 
     @Override
