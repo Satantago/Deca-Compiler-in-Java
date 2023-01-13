@@ -5,22 +5,22 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import fr.ensimag.deca.context.StringType;
 
-public class Select extends AbstractLValue {
-
+public class MethodCall extends AbstractExpr{
     private AbstractExpr expr;
     private AbstractIdentifier ident;
+    private ListExpr lstExpr;
 
-    public Select(AbstractExpr expr, AbstractIdentifier ident) {
-        Validate.notNull(expr);
-        Validate.notNull(ident);
+    public MethodCall(AbstractExpr expr, AbstractIdentifier ident, ListExpr lstExpr) {
         this.expr = expr;
         this.ident = ident;
+        this.lstExpr = lstExpr;
     }
 
     @Override
@@ -53,4 +53,5 @@ public class Select extends AbstractLValue {
     String prettyPrintNode() {
         throw new UnsupportedOperationException("not yet implemented");
     }
+
 }

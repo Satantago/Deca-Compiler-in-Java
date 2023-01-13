@@ -15,14 +15,18 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 public class DeclField extends AbstractDeclField{
+    final private Visibility visibility;
     final private AbstractIdentifier type;
     final private AbstractIdentifier fieldName;
     final private AbstractInitialization initialization;
 
-    public DeclField(AbstractIdentifier type, AbstractIdentifier fieldName, AbstractInitialization initialization) {
+    public DeclField(Visibility visibility, AbstractIdentifier type, 
+                    AbstractIdentifier fieldName, AbstractInitialization initialization) {
+        Validate.notNull(visibility);
         Validate.notNull(type);
         Validate.notNull(fieldName);
         Validate.notNull(initialization);
+        this.visibility = visibility;
         this.type = type;
         this.fieldName = fieldName;
         this.initialization = initialization;
