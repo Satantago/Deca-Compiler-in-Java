@@ -45,6 +45,10 @@ public class DeclVar extends AbstractDeclVar {
         if (veriftype.isVoid()){
             throw new ContextualError("type different de void", this.type.getLocation());
         }
+
+        //inialisation non terminal
+        this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
+        
         //identifier ici variable
         VariableDefinition defvar = new VariableDefinition(veriftype, this.varName.getLocation());
         // forcé à utiliser l'exception
@@ -54,8 +58,7 @@ public class DeclVar extends AbstractDeclVar {
             throw new ContextualError("variable already defined", this.varName.getLocation());
         }
         this.varName.setDefinition(defvar);
-        //inialisation non terminal
-        this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
+
         //verify exp
         this.varName.verifyExpr(compiler, localEnv, currentClass);
 
@@ -68,7 +71,8 @@ public class DeclVar extends AbstractDeclVar {
         initialization.codeGenInitialization(compiler);
         DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
         this.varName.getExpDefinition().setOperand(GBAdresse);
-        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
+        if(initialization.isInit())
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
     }
     @Override
     public void decompile(IndentPrintStream s) {

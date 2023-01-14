@@ -38,7 +38,10 @@ public class Initialization extends AbstractInitialization {
                 this.expression.verifyRValue(compiler, localEnv, currentClass, t);
     }
 
-
+@Override
+public boolean isInit(){
+        return true;
+}
     @Override
     protected  void codeGenInitialization(DecacCompiler compiler){
         this.expression.codeGen(compiler);
