@@ -18,6 +18,9 @@ public class MethodCall extends AbstractExpr{
     private ListExpr lstExpr;
 
     public MethodCall(AbstractExpr expr, AbstractIdentifier ident, ListExpr lstExpr) {
+        Validate.notNull(expr);
+        Validate.notNull(ident);
+        Validate.notNull(lstExpr);
         this.expr = expr;
         this.ident = ident;
         this.lstExpr = lstExpr;

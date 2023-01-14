@@ -16,7 +16,7 @@ import fr.ensimag.deca.tools.*;
  * @author gl32
  * @date 01/01/2023
  */
-public abstract class MethodBody extends AbstractMethodBody {
+public class MethodBody extends AbstractMethodBody {
 
     private ListDeclVar declVariables;
     private ListInst insts;

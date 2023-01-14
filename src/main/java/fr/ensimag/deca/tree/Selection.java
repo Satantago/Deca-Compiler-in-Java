@@ -11,12 +11,12 @@ import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
-public class Select extends AbstractLValue {
+public class Selection extends AbstractLValue {
 
     private AbstractExpr expr;
     private AbstractIdentifier ident;
 
-    public Select(AbstractExpr expr, AbstractIdentifier ident) {
+    public Selection(AbstractExpr expr, AbstractIdentifier ident) {
         Validate.notNull(expr);
         Validate.notNull(ident);
         this.expr = expr;

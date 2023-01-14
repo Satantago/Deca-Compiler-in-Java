@@ -2,38 +2,37 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
+import fr.ensimag.deca.context.StringType;
 
-/**
- *
- * @author gl32
- * @date 01/01/2023
- */
-public class This extends AbstractExpr {
+public class InstanceOf extends AbstractExpr{
+    private AbstractExpr expr;
+    private AbstractIdentifier ident;
 
-    private boolean bool;
-    public This() {
-        super();
+    public InstanceOf(AbstractExpr expr, AbstractIdentifier ident) {
+        Validate.notNull(expr);
+        Validate.notNull(ident);
+        this.expr = expr;
+        this.ident = ident;
     }
-
-
-    public boolean getbool() {
-        return bool;
-    }
-
-   
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         throw new UnsupportedOperationException("not yet implemented");
-    }
+     }
 
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {
@@ -49,7 +48,7 @@ public class This extends AbstractExpr {
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         throw new UnsupportedOperationException("not yet implemented");
     }
-
+    
     @Override
     String prettyPrintNode() {
         throw new UnsupportedOperationException("not yet implemented");

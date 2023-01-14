@@ -16,7 +16,7 @@ import fr.ensimag.deca.tools.*;
  * @author gl32
  * @date 01/01/2023
  */
-public abstract class MethodAsmBody extends AbstractMethodBody {
+public class MethodAsmBody extends AbstractMethodBody {
     private AbstractStringLiteral text;
 
     private static final Logger LOG = Logger.getLogger(MethodAsmBody.class);
