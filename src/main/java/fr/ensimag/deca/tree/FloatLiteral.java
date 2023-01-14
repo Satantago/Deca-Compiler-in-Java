@@ -7,6 +7,12 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.FloatType;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -39,6 +45,24 @@ public class FloatLiteral extends AbstractExpr {
             return new FloatType(compiler.createSymbol("float"));
            }
 
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) { 
+        System.out.println("floatliteral Print");
+        compiler.addInstruction(new LOAD(this.getValue(),Register.R1));
+        compiler.addInstruction(new WFLOAT()); 
+    }
+    @Override
+    protected void codeGenPrintX(DecacCompiler compiler) { 
+        System.out.println("floatliteral Print");
+        compiler.addInstruction(new LOAD(this.getValue(),Register.R1));
+        compiler.addInstruction(new WFLOATX()); 
+    }
+    @Override
+    protected void codeGen(DecacCompiler compiler) { 
+        System.out.println("intliteral Print");
+        GPRegister reg =  Register.getR(compiler.getRegisterAllocator().newRegister()) ;
+        compiler.addInstruction(new LOAD(this.getValue(),reg));  
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {

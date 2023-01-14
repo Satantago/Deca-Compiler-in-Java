@@ -59,14 +59,19 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void codeGenPrint(DecacCompiler compiler) {
         AbstractExpr b = null;
         for (AbstractExpr a : getArguments().getList()) {
-           // System.out.println("AbstractPsrint print");
-           // a.codeGenPrint(compiler);
            b = a;
         }
         b.codeGenPrint(compiler);
     }
+    protected void codeGenPrintX(DecacCompiler compiler) {
+        AbstractExpr b = null;
+        for (AbstractExpr a : getArguments().getList()) {
+           b = a;
+        }
+        b.codeGenPrintX(compiler);
+    }
 
-    private boolean getPrintHex() {
+    public boolean getPrintHex() {
         return printHex;
     }
 
@@ -80,10 +85,6 @@ public abstract class AbstractPrint extends AbstractInst {
         s.print("(");
         getArguments().decompile(s);
         s.print(");");
-
-
-
-    //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

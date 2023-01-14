@@ -43,9 +43,6 @@ public class Assign extends AbstractBinaryExpr {
         return typleft;
     }
 
-
-
-
     @Override
     public void codeGenInst(DecacCompiler compiler){
         System.out.println("=");

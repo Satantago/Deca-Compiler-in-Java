@@ -23,13 +23,12 @@ public class Println extends AbstractPrint {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("pRINTLN Aavnt super");
         super.codeGenInst(compiler);
-        super.codeGenPrint(compiler);
-        System.out.println("pRINTLN apres super");
+        if(super.getPrintHex())
+            super.codeGenPrintX(compiler);
+        else 
+            super.codeGenPrint(compiler);
         compiler.addInstruction(new WNL());
-        // compiler.addInstruction(new ADD(Register.GB,Register.R0));
-        // compiler.addInstruction(new WINT());
     }   
 
     @Override

@@ -48,24 +48,19 @@ public class IntLiteral extends AbstractExpr {
         return "Int (" + getValue() + ")";
     }
 
+//burger frite_cheese  menu (allstar(BROWNIE/fuze tee) /  allstar(pancakes pepsi)  )  hot dog vg    2*frites   3*cookies    
 
-
-    // @Override
-    // protected void codeGenInst(DecacCompiler compiler) { 
-    //     System.out.println("intliteral inst");
-    //     GPRegister reg =  Register.getR(compiler.getRegisterAllocator().newRegister()) ;
-    //     compiler.addInstruction(new LOAD(this.getValue(),reg));
-    //     // compiler.addInstruction(new WINT());
-        
-    // }
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) { 
+        System.out.println("intliteral Print");
+        compiler.addInstruction(new LOAD(this.getValue(),Register.R1));
+        compiler.addInstruction(new WINT()); 
+    }
     @Override
     protected void codeGen(DecacCompiler compiler) { 
-        System.out.println("intliteral Print");
-       // codeGenInst(compiler);
-       // compiler.addInstruction(new LOAD(this.getValue(),Register.R1));
+        System.out.println("intliteral gen");
        GPRegister reg =  Register.getR(compiler.getRegisterAllocator().newRegister()) ;
        compiler.addInstruction(new LOAD(this.getValue(),reg));  
-        //compiler.addInstruction(new WINT());
     }
 
     @Override

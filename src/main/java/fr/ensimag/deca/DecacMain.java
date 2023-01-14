@@ -2,6 +2,9 @@ package fr.ensimag.deca;
 
 import java.io.File;
 import org.apache.log4j.Logger;
+
+import fr.ensimag.deca.tree.Program;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -40,28 +43,15 @@ public class DecacMain {
             options.displayUsage();
             throw new UnsupportedOperationException("Il y'a pas de fichier spécifié à ce nom ");
         }
-
-
         if (options.getDebug()==1) { 
 
-
             for (File source : options.getSourceFiles()) {
-
                 DecacCompiler compiler = new DecacCompiler(options, source);
                 compiler.compile();
-                compiler.displayIMAProgram();
-                
+                compiler.displayIMAProgram();  
+            } 
+        }        
 
-
-            }
-
-
-
-
-
-    
-            
-        }
         if (options.getParallel()) {
             // A FAIRE : instancier DecacCompiler pour chaque fichier à
             // compiler, et lancer l'exécution des méthodes compile() de chaque

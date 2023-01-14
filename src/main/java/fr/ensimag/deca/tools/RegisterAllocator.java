@@ -30,6 +30,14 @@ public class RegisterAllocator {
                 return i;
             }
         }
+        freeRegistre();
+        for(int i=2;i<nbreMaxRegistre;i++){
+            if(!this.registerStatus[i]){
+                this.registerUsed.add(i);
+                this.registerStatus[i]=true;
+                return i;
+            }
+        }
         throw new IllegalStateException("Aucun registre disponible");
     }
     

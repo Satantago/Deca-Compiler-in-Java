@@ -15,6 +15,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 public abstract class AbstractInitialization extends Tree {
     
     protected abstract void codeGenInitialization(DecacCompiler compiler);
+    protected abstract boolean isInit();
     
 
     /**

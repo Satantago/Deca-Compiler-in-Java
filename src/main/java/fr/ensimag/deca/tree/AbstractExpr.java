@@ -127,6 +127,9 @@ public abstract class AbstractExpr extends AbstractInst {
         System.out.println("AbstractExp print vide");
         //throw new UnsupportedOperationException("not yet implemented");
     }
+    protected void codeGenPrintX(DecacCompiler compiler) {
+         
+    }
     protected void codeGen(DecacCompiler compiler) {
         System.out.println("AbstractExp gen vide");
         //throw new UnsupportedOperationException("not yet implemented");

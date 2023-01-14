@@ -182,7 +182,7 @@ public class Identifier extends AbstractIdentifier {
     }
 
 
-    /**
+    /**getDefinition
      * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
      * @param compiler contains "env_types" attribute
      * @return the type corresponding to this identifier
@@ -235,7 +235,18 @@ public class Identifier extends AbstractIdentifier {
     protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
         System.out.println("IDent Print");
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
-        compiler.addInstruction(new WINT());
+        if(getDefinition().getType().isInt()){
+            compiler.addInstruction(new WINT());
+        }
+        else if(getDefinition().getType().isFloat()){
+            compiler.addInstruction(new WFLOAT());
+        }    
+    }
+    @Override // Neeed IT??????
+    protected void codeGenPrintX(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+        System.out.println("IDent PrintX");
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
+        compiler.addInstruction(new WFLOATX());
     }
 
 

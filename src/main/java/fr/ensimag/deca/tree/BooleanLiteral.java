@@ -33,19 +33,17 @@ public class BooleanLiteral extends AbstractExpr {
         return value;
     }
 
-
-
     protected void codeGenPrint(DecacCompiler compiler) {
     }
+
     protected void codeGen(DecacCompiler compiler) {
     if(value)
         compiler.addInstruction(new LOAD(1,Register.getR(compiler.getRegisterAllocator().newRegister())));
 
     else
-            compiler.addInstruction(new LOAD(0,Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new LOAD(0,Register.getR(compiler.getRegisterAllocator().newRegister())));
 }
-
-        protected void codeGenIter(DecacCompiler compiler) {
+    protected void codeGenIter(DecacCompiler compiler) {
         System.out.println("BRA D Z");
         Label l =  new Label("FinIF"+compiler.getCmptLabel());
         compiler.addInstruction(new LOAD(0,Register.R0));
@@ -59,6 +57,7 @@ public class BooleanLiteral extends AbstractExpr {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+
     }
 
     @Override

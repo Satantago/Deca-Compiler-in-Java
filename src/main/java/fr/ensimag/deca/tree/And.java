@@ -1,5 +1,12 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
  *
@@ -11,6 +18,27 @@ public class And extends AbstractOpBool {
     public And(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
+    @Override
+    
+
+
+    public void codeGenBinaryOpIter(DecacCompiler compiler, int lefReg, int rightReg ) {
+        codeGenBinaryOp(compiler,lefReg,rightReg);
+    }
+
+    public void codeGenBinaryOp(DecacCompiler compiler, int lefReg, int rightReg ) {
+        Label l = new Label("BIN" + compiler.getCmptLabel());
+        compiler.addInstruction(new LOAD(0, Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addDqueLabel(l);
+        compiler.incCmptLabel();
+        compiler.addInstruction(new CMP(0,Register.getR(lefReg)));
+        compiler.addInstruction(new BEQ(l));
+        compiler.addInstruction(new CMP(0,Register.getR(rightReg)));
+        compiler.addInstruction(new BEQ(l));
+        compiler.addInstruction(new LOAD(1, Register.getR(compiler.getRegisterAllocator().popRegister())));
+
+        compiler.addLabel(compiler.popDdqueLabel());
+    } 
 
     @Override
     protected String getOperatorName() {
@@ -19,3 +47,4 @@ public class And extends AbstractOpBool {
 
 
 }
+ 
