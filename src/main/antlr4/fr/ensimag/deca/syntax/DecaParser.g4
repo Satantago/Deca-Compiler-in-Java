@@ -533,6 +533,7 @@ class_extension returns[AbstractIdentifier tree]
         }
     | /* epsilon */ {
         // SHOULD return tree dyal class Object
+        
         }
     ;
 
@@ -569,7 +570,7 @@ list_decl_field[Visibility v, ListDeclField l, type t]
       )*
     ;
 
-decl_field[Visibility v, ListDeclField l, type t]n
+decl_field[Visibility v, ListDeclField l, type t]
 @init {
     AbstractInitialization initial = NoInitialization();
 }
@@ -582,28 +583,31 @@ decl_field[Visibility v, ListDeclField l, type t]n
         setLocation(initial, $e.start);
         }
       )? {
-        $l.add(new DeclField($v, $i, $t, initial);
+        $l.add(new DeclField($v, $i.tree, $t, initial);
 )
         }
     ;
 
 decl_method returns[AbstractDeclMethod tree]
+@init {
+    AbstractMethodBody methodBody;
+}
     : type ident OPARENT params=list_params CPARENT (block {
         assert($block.decls != null);
         assert($block.insts != null);
-        AbstractMethodBody $methodBody = new MethodBody($block.decls, $block.insts);
+        methodBody = new MethodBody($block.decls, $block.insts);
         }
       | ASM OPARENT code=multi_line_string CPARENT SEMI {
         assert($code.text != null);
         assert($code.location != null);
-        $methodAsmBodyAttribute = new StringLiteral($code.text);
-        AbstractMethodBody $methodBody = new MethodAsmBody($methodAsmBodyAttribute.tree);
+        methodAsmBodyAttribute = new StringLiteral($code.text);
+        methodBody = new MethodAsmBody($methodAsmBodyAttribute.tree);
         }
       ) {
         assert($type.tree != null);
         assert($ident.tree != null);
         assert($params.tree != null);
-        $tree = new DeclMethod($type.tree, $ident.tree, $params, $methodBody.tree);
+        $tree = new DeclMethod($type.tree, $ident.tree, $params.tree, $methodBody);
         }
     ;
 
