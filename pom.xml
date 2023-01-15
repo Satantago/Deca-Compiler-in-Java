@@ -273,6 +273,17 @@
                         <goals>
                             <goal>exec</goal>
                         </goals>
+
+                     </execution>
+                    <execution>
+                        <id>test_decac_-p</id>
+                        <configuration>
+                            <executable>test_decac_-p.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
                     
 
                     </execution>
