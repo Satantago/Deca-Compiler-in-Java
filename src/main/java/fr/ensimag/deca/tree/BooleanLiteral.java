@@ -38,15 +38,13 @@ public class BooleanLiteral extends AbstractExpr {
 
     protected void codeGen(DecacCompiler compiler) {
     if(value)
-        compiler.addInstruction(new LOAD(1,Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new LOAD(1,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
 
     else
-        compiler.addInstruction(new LOAD(0,Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new LOAD(0,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
 }
     protected void codeGenIter(DecacCompiler compiler) {
-        System.out.println("BRA D Z");
         Label l =  new Label("FinIF"+compiler.getCmptLabel());
-        compiler.addInstruction(new LOAD(0,Register.R0));
         compiler.addInstruction(new CMP(Register.R0,Register.R0));
         if(value)
             compiler.addInstruction(new BNE(l));

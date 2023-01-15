@@ -51,8 +51,6 @@ public boolean isInit(){
     public void decompile(IndentPrintStream s) {
         s.print(" = ");
         expression.decompile(s);
-
-        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

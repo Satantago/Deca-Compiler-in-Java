@@ -16,9 +16,8 @@ public class Plus extends AbstractOpArith {
     }
 
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
-        System.out.println("OP binary");
-        compiler.addInstruction(new ADD(Register.getR(lefReg),Register.getR(rightReg)));
-        compiler.getRegisterAllocator().triRegister(rightReg);
+        compiler.addInstruction(new ADD(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
 
     } 
 

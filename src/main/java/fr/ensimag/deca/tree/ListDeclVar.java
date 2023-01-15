@@ -5,14 +5,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.deca.tree.DeclVar;
-
-
 import org.apache.log4j.Logger;
-import org.apache.commons.lang.Validate;
-
-
-
 
 /**
  * List of declarations (e.g. int x; float y,z).

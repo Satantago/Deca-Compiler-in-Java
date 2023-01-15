@@ -37,9 +37,8 @@ public class Modulo extends AbstractOpArith {
     }
 
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
-        System.out.println("%");
-        compiler.addInstruction(new REM(Register.getR(rightReg),Register.getR(lefReg)));
-        compiler.getRegisterAllocator().triRegister(lefReg);
+        compiler.addInstruction(new REM(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
     } 
 
     @Override

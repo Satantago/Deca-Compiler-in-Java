@@ -20,12 +20,12 @@ public class Divide extends AbstractOpArith {
     public void codeGenBinaryOp(DecacCompiler compiler ,int lefReg,int rightReg ){
         System.out.println("/");
         if(super.getType().isFloat()){
-            compiler.addInstruction(new DIV(Register.getR(rightReg),Register.getR(lefReg)));
+            compiler.addInstruction(new DIV(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
         }
         else{
-            compiler.addInstruction(new QUO(Register.getR(rightReg),Register.getR(lefReg)));
+            compiler.addInstruction(new QUO(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
         }
-        compiler.getRegisterAllocator().triRegister(lefReg);
+        compiler.getRegisterAllocator().freeRegistre(compiler);
     } 
 
     @Override

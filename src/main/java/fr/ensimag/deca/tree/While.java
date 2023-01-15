@@ -44,40 +44,13 @@ public class While extends AbstractInst {
         Label lWhile =  new Label("START_WHILE"+compiler.getcmptLabelFin());
         compiler.inccmptLabelFin();
         compiler.addDqueLabelWhile(lWhile);
-
-
         compiler.addLabel(compiler.popDqueLabelWhile());
-
-        System.out.println("while");
-
         this.condition.codeGenIter(compiler);
-
         this.body.codeGenListInst(compiler);
-
-        // Label lWhile =  new Label("START_WHILE"+compiler.getcmptLabelFin());
         compiler.addInstruction(new BRA(lWhile));
-        // compiler.addDqueLabelWhile(lWhile);
-        // compiler.inccmptLabelFin();
-
-        // compiler.addInstruction(new BRA(new Label("START_WHILE")));
-
         compiler.addLabel(compiler.popDdqueLabel());
         compiler.inccmptLabelFin();
     }
-
-    // @Override
-    // protected void codeGenInst(DecacCompiler compiler) {
-    //     // throw new UnsupportedOperationException("not yet implemented");
-    //     System.out.println("while");
-
-    //     this.condition.codeGen(compiler);
-
-    //     this.body.codeGenListInst(compiler);
-    //     codeGenInst(compiler);
-
-    //     compiler.addLabel(new Label("FinIF"+compiler.getCmptLabel()));
-
-    // }
 
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,

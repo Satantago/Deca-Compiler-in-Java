@@ -30,7 +30,7 @@ public class Not extends AbstractUnaryExpr {
         Label l = new Label("Not_"+compiler.getCmptLabel()); 
         Label l2 = new Label("Not_1_"+compiler.getCmptLabel()); 
         compiler.addInstruction(new CMP(1,Register.getR(compiler.getRegisterAllocator().popRegister())));
-        compiler.getRegisterAllocator().newRegister();
+        compiler.getRegisterAllocator().newRegister(compiler);
         compiler.addInstruction(new BNE(l));
         compiler.addInstruction(new LOAD(0,Register.getR(compiler.getRegisterAllocator().popRegister())));
         compiler.addInstruction(new BRA(l2));

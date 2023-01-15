@@ -204,23 +204,20 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
-        System.out.println("ident inst");
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),getExpDefinition().getOperand()));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("ident inst");
-        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
     }
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
-        System.out.println("ident inst");
         Label l = new Label("FinIF" + compiler.getCmptLabel());
-        compiler.addInstruction(new LOAD(0,Register.R0));
-        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister())));
-        compiler.addInstruction(new CMP(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.R0));
+        //compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+        compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
@@ -228,12 +225,10 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGen(DecacCompiler compiler) {
-        System.out.println("ident Gen");
         codeGenInst(compiler);
     }
-    @Override // Neeed IT??????
-    protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
-        System.out.println("IDent Print");
+    @Override 
+    protected void codeGenPrint(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
         if(getDefinition().getType().isInt()){
             compiler.addInstruction(new WINT());
@@ -242,9 +237,8 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new WFLOAT());
         }    
     }
-    @Override // Neeed IT??????
-    protected void codeGenPrintX(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
-        System.out.println("IDent PrintX");
+    @Override 
+    protected void codeGenPrintX(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
         compiler.addInstruction(new WFLOATX());
     }

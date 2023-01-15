@@ -164,7 +164,7 @@ inst returns[AbstractInst tree]
         }
     ;
 
-if_then_else returns[IfElse tree]
+if_then_else returns[IfThenElse tree]
 @init {
     AbstractExpr exp;
     ListInst then_list ; 
@@ -179,7 +179,7 @@ if_then_else returns[IfElse tree]
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
             assert($elsif_cond.tree != null);
             assert($elsif_li.tree != null);
-            IfElse treeElseIf = new IfElse($elsif_cond.tree, $elsif_li.tree,false,null);
+            IfThenElse treeElseIf = new IfThenElse($elsif_cond.tree, $elsif_li.tree,false,null);
             setLocation(treeElseIf,$ELSE);
             elseif.add(treeElseIf);
         }
@@ -188,7 +188,7 @@ if_then_else returns[IfElse tree]
             assert($li_else.tree != null);
             AbstractExpr CdtElseTrue = new BooleanLiteral(true);
             setLocation(CdtElseTrue,$ELSE);
-            IfElse treeElse = new IfElse(CdtElseTrue, $li_else.tree,true,null);
+            IfThenElse treeElse = new IfThenElse(CdtElseTrue, $li_else.tree,true,null);
             setLocation(treeElse,$ELSE);
             elseif.add(treeElse);
         }
@@ -199,9 +199,9 @@ if_then_else returns[IfElse tree]
                     elseif.size();
                     elseif.getIndex(i-1).setArbe( elseif.getIndex(i));
                 }
-                    $tree = new IfElse(exp, then_list, false,elseif.getFirst()) ;
+                    $tree = new IfThenElse(exp, then_list, false,elseif.getFirst()) ;
             }
-            else $tree = new IfElse(exp, then_list, false, null) ;
+            else $tree = new IfThenElse(exp, then_list, false, null) ;
             setLocation($tree,$if1);     
      }
     ;

@@ -30,14 +30,14 @@ public class UnaryMinus extends AbstractUnaryExpr {
         if(super.getType().isFloat())
             compiler.addInstruction(new FLOAT(Register.R1,Register.R1));
         compiler.addInstruction(new SUB(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.R1));
-        compiler.addInstruction(new LOAD(Register.R1,Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new LOAD(Register.R1,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
     }
 
     @Override
-    protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+    protected void codeGenPrint(DecacCompiler compiler) { 
         codeGen(compiler);
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
-        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         if(super.getType().isFloat())
             compiler.addInstruction(new WFLOAT());
         else if(super.getType().isInt())
@@ -45,10 +45,10 @@ public class UnaryMinus extends AbstractUnaryExpr {
 
     }
     @Override
-    protected void codeGenPrintX(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+    protected void codeGenPrintX(DecacCompiler compiler) { 
         codeGen(compiler);
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
-        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new WFLOATX());
     }
 

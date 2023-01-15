@@ -55,7 +55,6 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("AbstractBinaryExpr inst");
         getLeftOperand().codeGen(compiler);
         int lefReg = compiler.getRegisterAllocator().popRegister();
         getRightOperand().codeGen(compiler);
@@ -64,7 +63,6 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     }
     @Override
     protected void codeGen(DecacCompiler compiler) {
-        System.out.println("AbstractBinaryExpr print");
         codeGenInst(compiler);
     }
 
@@ -77,9 +75,9 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         codeGenBinaryOpIter(compiler,lefReg,rightReg);
     }
     @Override
-    protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+    protected void codeGenPrint(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
-        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         if(super.getType().isFloat())
             compiler.addInstruction(new WFLOAT());
         else if(super.getType().isInt())
@@ -87,9 +85,9 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
 
     }
     @Override
-    protected void codeGenPrintX(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
+    protected void codeGenPrintX(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
-        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().popRegister());
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new WFLOATX());
     }
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg){

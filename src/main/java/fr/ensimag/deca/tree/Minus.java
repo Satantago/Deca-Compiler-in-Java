@@ -14,9 +14,8 @@ public class Minus extends AbstractOpArith {
     }
 
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
-        System.out.println("-");
-        compiler.addInstruction(new SUB(Register.getR(rightReg),Register.getR(lefReg)));
-        compiler.getRegisterAllocator().triRegister(lefReg);
+        compiler.addInstruction(new SUB(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
+        compiler.getRegisterAllocator().freeRegistre(compiler);;
     } 
 
 

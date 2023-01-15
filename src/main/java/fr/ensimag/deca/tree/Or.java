@@ -20,7 +20,6 @@ public class Or extends AbstractOpBool {
     @Override
     public void codeGenBinaryOpIter(DecacCompiler compiler, int lefReg, int rightReg ) {
         codeGenBinaryOp(compiler,lefReg,rightReg);
-        //compiler.addInstruction(new LOAD(1, Register.R1));
         compiler.addInstruction(new CMP(0, Register.getR(compiler.getRegisterAllocator().popRegister())));
         Label l = new Label("FinIF" + compiler.getCmptLabel());
         compiler.addInstruction(new BEQ(l));
@@ -30,7 +29,7 @@ public class Or extends AbstractOpBool {
 
     public void codeGenBinaryOp(DecacCompiler compiler, int lefReg, int rightReg ) {
         Label l = new Label("BIN" + compiler.getCmptLabel());
-        compiler.addInstruction(new LOAD(1, Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new LOAD(1, Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
         compiler.addInstruction(new CMP(1,Register.getR(lefReg)));

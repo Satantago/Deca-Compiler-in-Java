@@ -54,8 +54,8 @@ PROTECTED:'protected' ;
 TIMES : '*' ;
 SLASH :'/' ;
 PERCENT :'%' ;
-READINT :'readint' ;
-READFLOAT :'readfloat' ;
+READINT :'readInt' ;
+READFLOAT :'readFloat' ;
 NEW : 'new' ;
 ASM :'asm' ;
 
