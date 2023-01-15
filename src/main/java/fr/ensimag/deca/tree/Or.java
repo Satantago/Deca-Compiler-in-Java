@@ -17,12 +17,13 @@ public class Or extends AbstractOpBool {
     public Or(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
-    @Override
+
     public void codeGenBinaryOpIter(DecacCompiler compiler, int lefReg, int rightReg ) {
         codeGenBinaryOp(compiler,lefReg,rightReg);
         compiler.addInstruction(new CMP(0, Register.getR(compiler.getRegisterAllocator().popRegister())));
         Label l = new Label("FinIF" + compiler.getCmptLabel());
         compiler.addInstruction(new BEQ(l));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
     }
@@ -33,12 +34,16 @@ public class Or extends AbstractOpBool {
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
         compiler.addInstruction(new CMP(1,Register.getR(lefReg)));
+        compiler.getRegisterAllocator().triRegister(lefReg);
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new BEQ(l));
         compiler.addInstruction(new CMP(1,Register.getR(rightReg)));
+        compiler.getRegisterAllocator().triRegister(rightReg);
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new BEQ(l));
         compiler.addInstruction(new LOAD(0, Register.getR(compiler.getRegisterAllocator().popRegister())));
         compiler.addLabel(compiler.popDdqueLabel());
-    }
+    } 
     @Override
     protected String getOperatorName() {
         return "||";

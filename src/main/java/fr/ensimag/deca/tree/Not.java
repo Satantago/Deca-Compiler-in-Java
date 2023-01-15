@@ -30,6 +30,7 @@ public class Not extends AbstractUnaryExpr {
         Label l = new Label("Not_"+compiler.getCmptLabel()); 
         Label l2 = new Label("Not_1_"+compiler.getCmptLabel()); 
         compiler.addInstruction(new CMP(1,Register.getR(compiler.getRegisterAllocator().popRegister())));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.getRegisterAllocator().newRegister(compiler);
         compiler.addInstruction(new BNE(l));
         compiler.addInstruction(new LOAD(0,Register.getR(compiler.getRegisterAllocator().popRegister())));
@@ -38,12 +39,14 @@ public class Not extends AbstractUnaryExpr {
         compiler.addInstruction(new LOAD(1,Register.getR(compiler.getRegisterAllocator().popRegister())));
         compiler.addLabel(l2);
     }
+    
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
         codeGen(compiler);
         compiler.addInstruction(new CMP(0, Register.getR(compiler.getRegisterAllocator().popRegister())));
         Label l = new Label("FinIF" + compiler.getCmptLabel());
         compiler.addInstruction(new BEQ(l));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
     }

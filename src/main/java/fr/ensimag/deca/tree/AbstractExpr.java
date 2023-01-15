@@ -123,19 +123,14 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        System.out.println("AbstractExp print vide");
-        //throw new UnsupportedOperationException("not yet implemented");
     }
     protected void codeGenPrintX(DecacCompiler compiler) {
          
     }
     protected void codeGen(DecacCompiler compiler) {
-        System.out.println("AbstractExp gen vide");
-        //throw new UnsupportedOperationException("not yet implemented");
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("AbstractExp Inst vide ");
     }
     protected void codeGenStore(DecacCompiler compiler) {}
     protected void codeGenIter(DecacCompiler compiler) {}

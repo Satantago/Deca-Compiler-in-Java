@@ -18,7 +18,6 @@ public class Divide extends AbstractOpArith {
     }
 
     public void codeGenBinaryOp(DecacCompiler compiler ,int lefReg,int rightReg ){
-        System.out.println("/");
         if(super.getType().isFloat()){
             compiler.addInstruction(new DIV(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
         }

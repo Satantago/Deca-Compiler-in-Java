@@ -36,6 +36,11 @@ public class Initialization extends AbstractInitialization {
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
                 this.expression.verifyRValue(compiler, localEnv, currentClass, t);
+                if(t.isFloat()&& this.expression.getType().isInt()) { 
+                    this.expression = new ConvFloat(this.expression);
+                    this.expression.verifyRValue(compiler, localEnv, currentClass, t);
+
+                }
     }
 
 @Override
