@@ -1,4 +1,5 @@
-// affichage en flottant de la moitié du carré d'un entier
+// affichage en flottant
+//sortie 9.8
 {
 float x = 9.8 ;
 println(x) ;

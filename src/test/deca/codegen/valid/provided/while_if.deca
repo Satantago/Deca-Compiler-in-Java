@@ -1,4 +1,4 @@
-// Description:
+// Description: tester if et while
 
 //
 
@@ -6,7 +6,7 @@
 // Historique:
 //    cree le 01/01/2023
 
-// Un exemple de programme Deca
+// ça marche
 
 {
 int x = 1 ;
@@ -14,17 +14,17 @@ while(x == 1){
 x = x + 1 ;
 if(false){
 while(x == 2){
-println("dssssuuiii");
+println("noo");
 x = x + 1 ;
 }
 println("NOOOOOOOOON");
 }
 else if(x == 2){
-println("sssssssssssssssss");
+println("ça");
 
 }
 
 
 }
-println("ouuuuuuuut");
+println("marche");
 }

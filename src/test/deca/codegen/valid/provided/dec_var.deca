@@ -1,6 +1,6 @@
 // Description:
 //   
-// Resultats:
+// Resultats:01
 //    
 //
 // Historique:
@@ -8,4 +8,6 @@
 
 {
     int x;
+    x = 1;
+    print(x)
 }

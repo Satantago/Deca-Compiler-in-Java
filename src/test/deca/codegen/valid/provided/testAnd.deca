@@ -1,0 +1,10 @@
+//test de and
+//sortie:and ça marche
+{
+    boolean x = true;
+    boolean y = true;
+    if(x && y)
+    {
+    println("and ça marche");
+    }
+}

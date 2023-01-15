@@ -2,12 +2,12 @@
 //    Programme minimaliste utilisant println.
 //
 // Resultats:
-//    Hello
+//    ça marche
 //
 // Historique:
 //    cree le 01/01/2023
 
 {
         if(5!=4){
-        println("sek");}
+        println("ça marche");}
 }

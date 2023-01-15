@@ -1,7 +1,12 @@
 //negation
+//ça marche
 {
 boolean bool = true;
-if (bool){
-    println("baaam");
+if (!bool){
+    println("ça marche pas");
+}
+else{
+    println("ça marche");
+
 }
 }

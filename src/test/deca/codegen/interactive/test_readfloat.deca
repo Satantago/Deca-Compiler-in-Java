@@ -1,4 +1,5 @@
 //test readfloat
+//sortie: readfloat fonctionne
 
 {
     float y = 0.2;

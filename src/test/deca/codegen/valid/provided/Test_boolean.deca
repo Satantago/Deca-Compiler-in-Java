@@ -1,7 +1,8 @@
 //boolean
+//resultat: ça marche
 {
 boolean bool = true;
 if (bool){
-    println("baaam");
+    println("ça marche");
 }
 }

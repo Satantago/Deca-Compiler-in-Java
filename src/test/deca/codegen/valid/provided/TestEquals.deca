@@ -1,7 +1,14 @@
 //equals and not equals
+//sortie: ça marche
+//deux fois
 {
 boolean bool = (1==2);
-if (bool){
-    println("booom");
+boolean boole = (1!=2);
+
+if (!bool){
+    println("ça marche");
+}
+if (boole){
+    println("deux fois");
 }
 }

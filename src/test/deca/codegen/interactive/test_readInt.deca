@@ -1,4 +1,5 @@
 //test de readInt
+//sortie:readint ça marche
 {
     int x = 9;
     x = readInt();

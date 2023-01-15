@@ -1,4 +1,4 @@
-//lower
+//lower, lower or equal
 {
     if (2<1){
         println("groupe_32");
