@@ -36,8 +36,10 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-
             System.out.println("Groupe 32 Boulahfa Erazki Gaoua Lachiri Sekkal");
+            if (options.getSourceFiles().isEmpty()) {
+                return;
+            }
         }
         if (options.getSourceFiles().isEmpty()) {
             options.displayUsage();
@@ -57,39 +59,21 @@ public class DecacMain {
             // compiler, et lancer l'exécution des méthodes compile() de chaque
             // instance en parallèle. Il est conseillé d'utiliser
             // java.util.concurrent de la bibliothèque standard Java.
-
-
             List<DecacCompiler> liste_compilation = new ArrayList<DecacCompiler>(); 
-
             int nb_worker_threads  = Runtime.getRuntime().availableProcessors();
-
             ExecutorService exe = Executors.newFixedThreadPool(nb_worker_threads); 
-
             List<Future<Boolean>> non_calule = new ArrayList<>(); 
-
-
             for (File source : options.getSourceFiles()) {
-
                 DecacCompiler compiler = new DecacCompiler(options, source);
-
                 liste_compilation.add(compiler);
-
             }
-           
             for (DecacCompiler compiler : liste_compilation) {
-
                 non_calule.add(exe.submit(() -> compiler.compile())) ;
-
             } 
-
             for (Future<Boolean> future : non_calule) {
-
                   if (!future.get()) {
-
                     error = true;
-
                   }
-
                 }
         } else {
             for (File source : options.getSourceFiles()) {

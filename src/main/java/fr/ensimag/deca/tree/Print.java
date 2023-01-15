@@ -16,7 +16,6 @@ public class Print extends AbstractPrint {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        super.codeGenInst(compiler);
         if(super.getPrintHex())
             super.codeGenPrintX(compiler);
         else 

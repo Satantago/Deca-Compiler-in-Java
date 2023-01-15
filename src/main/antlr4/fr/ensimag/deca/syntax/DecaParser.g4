@@ -465,8 +465,13 @@ literal returns[AbstractExpr tree]
           setLocation($tree,$in);
         }
     | fd=FLOAT {
-           $tree = new FloatLiteral(Float.parseFloat($fd.text));
-           setLocation($tree,$fd);
+          try{
+            $tree = new FloatLiteral(Float.parseFloat($fd.text));
+            }
+            catch (IllegalArgumentException e) {
+            throw new InvalidValue(this, $ctx);
+            }
+            setLocation($tree,$fd);
         }
     | st=STRING {
             $tree = new StringLiteral($st.text);
