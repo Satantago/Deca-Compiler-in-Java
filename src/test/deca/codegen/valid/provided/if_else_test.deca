@@ -1,0 +1,17 @@
+// Description:
+//   
+// Resultats: SEKKKAL
+//    
+//
+// Historique:
+//    cree le 06/01/2023
+
+{
+    if(3>1){
+        println("SEKKKAL");
+    }
+    else{
+        println("ADAAAAAAAAAM");     
+    }
+
+}

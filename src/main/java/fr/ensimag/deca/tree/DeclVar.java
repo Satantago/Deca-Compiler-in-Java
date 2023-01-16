@@ -38,25 +38,27 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        // non terminal type
+
+        /*****************Type non terminal*********************/
         Type veriftype = this.type.verifyType(compiler);
         assert(type != null);
         this.type.setType(veriftype);
         if (veriftype.isVoid()){
             throw new ContextualError("type different de void", this.type.getLocation());
         }
-        //identifier ici variable
+
+        /*****************Inialization non terminal *************/
+        // here for float a = a ;
+        this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
+        
+        /******************Identifier terminal ******************/
         VariableDefinition defvar = new VariableDefinition(veriftype, this.varName.getLocation());
-        // forcé à utiliser l'exception
         try{
         localEnv.declare(this.varName.getName(), defvar);
         } catch (EnvironmentExp.DoubleDefException e) {
             throw new ContextualError("variable already defined", this.varName.getLocation());
         }
         this.varName.setDefinition(defvar);
-        //inialisation non terminal
-        this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
-        //verify exp
         this.varName.verifyExpr(compiler, localEnv, currentClass);
 
 
@@ -68,11 +70,19 @@ public class DeclVar extends AbstractDeclVar {
         initialization.codeGenInitialization(compiler);
         DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
         this.varName.getExpDefinition().setOperand(GBAdresse);
-        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
+        if(initialization.isInit()){
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        type.decompile(s);
+        s.print(" ");
+        varName.decompile(s);
+        initialization.decompile(s);
+        s.println(";");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

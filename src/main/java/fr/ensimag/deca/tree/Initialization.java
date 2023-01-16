@@ -36,9 +36,17 @@ public class Initialization extends AbstractInitialization {
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
                 this.expression.verifyRValue(compiler, localEnv, currentClass, t);
+                if(t.isFloat()&& this.expression.getType().isInt()) { 
+                    this.expression = new ConvFloat(this.expression);
+                    this.expression.verifyRValue(compiler, localEnv, currentClass, t);
+
+                }
     }
 
-
+@Override
+public boolean isInit(){
+        return true;
+}
     @Override
     protected  void codeGenInitialization(DecacCompiler compiler){
         this.expression.codeGen(compiler);
@@ -46,7 +54,8 @@ public class Initialization extends AbstractInitialization {
     
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        s.print(" = ");
+        expression.decompile(s);
     }
 
     @Override

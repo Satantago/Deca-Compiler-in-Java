@@ -1,0 +1,10 @@
+//sortie testtest
+{int x = 2;
+x = 5;
+print("test"); 
+printx("test") ;
+println("test") ;
+printlnx("x"); 
+}
+
+/*  Commentaire  */

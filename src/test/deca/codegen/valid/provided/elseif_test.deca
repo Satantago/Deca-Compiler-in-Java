@@ -1,0 +1,26 @@
+// Description:
+//   
+// Resultats:Doctor
+//    
+//
+// Historique:
+//    cree le 09/01/2023
+
+{
+        int x = 2;
+        if(x == 1){
+            println("SEKKKAL");
+        }
+        else if (x == 3){
+            println("ADAM");
+
+        }
+        else if(x == 2){
+            println("Doctor");
+        }
+        else{
+            println("GOa");
+        }
+
+        x = 1;
+}

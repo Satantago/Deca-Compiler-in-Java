@@ -1,17 +1,25 @@
 package fr.ensimag.deca.tools;
 import java.util.ArrayDeque;
 import java.util.Deque;
+
+import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.*;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 
 public class RegisterAllocator {
     private int nbrGB; // Nombre de registres GB
-    private Deque<Integer> registerUsed; // Liste des registres utilisés
-    private boolean[] registerStatus; // Etat des registres (utilisé ou non)
+    private int nbrSP; // Nombre de registres GB
+    private Deque<Integer> registerUsed; // Liste des registres utilises
+    private boolean[] registerStatus; // Etat des registres (utilise ou non)
     private int nbreMaxRegistre = 16; // Nombre maximal de registres disponibles
+    private int maxSP;// Nombre de registre max dans la pile utilise
     
     // Constructeur
     public RegisterAllocator(){
-        this.nbrGB = 1;
+        this.nbrGB = 2;
+        this.nbrSP = 2;
+        this.maxSP = 2;
         this.registerStatus = new boolean[nbreMaxRegistre];
         this.registerUsed = new ArrayDeque<>();
         this.registerStatus[0]=true;
@@ -20,42 +28,100 @@ public class RegisterAllocator {
             this.registerStatus[i]=false;
         }
     }
-    
-    // Méthode pour obtenir un registre libre
-    public int newRegister(){
+    public int getMaxSP(){
+        return maxSP;
+    }
+    public int getNbGB(){
+        return nbrGB;
+    }
+
+    /**
+     *  Methode pour obtenir un registre libre
+     * @param compiler
+     * @return
+     */
+    public int newRegister(DecacCompiler compiler){
         for(int i=2;i<nbreMaxRegistre;i++){
             if(!this.registerStatus[i]){
-                this.registerUsed.add(i);
+                this.registerUsed.addLast(i);
                 this.registerStatus[i]=true;
                 return i;
             }
         }
-        throw new IllegalStateException("Aucun registre disponible");
+        int registreLibere = this.registerUsed.pollFirst();
+        compiler.addInstruction(new PUSH(Register.getR(registreLibere)));
+        this.nbrSP ++;
+        if(nbrSP > maxSP)
+            this.maxSP = nbrSP;
+
+        this.registerStatus[registreLibere]=true;
+        this.registerUsed.addLast(registreLibere);
+        return registreLibere;
     }
     
-    // Méthode pour obtenir le dernier registre utilisé
+    // Methode pour obtenir le dernier registre utilisé
     public int popRegister(){
         assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé pop";
         return this.registerUsed.peekLast();
     }
+
+
+    /**
+     * Methode qui actualise l'orde des registres utilises
+     * Prend le dernier registre et le met a la fin de la liste
+     * @param lastUsed
+     * @return
+     */
     public int triRegister(int lastUsed){
         assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé tri ";
         this.registerUsed.remove(lastUsed);
-        this.registerUsed.add(lastUsed);
+        this.registerUsed.addLast(lastUsed);
         return this.registerUsed.peekLast();
     }
+
+    /**
+     * Retourne l'avant dernier registre utilisé
+     * @return
+     */
+    public int getLastButOne(){
+        int registreLast = this.registerUsed.removeLast();
+        int registerLastButOne = this.registerUsed.peekLast();
+        this.registerUsed.addLast(registreLast);
+        return registerLastButOne;
+    }
     
-    // Méthode pour libérer le dernier registre utilisé
-    public void freeRegistre(){
+    // Methode pour libérer le dernier registre utilise
+    public void freeRegistre(DecacCompiler compiler){
         assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé free";
-        int registreLibere = this.registerUsed.poll();
-        this.registerStatus[registreLibere]=false;
+        int registreLibere = this.registerUsed.removeLast();
+        if(nbrSP > nbrGB){
+            compiler.addInstruction(new POP(Register.getR(registreLibere)));
+            this.registerUsed.addFirst(registreLibere);
+            this.nbrSP --;
+        }
+        else 
+            this.registerStatus[registreLibere]=false;
+    }
+    public void freeRegistreLastButOne(DecacCompiler compiler){
+        assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé free";
+        int registreLast = this.registerUsed.removeLast();
+        int registerLastButOne = this.registerUsed.removeLast();
+        this.registerUsed.addLast(registreLast);
+        if(nbrSP > nbrGB){
+            compiler.addInstruction(new POP(Register.getR(registerLastButOne)));
+            this.registerUsed.addFirst(registerLastButOne);
+            this.nbrSP --;
+        }
+        else 
+            this.registerStatus[registerLastButOne]=false;
     }
     
     // Méthode pour obtenir un registre GB
     public DAddr newGBRegistre() {
         RegisterOffset GBRegistre = new RegisterOffset(nbrGB,Register.GB);
         this.nbrGB ++;
+        this.nbrSP ++;
+        this.maxSP ++;
         return GBRegistre;
     }
 }

@@ -1,8 +1,9 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.SUB;
 
 /**
@@ -15,9 +16,9 @@ public class Minus extends AbstractOpArith {
     }
 
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
-        System.out.println("-");
-        compiler.addInstruction(new SUB(Register.getR(rightReg),Register.getR(lefReg)));
-        compiler.getRegisterAllocator().triRegister(lefReg);
+        compiler.addInstruction(new SUB(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
+        compiler.addInstruction(new BOV(new Label("opArith")));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
     } 
 
 
