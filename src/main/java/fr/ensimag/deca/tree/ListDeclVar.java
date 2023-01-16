@@ -5,14 +5,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.deca.tree.DeclVar;
-
-
 import org.apache.log4j.Logger;
-import org.apache.commons.lang.Validate;
-
-
-
 
 /**
  * List of declarations (e.g. int x; float y,z).
@@ -25,7 +18,9 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        for (AbstractDeclVar var : getList()) {
+            var.decompile(s);
+        }
     }
 
     /**

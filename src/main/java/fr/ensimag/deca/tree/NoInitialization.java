@@ -38,7 +38,10 @@ public class NoInitialization extends AbstractInitialization {
     protected void checkLocation() {
         // nothing
     }
-
+    @Override
+    public boolean isInit(){
+        return false;
+    }
     @Override
     public void decompile(IndentPrintStream s) {
         // nothing

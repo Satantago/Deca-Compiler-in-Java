@@ -29,7 +29,7 @@ public class StringLiteral extends AbstractStringLiteral {
 
     public StringLiteral(String value) {
         Validate.notNull(value);
-        this.value = value;
+        this.value = value.substring(1,value.length()-1);
     }
 
     @Override
@@ -43,13 +43,12 @@ public class StringLiteral extends AbstractStringLiteral {
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        System.out.println("String literalle  print");
         compiler.addInstruction(new WSTR(new ImmediateString(value)));
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        // throw new UnsupportedOperationException("not yet implemented");
+        s.print(value);//a verifier
     }
 
     @Override

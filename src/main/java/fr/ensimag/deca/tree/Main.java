@@ -7,8 +7,6 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
-import fr.ensimag.deca.context.EnvironmentType;
-import fr.ensimag.deca.tools.*;
 /**
  * @author gl32
  * @date 01/01/2023
@@ -41,7 +39,6 @@ public class Main extends AbstractMain {
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
         // A FAIRE: traiter les déclarations de variables.
-        System.out.println("main");
         compiler.addComment("Beginning of main instructions:");
         declVariables.codeGenListDeclVar(compiler);
         insts.codeGenListInst(compiler);

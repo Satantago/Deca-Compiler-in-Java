@@ -1,6 +1,6 @@
 //test de readInt
 {
     int x = 9;
-    x = readint();
+    x = readInt();
     println("readint ça marche");
 }

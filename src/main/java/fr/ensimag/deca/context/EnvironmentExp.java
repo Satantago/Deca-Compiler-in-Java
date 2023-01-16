@@ -71,10 +71,6 @@ public class EnvironmentExp {
         if (envExp.containsKey(name)){
                 throw new DoubleDefException();
         }
-        /*else if (parentEnvironment != null && parentEnvironment.envExp.containsKey(name)){
-            envExp.put(name, def);
-        }
-        */
         else {
             envExp.put(name, def);
         }

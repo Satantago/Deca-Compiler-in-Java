@@ -1,0 +1,7 @@
+//if Vide
+// n'affiche rien
+{
+    if (1==2){
+        
+    }
+}
