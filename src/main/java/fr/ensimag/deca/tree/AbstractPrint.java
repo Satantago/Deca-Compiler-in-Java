@@ -38,9 +38,9 @@ public abstract class AbstractPrint extends AbstractInst {
             throws ContextualError {
         for (AbstractExpr a : getArguments().getList()) {
             Type t = a.verifyExpr(compiler, localEnv, currentClass);
-            
-        if (!(t.isString() || t.isInt() || t.isFloat())) {
-            throw new ContextualError("Faute dans print", a.getLocation());
+            //verifies the types accepted in a print
+            if (!(t.isString() || t.isInt() || t.isFloat())) {
+                throw new ContextualError("Faute dans print", a.getLocation());
         }
                         
         }

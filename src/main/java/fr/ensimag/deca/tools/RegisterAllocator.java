@@ -13,11 +13,13 @@ public class RegisterAllocator {
     private Deque<Integer> registerUsed; // Liste des registres utilisés
     private boolean[] registerStatus; // Etat des registres (utilisé ou non)
     private int nbreMaxRegistre = 16; // Nombre maximal de registres disponibles
+    private int maxSP;
     
     // Constructeur
     public RegisterAllocator(){
         this.nbrGB = 2;
         this.nbrSP = 2;
+        this.maxSP = 2;
         this.registerStatus = new boolean[nbreMaxRegistre];
         this.registerUsed = new ArrayDeque<>();
         this.registerStatus[0]=true;
@@ -26,7 +28,12 @@ public class RegisterAllocator {
             this.registerStatus[i]=false;
         }
     }
-    
+    public int getMaxSP(){
+        return maxSP;
+    }
+    public int getNbGB(){
+        return nbrGB;
+    }
     // Méthode pour obtenir un registre libre
     public int newRegister(DecacCompiler compiler){
         for(int i=2;i<nbreMaxRegistre;i++){
@@ -39,6 +46,9 @@ public class RegisterAllocator {
         int registreLibere = this.registerUsed.pollFirst();
         compiler.addInstruction(new PUSH(Register.getR(registreLibere)));
         this.nbrSP ++;
+        if(nbrSP > maxSP)
+            this.maxSP = nbrSP;
+
         this.registerStatus[registreLibere]=true;
         this.registerUsed.addLast(registreLibere);
         return registreLibere;
@@ -93,6 +103,7 @@ public class RegisterAllocator {
         RegisterOffset GBRegistre = new RegisterOffset(nbrGB,Register.GB);
         this.nbrGB ++;
         this.nbrSP ++;
+        this.maxSP ++;
         return GBRegistre;
     }
 }

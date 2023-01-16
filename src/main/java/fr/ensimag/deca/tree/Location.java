@@ -31,10 +31,16 @@ public class Location implements Serializable {
         }
     }
 
+    /**
+     * @return
+     */
     public int getLine() {
         return line;
     }
 
+    /**
+     * @return
+     */
     public int getPositionInLine() {
         return positionInLine;
     }

@@ -38,7 +38,8 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        // non terminal type
+
+        /*****************Type non terminal*********************/
         Type veriftype = this.type.verifyType(compiler);
         assert(type != null);
         this.type.setType(veriftype);
@@ -46,20 +47,18 @@ public class DeclVar extends AbstractDeclVar {
             throw new ContextualError("type different de void", this.type.getLocation());
         }
 
-        //inialisation non terminal
+        /*****************Inialization non terminal *************/
+        // here for float a = a ;
         this.initialization.verifyInitialization(compiler, veriftype, localEnv, currentClass);
         
-        //identifier ici variable
+        /******************Identifier terminal ******************/
         VariableDefinition defvar = new VariableDefinition(veriftype, this.varName.getLocation());
-        // forcé à utiliser l'exception
         try{
         localEnv.declare(this.varName.getName(), defvar);
         } catch (EnvironmentExp.DoubleDefException e) {
             throw new ContextualError("variable already defined", this.varName.getLocation());
         }
         this.varName.setDefinition(defvar);
-
-        //verify exp
         this.varName.verifyExpr(compiler, localEnv, currentClass);
 
 

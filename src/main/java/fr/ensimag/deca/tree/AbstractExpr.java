@@ -124,10 +124,17 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     protected void codeGenPrint(DecacCompiler compiler) {
     }
+    /**
+     * @param compiler
+     */
     protected void codeGenPrintX(DecacCompiler compiler) {
          
     }
+    /**
+     * @param compiler
+     */
     protected void codeGen(DecacCompiler compiler) {
+
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {

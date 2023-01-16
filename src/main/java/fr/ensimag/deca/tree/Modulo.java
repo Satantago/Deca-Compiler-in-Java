@@ -5,7 +5,9 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.REM;
 
 /**
@@ -38,6 +40,8 @@ public class Modulo extends AbstractOpArith {
 
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
         compiler.addInstruction(new REM(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
+        compiler.addInstruction(new BOV(new Label("divpar0")));
+        compiler.addInstruction(new BOV(new Label("opArith")));
         compiler.getRegisterAllocator().freeRegistre(compiler);
     } 
 

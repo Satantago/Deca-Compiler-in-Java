@@ -3,6 +3,8 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
@@ -43,10 +45,34 @@ public class Program extends AbstractProgram {
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
 
-        compiler.addInstruction(new LOAD(0,Register.R0));
+       
+    //   compiler.addInstruction(new TSTO(new ImmediateInteger(compiler.getRegisterAllocator().getNbreSP())));
+
         compiler.addComment("Main program");
+        compiler.addInstruction(new LOAD(0,Register.R0));
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
+
+
+        Label pile = new Label("pile_pleine");
+        compiler.addFirst(new ADDSP(new ImmediateInteger(compiler.getRegisterAllocator().getNbGB()-2)));
+        compiler.addFirst(new BOV(pile));
+        compiler.addFirst(new TSTO(new ImmediateInteger(compiler.getRegisterAllocator().getMaxSP())));
+        compiler.addLabel(pile);
+        compiler.addInstruction(new WSTR("Erreur : pile pleine"));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
+        compiler.addLabel(new Label("opArith"));
+        compiler.addInstruction(new WSTR("Erreur :Stack Overflow"));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
+        compiler.addLabel(new Label("divpar0"));
+        compiler.addInstruction(new WSTR("Erreur : Division par 0"));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
     }
 
     @Override

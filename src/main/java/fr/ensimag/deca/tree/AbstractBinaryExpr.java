@@ -76,6 +76,7 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler) { 
+        codeGen(compiler);
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
         compiler.getRegisterAllocator().freeRegistre(compiler);
         if(super.getType().isFloat())
@@ -90,6 +91,11 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new WFLOATX());
     }
+    /** 
+     * @param compiler
+     * @param lefReg
+     * @param rightReg
+     */
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg){
     }
     public void codeGenBinaryOpIter(DecacCompiler compiler,int lefReg,int rightReg){

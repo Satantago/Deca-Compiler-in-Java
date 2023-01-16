@@ -93,8 +93,12 @@ MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"' ;
 COMMENTAIRE :(  ('/*' .*? '*/') | ('//' .*? '\n' ) ) { skip(); } ;
 
 
-
-
 fragment FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
-INCLUDE : ('#include' (' ')* '"' FILENAME '"' );  
+
+INCLUDE : ('#include' (' ')* '"' FILENAME '"'){
+String filename = getText().substring(getText().indexOf("\"")+1,getText().lastIndexOf("\""));
+doInclude(filename);};
+
+
+
 

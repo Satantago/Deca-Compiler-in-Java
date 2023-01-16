@@ -43,6 +43,11 @@ public class EnvironmentType {
 
     private final Map<Symbol, TypeDefinition> envTypes;
 
+    /**
+     *  Getter of Type definition of a symbol 
+     *
+     * @param s (the symbol concerned)
+     */
     public TypeDefinition defOfType(Symbol s) {
         return envTypes.get(s);
     }

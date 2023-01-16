@@ -1,0 +1,6 @@
+#include "math.decah"
+#include "hello-world.deca" 
+
+{ 
+println("test_include") ;
+}
