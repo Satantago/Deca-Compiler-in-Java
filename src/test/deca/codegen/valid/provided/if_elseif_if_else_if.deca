@@ -10,12 +10,14 @@
 //sortie: ça marche
 
 {
-int x = 5;
-if(false){
+int x = -5;
+boolean t = true;
+if(!t){
      println("ça marche pas");
+     println(-4);
      }
 else if(true){
-     if(x == 5){
+     if(x == -5){
         println("ça marche");
         }
     }

@@ -131,6 +131,7 @@ public abstract class AbstractExpr extends AbstractInst {
          
     }
     /**
+     * Methode permet de generer le code
      * @param compiler
      */
     protected void codeGen(DecacCompiler compiler) {
@@ -139,7 +140,17 @@ public abstract class AbstractExpr extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
     }
+
+    /**
+     * Methode permet de generer l'instruction STORE, utilise pour les variables
+     * @param compiler
+     */
     protected void codeGenStore(DecacCompiler compiler) {}
+
+    /**
+     * Methode permet de generer le code dans les condition d'iterration de if/while
+     * @param compiler
+     */
     protected void codeGenIter(DecacCompiler compiler) {}
 
 

@@ -10,10 +10,10 @@ import fr.ensimag.ima.pseudocode.instructions.PUSH;
 public class RegisterAllocator {
     private int nbrGB; // Nombre de registres GB
     private int nbrSP; // Nombre de registres GB
-    private Deque<Integer> registerUsed; // Liste des registres utilisés
-    private boolean[] registerStatus; // Etat des registres (utilisé ou non)
+    private Deque<Integer> registerUsed; // Liste des registres utilises
+    private boolean[] registerStatus; // Etat des registres (utilise ou non)
     private int nbreMaxRegistre = 16; // Nombre maximal de registres disponibles
-    private int maxSP;
+    private int maxSP;// Nombre de registre max dans la pile utilise
     
     // Constructeur
     public RegisterAllocator(){
@@ -34,7 +34,12 @@ public class RegisterAllocator {
     public int getNbGB(){
         return nbrGB;
     }
-    // Méthode pour obtenir un registre libre
+
+    /**
+     *  Methode pour obtenir un registre libre
+     * @param compiler
+     * @return
+     */
     public int newRegister(DecacCompiler compiler){
         for(int i=2;i<nbreMaxRegistre;i++){
             if(!this.registerStatus[i]){
@@ -54,17 +59,30 @@ public class RegisterAllocator {
         return registreLibere;
     }
     
-    // Méthode pour obtenir le dernier registre utilisé
+    // Methode pour obtenir le dernier registre utilisé
     public int popRegister(){
         assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé pop";
         return this.registerUsed.peekLast();
     }
+
+
+    /**
+     * Methode qui actualise l'orde des registres utilises
+     * Prend le dernier registre et le met a la fin de la liste
+     * @param lastUsed
+     * @return
+     */
     public int triRegister(int lastUsed){
         assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé tri ";
         this.registerUsed.remove(lastUsed);
         this.registerUsed.addLast(lastUsed);
         return this.registerUsed.peekLast();
     }
+
+    /**
+     * Retourne l'avant dernier registre utilisé
+     * @return
+     */
     public int getLastButOne(){
         int registreLast = this.registerUsed.removeLast();
         int registerLastButOne = this.registerUsed.peekLast();
@@ -72,7 +90,7 @@ public class RegisterAllocator {
         return registerLastButOne;
     }
     
-    // Méthode pour libérer le dernier registre utilisé
+    // Methode pour libérer le dernier registre utilise
     public void freeRegistre(DecacCompiler compiler){
         assert !this.registerUsed.isEmpty() : "Aucun registre n'a été utilisé free";
         int registreLibere = this.registerUsed.removeLast();

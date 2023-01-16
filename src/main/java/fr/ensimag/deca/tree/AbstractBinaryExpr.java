@@ -98,6 +98,12 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
      */
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg){
     }
+
+    /**
+     * @param compiler
+     * @param lefReg
+     * @param rightReg
+     */
     public void codeGenBinaryOpIter(DecacCompiler compiler,int lefReg,int rightReg){
     }
 
