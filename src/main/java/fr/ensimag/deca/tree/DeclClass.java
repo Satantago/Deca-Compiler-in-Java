@@ -57,12 +57,27 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        // Marouane Modification 
+        className.prettyPrint(s, prefix, false);
+        superClassName.prettyPrint(s, prefix, false);
+        listMethod.prettyPrint(s, prefix, false);
+        listField.prettyPrint(s, prefix, true);
+        // Marouane Modification fini
+
+
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        // Marouane Modification 
+        className.iter(f); 
+        superClassName.iter(f);
+        listMethod.iter(f);
+        listField.iter(f);
+        // Marouane Modification fini
+
+
+
     }
 
 }

@@ -44,17 +44,30 @@ public class MethodCall extends AbstractExpr{
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("not yet implemented");
+        //Modification Marouane 
+        expr.iter(f);
+        ident.iter(f); 
+        lstExpr.iter(f);
+        //Modification Marouane fini  
+
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        
+        //Modification Marouane 
+        expr.prettyPrint(s, prefix, false);
+        ident.prettyPrint(s, prefix, false);
+        lstExpr.prettyPrint(s, prefix, false);
+        //Modification Marouane fini  
+
+
+
     }
     
     @Override
     String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return "MethodCall";
     }
 
 }
