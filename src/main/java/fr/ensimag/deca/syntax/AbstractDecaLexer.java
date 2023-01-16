@@ -197,9 +197,8 @@ public abstract class AbstractDecaLexer extends Lexer {
      *             When an attempt to perform a circular inclusion is done
      */
     void doInclude(String includeDirective) throws IncludeFileNotFound, CircularInclude {
-        // String name = includeDirective.substring(includeDirective.indexOf('"') + 1,
-        //         includeDirective.lastIndexOf('"'));
-        String name = includeDirective;
+        String name = includeDirective.substring(includeDirective.indexOf('"') + 1,
+                includeDirective.lastIndexOf('"'));
         Validate.notNull(name);
         Validate.notEmpty(name);
         CharStream newInput;
