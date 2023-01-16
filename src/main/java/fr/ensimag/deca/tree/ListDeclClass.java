@@ -25,22 +25,37 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      */
     void verifyListClass(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify listClass: start");
-        throw new UnsupportedOperationException("not yet implemented");
-        // LOG.debug("verify listClass: end");
+
+        // Modification Marouane 
+        for (AbstractDeclClass classe : getList() ){
+            classe.verifyClass(compiler); 
+      
+        }
+        // Modification Marouane  Fin
+
+         LOG.debug("verify listClass: end");
     }
 
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */
     public void verifyListClassMembers(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        for (AbstractDeclClass classe : getList() ){
+            classe.verifyClassMembers(compiler); 
+      
+        }
     }
     
     /**
      * Pass 3 of [SyntaxeContextuelle]
      */
     public void verifyListClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+            
+            for (AbstractDeclClass classe : getList() ){
+                classe.verifyClassBody(compiler); 
+        
+            }
     }
 
 

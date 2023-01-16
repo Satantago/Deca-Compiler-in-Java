@@ -1,6 +1,8 @@
 package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
+
 import java.util.HashMap;
 import java.util.Map;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
@@ -50,6 +52,15 @@ public class EnvironmentType {
      */
     public TypeDefinition defOfType(Symbol s) {
         return envTypes.get(s);
+    }
+    
+    public void declareClass(Symbol name, ClassDefinition def) throws DoubleDefException {
+        if (envTypes.containsKey(name)){
+                throw new DoubleDefException();
+        }
+        else {
+            envTypes.put(name, def);
+        }
     }
 
     public final VoidType    VOID;
