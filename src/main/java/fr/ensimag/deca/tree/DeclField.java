@@ -66,28 +66,38 @@ public class DeclField extends AbstractDeclField{
         /****************visibility********************/
         
         /******************type************************/
-        System.out.println(this.type.getName());
         Type veriftype = this.type.verifyType(compiler);
         assert(veriftype != null);
         this.type.setType(veriftype);
         if (veriftype.isVoid()){
             throw new ContextualError("type different de void", this.type.getLocation());
         }
+
         /******************Initialisation *************/
         EnvironmentExp classEnv = currentClass.getMembers();
+
         this.initialization.verifyInitialization(compiler,veriftype, classEnv, currentClass);
 
 
 
-        /****************field **********************/
+        /****************field ***********************/
+        FieldDefinition fieldDef;
         ExpDefinition superfield = classEnv.get(fieldName.getName());
         if (superfield == null){
-            // Le champ Index est 1, car il n’y a pas de champ dans Object.
-            currentClass.incNumberOfFields(); 
-
-            FieldDefinition fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility, currentClass,currentClass.getNumberOfFields());
-
+            currentClass.incNumberOfFields();
+            fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility
+            , currentClass, currentClass.getNumberOfFields());
             fieldName.setDefinition(fieldDef);
+            }
+        else {// superfield is found in of the current classes parents
+            if (!(superfield.isField())){
+                throw new ContextualError("A method is already defined by this name", this.fieldName.getLocation());
+            }
+            FieldDefinition fieldFromParents = (FieldDefinition) superfield;
+            fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation()
+            , this.visibility, currentClass,fieldFromParents.getIndex());
+            currentClass.incNumberOfFields();
+        }
             
         try{
         classEnv.declare(fieldName.getName(), fieldDef);
@@ -95,10 +105,7 @@ public class DeclField extends AbstractDeclField{
         catch (EnvironmentExp.DoubleDefException e){
             throw new ContextualError("field already exist", this.fieldName.getLocation());
     }
-    }
-    else { 
-        throw new ContextualError("field already exist", this.fieldName.getLocation());
-    }
 
+    }
 }
-}
+
