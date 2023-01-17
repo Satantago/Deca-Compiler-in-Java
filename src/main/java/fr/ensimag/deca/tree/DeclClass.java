@@ -93,8 +93,8 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenDeclClass(DecacCompiler compiler){
-        superClassName.codeGen(compiler);
-        className.codeGenObjet(compiler);
+        superClassName.codeGenSuperClass(compiler);
+        className.codeGenClass(compiler);
         listField.codeGenListDeclField(compiler);
         listMethod.codeGenListDeclMethod(compiler);
     }
