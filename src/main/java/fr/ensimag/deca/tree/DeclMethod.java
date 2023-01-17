@@ -75,8 +75,10 @@ public class DeclMethod extends AbstractDeclMethod{
 
             
 
+            currentClass.incNumberOfMethods();
 
             MethodDefinition method = new MethodDefinition(type, this.getLocation(), signature,currentClass.getNumberOfMethods());
+            methodName.setDefinition(method);
 
 
 

@@ -58,7 +58,9 @@ public class DeclParam extends AbstractDeclParam{
         try {
             localEnv.declare(this.paramName.getName(), paramDef);
         } catch (DoubleDefException e) {
-            // TODO Auto-generated catch block
+
+            System.out.println("Erreur : parametre deja defini");
+
             e.printStackTrace();
         }
         return type;
