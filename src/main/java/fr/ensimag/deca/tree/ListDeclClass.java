@@ -28,7 +28,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
 
         // Modification Marouane 
         for (AbstractDeclClass classe : getList() ){
-            classe.verifyClass(compiler); 
+            classe.verifyClass(compiler);
         }
         // Modification Marouane  Fin
 

@@ -61,7 +61,6 @@ public class DeclVar extends AbstractDeclVar {
         this.varName.setDefinition(defvar);
         this.varName.verifyExpr(compiler, localEnv, currentClass);
 
-
     }
 
     

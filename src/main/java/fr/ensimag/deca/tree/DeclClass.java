@@ -52,8 +52,6 @@ public class DeclClass extends AbstractDeclClass {
         ClassType veriftyp = (ClassType) this.superClassName.verifyType(compiler);
         this.superClassName.setType(veriftyp);
 
-        System.out.println("superClassName : " + this.superClassName.getName());
-        System.out.println(veriftyp);
 
 
 
@@ -62,15 +60,16 @@ public class DeclClass extends AbstractDeclClass {
         ClassDefinition supeer = (ClassDefinition) compiler.environmentType.defOfType(superSymb);
         ClassDefinition classDef = new ClassDefinition(veriftyp, className.getLocation(), supeer);
         try{
-            System.out.println(this.className.getName());
-        compiler.environmentType.declareClass(this.className.getName(), classDef);
-        className.setDefinition(classDef);
+            compiler.environmentType.declareClass(this.className.getName(), classDef);
         } catch (DoubleDefException e) {
             throw new ContextualError("Intersection of EnvExps is not empty", this.className.getLocation());
         }
        
-
-        //this.className.verifyExpr(compiler  , classDef.getMembers() , classDef); 
+        if (!(compiler.environmentType.defOfType(this.className.getName()) instanceof ClassDefinition)) {
+            throw new ContextualError("Invalid name", getLocation());
+        }
+        this.className.setDefinition(classDef);
+        this.verifyClassMembers(compiler);
 
 ;
     }
@@ -82,7 +81,7 @@ public class DeclClass extends AbstractDeclClass {
 
                    
                 className.verifyType(compiler); // Verifications que la classe existe 
-                listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
+                //listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
                 listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); // Verifications des attributs
 
 

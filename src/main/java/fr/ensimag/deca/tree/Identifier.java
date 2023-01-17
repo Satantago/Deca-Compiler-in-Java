@@ -179,6 +179,9 @@ public class Identifier extends AbstractIdentifier {
         if (localEnv.get(name) == null) {
             throw new ContextualError(name +" is not in localEnv", getLocation());
         }
+        if (!(compiler.environmentType.defOfType(name) instanceof ClassDefinition)) {
+            throw new ContextualError("Invalid name", getLocation());
+        }
         this.setDefinition(localEnv.get(name));
         return localEnv.get(name).getType();
     }

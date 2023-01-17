@@ -13,6 +13,7 @@ import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.deca.tree.Visibility;
 
 public class DeclField extends AbstractDeclField{
     final private Visibility visibility;
@@ -52,8 +53,8 @@ public class DeclField extends AbstractDeclField{
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        fieldName.prettyPrint(s, prefix, false);
         type.prettyPrint(s, prefix, false);
+        fieldName.prettyPrint(s, prefix, false);
 
         initialization.prettyPrint(s, prefix, true);
     }
@@ -62,7 +63,10 @@ public class DeclField extends AbstractDeclField{
     protected void verifyDeclField(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
+        /****************visibility********************/
+        
         /******************type************************/
+        System.out.println(this.type.getName());
         Type veriftype = this.type.verifyType(compiler);
         assert(veriftype != null);
         this.type.setType(veriftype);
@@ -81,21 +85,15 @@ public class DeclField extends AbstractDeclField{
             // Le champ Index est 1, car il n’y a pas de champ dans Object.
             currentClass.incNumberOfFields(); 
 
-            FieldDefinition fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), visibility, currentClass,currentClass.getNumberOfFields());
+            FieldDefinition fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility, currentClass,currentClass.getNumberOfFields());
 
             fieldName.setDefinition(fieldDef);
             
-        
-        //faut traiter le else
-        //Correction Marouane : derti hna field name o hia abstract identifier 
-        // khassek dir fiha symbole f declare 
         try{
         classEnv.declare(fieldName.getName(), fieldDef);
         }
-        //correction Marouane 
         catch (EnvironmentExp.DoubleDefException e){
             throw new ContextualError("field already exist", this.fieldName.getLocation());
-        //fin correction
     }
     }
     else { 
