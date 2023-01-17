@@ -14,11 +14,15 @@ import java.io.PrintStream;
  * @author gl32
  * @date 01/01/2023
  */
+// A faire   !!!!!!!!!!!!
 public class This extends AbstractExpr {
 
     private boolean bool;
     public This() {
-        super();
+        this.bool = false;
+    }
+    public This(boolean b) {
+        this.bool = b;
     }
 
 
@@ -42,16 +46,16 @@ public class This extends AbstractExpr {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("not yet implemented");
+        //bool.iter(f);
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        //bool.prettyPrint(s, prefix, true);
     }
 
     @Override
     String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return "This.";
     }
 }

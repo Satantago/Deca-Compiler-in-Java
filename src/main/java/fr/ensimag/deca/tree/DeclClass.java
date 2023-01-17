@@ -89,29 +89,29 @@ public class DeclClass extends AbstractDeclClass {
     }
 
 
+    
+
+    @Override
+    protected void codeGenDeclClass(DecacCompiler compiler){
+        superClassName.codeGen(compiler);
+        className.codeGenObjet(compiler);
+        listField.codeGenListDeclField(compiler);
+        listMethod.codeGenListDeclMethod(compiler);
+    }
+
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        // Marouane Modification 
         className.prettyPrint(s, prefix, false);
         superClassName.prettyPrint(s, prefix, false);
-        listMethod.prettyPrint(s, prefix, false);
-        listField.prettyPrint(s, prefix, true);
-        // Marouane Modification fini
-
-
-    }
+        listField.prettyPrint(s, prefix, false);
+        listMethod.prettyPrint(s, prefix, true);
+   }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        // Marouane Modification 
         className.iter(f); 
         superClassName.iter(f);
-        listMethod.iter(f);
         listField.iter(f);
-        // Marouane Modification fini
-
-
-
+        listMethod.iter(f); 
     }
-
 }

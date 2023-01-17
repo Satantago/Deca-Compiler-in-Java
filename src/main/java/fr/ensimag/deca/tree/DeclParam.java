@@ -32,7 +32,8 @@ public class DeclParam extends AbstractDeclParam{
 
     @Override
     protected void codeGenDeclParam(DecacCompiler compiler){
-        throw new UnsupportedOperationException("not yet implemented");
+        type.codeGen(compiler);
+        paramName.codeGen(compiler);
     }
 
     @Override

@@ -15,6 +15,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
 
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import org.apache.commons.lang.Validate;
@@ -220,11 +221,32 @@ public class Identifier extends AbstractIdentifier {
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
     }
-
     @Override
     protected void codeGen(DecacCompiler compiler) {
         codeGenInst(compiler);
     }
+
+    @Override
+    protected void codeGenObjet(DecacCompiler compiler) {
+        DAddr regGB = compiler.getRegisterAllocator().newGBRegistre();
+        if(compiler.getRegisterAllocator().getNbGB() == 2){
+            compiler.addInstruction(new LOAD(0, Register.R0)); // null pas 0
+            compiler.addInstruction(new STORE(Register.R0,regGB));
+            //compiler.addInstruction(new LOAD(code.Object.equals,Register.R0));
+            regGB = compiler.getRegisterAllocator().newGBRegistre();
+            compiler.addInstruction(new STORE(Register.R0,regGB));          
+        }
+        else{
+            compiler.addInstruction(new LEA(regGB,Register.R0));
+            compiler.addInstruction(new STORE(Register.R0,regGB));
+
+        }
+    }
+
+
+
+    
+
     @Override 
     protected void codeGenPrint(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));

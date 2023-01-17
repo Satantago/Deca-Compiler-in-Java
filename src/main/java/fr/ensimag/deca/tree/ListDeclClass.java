@@ -25,13 +25,10 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      */
     void verifyListClass(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify listClass: start");
-
-        // Modification Marouane 
         for (AbstractDeclClass classe : getList() ){
             classe.verifyClass(compiler); 
       
         }
-        // Modification Marouane  Fin
 
          LOG.debug("verify listClass: end");
     }
@@ -58,5 +55,10 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
             }
     }
 
-
+    public void codGenListDeclClass(DecacCompiler compiler){
+        for (AbstractDeclClass c : getList()) {
+            c.codeGenDeclClass(compiler);
+        }
+    }
+         
 }

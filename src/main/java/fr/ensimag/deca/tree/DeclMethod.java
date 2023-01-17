@@ -35,7 +35,10 @@ public class DeclMethod extends AbstractDeclMethod{
 
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler){
-        throw new UnsupportedOperationException("not yet implemented");
+        returnType.codeGen(compiler);
+        methodName.codeGen(compiler);
+        listParametres.codeGenListDeclParam(compiler);
+        body.codeGenMethodBody(compiler);
     }
 
     @Override

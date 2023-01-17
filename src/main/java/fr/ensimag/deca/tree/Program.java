@@ -51,10 +51,9 @@ public class Program extends AbstractProgram {
     public void codeGenProgram(DecacCompiler compiler) {
 
        
-    //   compiler.addInstruction(new TSTO(new ImmediateInteger(compiler.getRegisterAllocator().getNbreSP())));
-
         compiler.addComment("Main program");
         compiler.addInstruction(new LOAD(0,Register.R0));
+        classes.codGenListDeclClass(compiler);
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
 
@@ -73,10 +72,10 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
 
-        compiler.addLabel(new Label("divpar0"));
-        compiler.addInstruction(new WSTR("Erreur : Division par 0"));
-        compiler.addInstruction(new WNL());
-        compiler.addInstruction(new ERROR());
+        // compiler.addLabel(new Label("divpar0"));
+        // compiler.addInstruction(new WSTR("Erreur : Division par 0"));
+        // compiler.addInstruction(new WNL());
+        // compiler.addInstruction(new ERROR());
 
     }
 
