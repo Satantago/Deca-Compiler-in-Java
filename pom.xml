@@ -228,6 +228,64 @@
                         <goals>
                             <goal>java</goal>
                         </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_context_decac</id>
+                        <configuration>
+                            <executable>test_context.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_context_invalid</id>
+                        <configuration>
+                            <executable>test_context_invalid.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test_decac</id>
+                        <configuration>
+                            <executable>test_decac.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+
+
+                    </execution>
+                    <execution>
+                        <id>test_ima</id>
+                        <configuration>
+                            <executable>test_ima.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                     </execution>
+                    <execution>
+                        <id>test_decac_-p</id>
+                        <configuration>
+                            <executable>test_decac_-p.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    
+
                     </execution>
                     <execution>
                         <id>basic-context</id>
@@ -247,9 +305,9 @@
                         <phase>test</phase>
                         <goals>
                             <goal>exec</goal>
-                        </goals>
+                        </goals> 
                     </execution>
-                    <execution>
+                    <execution> 
                         <id>basic-decac</id>
                         <configuration>
                             <executable>./src/test/script/basic-decac.sh</executable>
@@ -267,7 +325,7 @@
                         <phase>test</phase>
                         <goals>
                             <goal>exec</goal>
-                        </goals>
+                        </goals> 
                     </execution>
                 </executions>
             </plugin>

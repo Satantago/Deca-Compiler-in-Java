@@ -7,6 +7,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -36,19 +38,25 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // throw new UnsupportedOperationException("not yet implemented");
+        //compiler.addLabel(new Label("START_WHILE"));
+
+        Label lWhile =  new Label("START_WHILE"+compiler.getcmptLabelFin());
+        compiler.inccmptLabelFin();
+        compiler.addDqueLabelWhile(lWhile);
+        compiler.addLabel(compiler.popDqueLabelWhile());
+        this.condition.codeGenIter(compiler);
+        this.body.codeGenListInst(compiler);
+        compiler.addInstruction(new BRA(lWhile));
+        compiler.addLabel(compiler.popDdqueLabel());
+        compiler.inccmptLabelFin();
     }
 
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass, Type returnType) {
-        try {
+                              ClassDefinition currentClass, Type returnType) throws ContextualError {
             this.condition.verifyCondition(compiler, localEnv, currentClass);
             this.body.verifyListInst(compiler, localEnv, currentClass, returnType);
-        }
-        catch (ContextualError e) {
-            // A FAIRE
-        }      
     }
 
     @Override

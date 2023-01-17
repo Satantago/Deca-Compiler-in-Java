@@ -2,6 +2,9 @@ package fr.ensimag.deca;
 
 import java.io.File;
 import org.apache.log4j.Logger;
+
+import fr.ensimag.deca.tree.Program;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -33,73 +36,44 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-
             System.out.println("Groupe 32 Boulahfa Erazki Gaoua Lachiri Sekkal");
+            if (options.getSourceFiles().isEmpty()) {
+                return;
+            }
         }
         if (options.getSourceFiles().isEmpty()) {
             options.displayUsage();
             throw new UnsupportedOperationException("Il y'a pas de fichier spécifié à ce nom ");
         }
-
-
         if (options.getDebug()==1) { 
 
-
             for (File source : options.getSourceFiles()) {
-
                 DecacCompiler compiler = new DecacCompiler(options, source);
                 compiler.compile();
-                compiler.displayIMAProgram();
-                
+                compiler.displayIMAProgram();  
+            } 
+        }        
 
-
-            }
-
-
-
-
-
-    
-            
-        }
         if (options.getParallel()) {
             // A FAIRE : instancier DecacCompiler pour chaque fichier à
             // compiler, et lancer l'exécution des méthodes compile() de chaque
             // instance en parallèle. Il est conseillé d'utiliser
             // java.util.concurrent de la bibliothèque standard Java.
-
-
             List<DecacCompiler> liste_compilation = new ArrayList<DecacCompiler>(); 
-
             int nb_worker_threads  = Runtime.getRuntime().availableProcessors();
-
             ExecutorService exe = Executors.newFixedThreadPool(nb_worker_threads); 
-
             List<Future<Boolean>> non_calule = new ArrayList<>(); 
-
-
             for (File source : options.getSourceFiles()) {
-
                 DecacCompiler compiler = new DecacCompiler(options, source);
-
                 liste_compilation.add(compiler);
-
             }
-           
             for (DecacCompiler compiler : liste_compilation) {
-
                 non_calule.add(exe.submit(() -> compiler.compile())) ;
-
             } 
-
             for (Future<Boolean> future : non_calule) {
-
                   if (!future.get()) {
-
                     error = true;
-
                   }
-
                 }
         } else {
             for (File source : options.getSourceFiles()) {

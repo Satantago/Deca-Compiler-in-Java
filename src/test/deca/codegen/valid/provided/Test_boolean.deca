@@ -1,0 +1,8 @@
+//boolean
+//resultat: ça marche
+{
+boolean bool = true;
+if (bool){
+    println("ça marche");
+}
+}

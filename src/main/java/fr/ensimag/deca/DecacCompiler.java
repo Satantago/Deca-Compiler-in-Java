@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -43,7 +45,12 @@ import fr.ensimag.deca.tools.*;
 public class DecacCompiler {
     private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
     private RegisterAllocator RegisterAllocator;
-    
+    private int cmptLabel = 0;
+    private int cmptLabelFin = 0;
+    private Deque<Label> dqueLabel = new ArrayDeque<>();
+    private Deque<Label> dqueLabelFin = new ArrayDeque<>();
+    private Deque<Label> dqueLabelWhile = new ArrayDeque<>();
+
     /**
      * Portable newline character.
      */
@@ -87,10 +94,46 @@ public class DecacCompiler {
     public void addComment(String comment) {
         program.addComment(comment);
     }
+    public void incCmptLabel(){
+        this.cmptLabel ++;
+    }
+    public int getCmptLabel(){
+        return this.cmptLabel;
+    }
+    public Label popDdqueLabel(){
+        return dqueLabel.pollLast();
+    }
+    public void addDqueLabel(Label l){
+        dqueLabel.addLast(l);
+    }
+
+
+    public void addDqueLabelWhile(Label l){
+        dqueLabelWhile.addLast(l);
+    }
+    public Label popDqueLabelWhile(){
+        return dqueLabelWhile.pollLast();
+    }
+
+    public boolean isEmtyDqueLabelFin(){
+        return dqueLabelFin.isEmpty();
+    }
+    public void addDqueLabelFin(Label l){
+        dqueLabelFin.addLast(l);
+    }
+    public Label popDqueLabelFin(){
+        return dqueLabelFin.pollLast();
+    }
+    public void inccmptLabelFin(){
+        this.cmptLabelFin ++;
+    }
+    public int getcmptLabelFin(){
+        return this.cmptLabelFin;
+    }
 
     /**
      * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
+     * fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label) cmptLabelFin
      */
     public void addLabel(Label label) {
         program.addLabel(label);
@@ -106,28 +149,36 @@ public class DecacCompiler {
 
     /**
      * @see
+     * fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
+     */
+    public void addFirst(Instruction instruction) {
+        program.addFirst(instruction);
+    }
+
+    /**
+     * @see
      * fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
      * java.lang.String)
      */
     public void addInstruction(Instruction instruction, String comment) {
         program.addInstruction(instruction, comment);
     }
-    
+
     /**
-     * @see 
+     * @see
      * fr.ensimag.ima.pseudocode.IMAProgram#display()
      */
     public String displayIMAProgram() {
         return program.display();
     }
-    
+
     private final CompilerOptions compilerOptions;
     private final File source;
     /**
      * The main program. Every instruction generated will eventually end up here.
      */
     private final IMAProgram program = new IMAProgram();
- 
+
 
     /** The global environment for types (and the symbolTable) */
     public final SymbolTable symbolTable = new SymbolTable();
@@ -135,7 +186,7 @@ public class DecacCompiler {
     public final EnvironmentType environmentType = new EnvironmentType(this);
 
     public Symbol createSymbol(String name) {
-         // A FAIRE: remplacer par la ligne en commentaire ci-dessous
+        // A FAIRE: remplacer par la ligne en commentaire ci-dessous
         return symbolTable.create(name);
     }
 
@@ -146,7 +197,7 @@ public class DecacCompiler {
      */
     public boolean compile() {
         String sourceFile = source.getAbsolutePath();
-        String destFile = source.getAbsolutePath().replace(".deca",".ass"); 
+        String destFile = source.getAbsolutePath().replace(".deca",".ass");
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
         // A FAIRE: fichier .deca.
         PrintStream err = System.err;
@@ -189,7 +240,7 @@ public class DecacCompiler {
      * @return true on error
      */
     private boolean doCompile(String sourceName, String destName,
-            PrintStream out, PrintStream err)
+                              PrintStream out, PrintStream err)
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
 
@@ -199,6 +250,10 @@ public class DecacCompiler {
         }
         assert(prog.checkAllLocations());
 
+        if(getCompilerOptions().getDecompiler()){
+            System.out.println(prog.decompile());
+            return false;
+        }
 
         prog.verifyProgram(this);
         assert(prog.checkAllDecorations());
@@ -208,18 +263,19 @@ public class DecacCompiler {
         addComment("end main program");
         LOG.debug("Generated assembly code:" + nl + program.display());
         LOG.info("Output file assembly file is: " + destName);
+        if(!compilerOptions.getVerify()){
+            FileOutputStream fstream = null;
+            try {
+                fstream = new FileOutputStream(destName);
+            } catch (FileNotFoundException e) {
+                throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
+            }
 
-        FileOutputStream fstream = null;
-        try {
-            fstream = new FileOutputStream(destName);
-        } catch (FileNotFoundException e) {
-            throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
+            LOG.info("Writing assembler file ...");
+
+            program.display(new PrintStream(fstream));
+            LOG.info("Compilation of " + sourceName + " successful.");
         }
-
-        LOG.info("Writing assembler file ...");
-
-        program.display(new PrintStream(fstream));
-        LOG.info("Compilation of " + sourceName + " successful.");
         return false;
     }
 

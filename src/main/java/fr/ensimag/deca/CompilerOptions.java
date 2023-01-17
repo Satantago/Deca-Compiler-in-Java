@@ -1,7 +1,6 @@
 package fr.ensimag.deca;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +27,13 @@ public class CompilerOptions {
         return parallel;
     }
 
+    public boolean getDecompiler() {
+        return decompiler;
+    }
+    public boolean getVerify() {
+        return verify;
+    }
+
     public boolean getPrintBanner() {
         return printBanner;
     }
@@ -38,6 +44,8 @@ public class CompilerOptions {
 
     private int debug = 0;
     private boolean parallel = false;
+    private boolean verify = false;
+    private boolean decompiler = false;
     private boolean printBanner = false;
     private List<File> sourceFiles = new ArrayList<File>();
 
@@ -51,8 +59,14 @@ public class CompilerOptions {
             else if(args[i].equals("-P")){
                 parallel = true ;
             }
+            else if(args[i].equals("-p")){
+                decompiler = true ;
+            }
             else if(args[i].equals("-d")){
                 debug = 1  ;
+            }
+            else if(args[i].equals("-v")){
+                verify = true  ;
             }  
             else{
                 sourceFiles.add(new File(args[i]));

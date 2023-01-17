@@ -6,14 +6,12 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
-//import fr.ensimag.deca.tree.Iterable;
 /**
  * 
  * @author gl32
  * @date 01/01/2023
  */
-public class ListIfElse extends TreeList<IfElse> {
+public class ListIfElse extends TreeList<IfThenElse> {
 
     /**
      * Implements non-terminal "list_inst" of [SyntaxeContextuelle] in pass 3

@@ -14,12 +14,13 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
+
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.*;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.WINT;
 
 /**
  * Deca Identifier
@@ -28,7 +29,7 @@ import fr.ensimag.ima.pseudocode.instructions.WINT;
  * @date 01/01/2023
  */
 public class Identifier extends AbstractIdentifier {
-    
+
     private Symbol name;
     private Definition definition;
 
@@ -47,10 +48,10 @@ public class Identifier extends AbstractIdentifier {
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a
      * ClassDefinition.
-     * 
+     *
      * This method essentially performs a cast, but throws an explicit exception
      * when the cast fails.
-     * 
+     *
      * @throws DecacInternalError
      *             if the definition is not a class definition.
      */
@@ -69,10 +70,10 @@ public class Identifier extends AbstractIdentifier {
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a
      * MethodDefinition.
-     * 
+     *
      * This method essentially performs a cast, but throws an explicit exception
      * when the cast fails.
-     * 
+     *
      * @throws DecacInternalError
      *             if the definition is not a method definition.
      */
@@ -91,10 +92,10 @@ public class Identifier extends AbstractIdentifier {
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a
      * FieldDefinition.
-     * 
+     *
      * This method essentially performs a cast, but throws an explicit exception
      * when the cast fails.
-     * 
+     *
      * @throws DecacInternalError
      *             if the definition is not a field definition.
      */
@@ -113,10 +114,10 @@ public class Identifier extends AbstractIdentifier {
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a
      * VariableDefinition.
-     * 
+     *
      * This method essentially performs a cast, but throws an explicit exception
      * when the cast fails.
-     * 
+     *
      * @throws DecacInternalError
      *             if the definition is not a field definition.
      */
@@ -134,10 +135,10 @@ public class Identifier extends AbstractIdentifier {
 
     /**
      * Like {@link #getDefinition()}, but works only if the definition is a ExpDefinition.
-     * 
+     *
      * This method essentially performs a cast, but throws an explicit exception
      * when the cast fails.
-     * 
+     *
      * @throws DecacInternalError
      *             if the definition is not a field definition.
      */
@@ -172,7 +173,7 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
+                           ClassDefinition currentClass) throws ContextualError {
         if (localEnv.get(name) == null) {
             throw new ContextualError(name +" is not in localEnv", getLocation());
         }
@@ -181,10 +182,10 @@ public class Identifier extends AbstractIdentifier {
     }
 
 
-    /**
+    /**getDefinition
      * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
      * @param compiler contains "env_types" attribute
-     * @return the type corresponding to this identifier 
+     * @return the type corresponding to this identifier
      * (corresponds to the "type" attribute)
      */
     @Override
@@ -200,25 +201,46 @@ public class Identifier extends AbstractIdentifier {
         LOG.debug("verify verftype non terminal: sortie");
         return compiler.environmentType.defOfType(name).getType();
     }
-    
+
+    @Override
+    protected void codeGenStore(DecacCompiler compiler) {
+        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),getExpDefinition().getOperand()));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
+    }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("ident inst");
-        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister())));
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
     }
+
+    @Override
+    protected void codeGenIter(DecacCompiler compiler) {
+        Label l = new Label("FinIF" + compiler.getCmptLabel());compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
+        compiler.addInstruction(new BEQ(l));
+        compiler.addDqueLabel(l);
+        compiler.incCmptLabel();
+    }
+
     @Override
     protected void codeGen(DecacCompiler compiler) {
-        System.out.println("ident Gen");
         codeGenInst(compiler);
     }
-    @Override // Neeed IT??????
-    protected void codeGenPrint(DecacCompiler compiler) { // Ajouter le cas de int float & string !!!!
-        System.out.println("IDent Print");
+    @Override 
+    protected void codeGenPrint(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
-        compiler.addInstruction(new WINT());
+        if(getDefinition().getType().isInt()){
+            compiler.addInstruction(new WINT());
+        }
+        else if(getDefinition().getType().isFloat()){
+            compiler.addInstruction(new WFLOAT());
+        }    
     }
-    
+    @Override 
+    protected void codeGenPrintX(DecacCompiler compiler) { 
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
+        compiler.addInstruction(new WFLOATX());
+    }
+
 
 
     @Override
@@ -233,7 +255,9 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public void decompile(IndentPrintStream s) {
+
         s.print(name.toString());
+
     }
 
     @Override

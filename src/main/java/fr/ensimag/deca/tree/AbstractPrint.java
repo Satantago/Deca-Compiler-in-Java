@@ -1,14 +1,11 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.FloatType;
-import fr.ensimag.deca.context.IntType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -41,9 +38,9 @@ public abstract class AbstractPrint extends AbstractInst {
             throws ContextualError {
         for (AbstractExpr a : getArguments().getList()) {
             Type t = a.verifyExpr(compiler, localEnv, currentClass);
-            
-        if (!(t.isString() || t.isInt() || t.isFloat())) {
-            throw new ContextualError("Faute dans print", a.getLocation());
+            //verifies the types accepted in a print
+            if (!(t.isString() || t.isInt() || t.isFloat())) {
+                throw new ContextualError("Faute dans print", a.getLocation());
         }
                         
         }
@@ -52,27 +49,37 @@ public abstract class AbstractPrint extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         for (AbstractExpr a : getArguments().getList()) {
-            System.out.println("AbstractPsrint inst");
             a.codeGenInst(compiler);
         }
     }
     protected void codeGenPrint(DecacCompiler compiler) {
-        AbstractExpr b = null;
         for (AbstractExpr a : getArguments().getList()) {
-           // System.out.println("AbstractPsrint print");
-           // a.codeGenPrint(compiler);
-           b = a;
+            a.codeGenPrint(compiler);
         }
-        b.codeGenPrint(compiler);
+        
+    }
+    protected void codeGenPrintX(DecacCompiler compiler) {
+        for (AbstractExpr a : getArguments().getList()) {
+           a.codeGenPrintX(compiler);
+        }
     }
 
-    private boolean getPrintHex() {
+    public boolean getPrintHex() {
         return printHex;
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("print");
+        s.print(getSuffix());
+        if (printHex) {
+            s.print("x");
+        }
+        s.print("(");
+        s.print('"');
+        getArguments().decompile(s);
+        s.print('"');
+        s.print(");");
     }
 
     @Override
