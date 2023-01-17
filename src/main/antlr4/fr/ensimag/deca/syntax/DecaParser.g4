@@ -415,8 +415,11 @@ select_expr returns[AbstractExpr tree]
         }
         | /* epsilon */ {
             // we matched "e.i"  // Q au prof
-            assert($e.tree != null);
-            $tree = $e.tree;
+            assert($e1.tree != null);
+            assert($i.tree != null);
+            $tree = new Selection($e1.tree, $i.tree);
+            setLocation($tree, $DOT);
+
         }
         )
     ;
@@ -492,7 +495,8 @@ literal returns[AbstractExpr tree]
            setLocation($tree,$blf);
         }
     | t=THIS {
-           $tree = new This(true);
+           //$tree = new This(new SymbolTable().create("this"));
+           $tree = new This(false);
            setLocation($tree, $t);
         }
     | n= NULL {
@@ -523,7 +527,7 @@ list_classes returns[ListDeclClass tree]
     ;
 
 class_decl returns[AbstractDeclClass tree]
-    : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {
+    : CLASS name=ident superclass=class_extension[$CLASS] OBRACE class_body CBRACE {
         assert($name.tree != null);
         assert($superclass.tree != null);
         assert($class_body.lst_decl_field != null);
@@ -533,7 +537,7 @@ class_decl returns[AbstractDeclClass tree]
     }
     ;
 
-class_extension returns[AbstractIdentifier tree]
+class_extension[Token s] returns[AbstractIdentifier tree]
     : EXTENDS ident {
         assert($ident.tree != null);
         $tree = $ident.tree;
@@ -542,6 +546,7 @@ class_extension returns[AbstractIdentifier tree]
     | /* epsilon */ {
         // SHOULD return tree dyal class Object
         $tree = new Identifier(new SymbolTable().create("Object"));
+        setLocation($tree, $s);
         }
     ;
 

@@ -36,7 +36,7 @@ public class DeclMethod extends AbstractDeclMethod{
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler){
         returnType.codeGen(compiler);
-        methodName.codeGen(compiler);
+        methodName.codeGenLabel(compiler);
         listParametres.codeGenListDeclParam(compiler);
         body.codeGenMethodBody(compiler);
     }
