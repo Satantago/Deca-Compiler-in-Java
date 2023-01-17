@@ -51,22 +51,19 @@ public class MethodCall extends AbstractExpr{
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        //Modification Marouane 
+        
         expr.iter(f);
         ident.iter(f); 
         lstExpr.iter(f);
-        //Modification Marouane fini  
 
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         
-        //Modification Marouane 
         expr.prettyPrint(s, prefix, false);
         ident.prettyPrint(s, prefix, false);
         lstExpr.prettyPrint(s, prefix, false);
-        //Modification Marouane fini  
 
 
 

@@ -39,10 +39,10 @@ public class Program extends AbstractProgram {
     public void verifyProgram(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify program: start");
 
-        classes.verifyListClass(compiler);
 
         main.verifyMain(compiler);
         System.out.println("Main verifié");
+        classes.verifyListClass(compiler);
 
 
 

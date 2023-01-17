@@ -52,8 +52,9 @@ public class DeclField extends AbstractDeclField{
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        type.prettyPrint(s, prefix, false);
         fieldName.prettyPrint(s, prefix, false);
+        type.prettyPrint(s, prefix, false);
+
         initialization.prettyPrint(s, prefix, true);
     }
 
@@ -63,7 +64,6 @@ public class DeclField extends AbstractDeclField{
             throws ContextualError {
         /******************type************************/
         Type veriftype = this.type.verifyType(compiler);
-        currentClass.incNumberOfFields(); 
         assert(veriftype != null);
         this.type.setType(veriftype);
         if (veriftype.isVoid()){
@@ -79,9 +79,12 @@ public class DeclField extends AbstractDeclField{
         ExpDefinition superfield = classEnv.get(fieldName.getName());
         if (superfield == null){
             // Le champ Index est 1, car il n’y a pas de champ dans Object.
-            FieldDefinition fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), visibility, currentClass,currentClass.getNumberOfFields());
-            fieldName.setDefinition(fieldDef);
+            currentClass.incNumberOfFields(); 
 
+            FieldDefinition fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), visibility, currentClass,currentClass.getNumberOfFields());
+
+            fieldName.setDefinition(fieldDef);
+            
         
         //faut traiter le else
         //Correction Marouane : derti hna field name o hia abstract identifier 
@@ -98,5 +101,6 @@ public class DeclField extends AbstractDeclField{
     else { 
         throw new ContextualError("field already exist", this.fieldName.getLocation());
     }
+
 }
 }

@@ -44,6 +44,7 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
+
         /*************************super*********************/
         if (!(this.superClassName.verifyType(compiler) instanceof ClassType)){
             throw new ContextualError(this.superClassName.getName() 
@@ -64,6 +65,7 @@ public class DeclClass extends AbstractDeclClass {
         } catch (DoubleDefException e) {
             throw new ContextualError("Intersection of EnvExps is not empty", this.className.getLocation());
         }
+       
 
 
         this.className.verifyExpr(compiler, null, classDef);
