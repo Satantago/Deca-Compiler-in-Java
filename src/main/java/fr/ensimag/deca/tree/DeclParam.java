@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.context.ParamDefinition;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -49,9 +50,22 @@ public class DeclParam extends AbstractDeclParam{
     }
 
     @Override
-    protected void verifyDeclParam(DecacCompiler compiler,
+    public Type verifyDeclParam(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Type type = this.type.verifyType(compiler);
+        ParamDefinition paramDef = new ParamDefinition(type, this.getLocation());
+        try {
+            localEnv.declare(this.paramName.getName(), paramDef);
+        } catch (DoubleDefException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return type;
+
+
+
+     
+
     }
 }

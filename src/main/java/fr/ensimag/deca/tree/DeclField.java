@@ -78,7 +78,7 @@ public class DeclField extends AbstractDeclField{
         this.initialization.verifyInitialization(compiler,veriftype, classEnv, currentClass);
 
 
-
+        System.out.println(fieldName.getName());
         /****************field **********************/
         ExpDefinition superfield = classEnv.get(fieldName.getName());
         if (superfield == null){
@@ -86,8 +86,8 @@ public class DeclField extends AbstractDeclField{
             currentClass.incNumberOfFields(); 
 
             FieldDefinition fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility, currentClass,currentClass.getNumberOfFields());
-
-            fieldName.setDefinition(fieldDef);
+ 
+            fieldName.setDefinition(fieldDef);  
             
         try{
         classEnv.declare(fieldName.getName(), fieldDef);

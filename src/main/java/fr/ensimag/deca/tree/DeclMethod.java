@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -9,7 +10,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-
+import fr.ensimag.deca.context.Signature;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
@@ -62,6 +63,33 @@ public class DeclMethod extends AbstractDeclMethod{
     protected void verifyDeclMethod(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+            Type type = returnType.verifyType(compiler); // ok 
+
+            // ClassDefinition superClass = currentClass.getSuperClass();
+
+            Signature signature = listParametres.verifyListDeclParam(compiler, localEnv, currentClass);
+
+
+            listParametres.verifyListDeclParam(compiler, localEnv, currentClass);
+
+            
+
+
+            MethodDefinition method = new MethodDefinition(type, this.getLocation(), signature,currentClass.getNumberOfMethods());
+
+
+
+            
+            try {
+                currentClass.getMembers().declare(methodName.getName(), method);
+            } catch (DoubleDefException e1) {
+                e1.printStackTrace();
+            } 
+            try {
+                localEnv.declare(methodName.getName(), method);
+            } catch (DoubleDefException e) {
+                e.printStackTrace();
+            }
     }
 }
