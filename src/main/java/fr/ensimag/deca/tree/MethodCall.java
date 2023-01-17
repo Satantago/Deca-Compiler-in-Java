@@ -29,8 +29,15 @@ public class MethodCall extends AbstractExpr{
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-     }
+
+                for( AbstractExpr e : lstExpr.getList()){
+                    e.verifyExpr(compiler, localEnv, currentClass);
+                }
+                Type type = expr.verifyExpr(compiler, localEnv, currentClass); 
+                return type;
+                 
+
+               }
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {

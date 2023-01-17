@@ -45,7 +45,6 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
         /*************************super*********************/
-
         if (!(this.superClassName.verifyType(compiler) instanceof ClassType)){
             throw new ContextualError(this.superClassName.getName() 
             + " is definetely not a class", this.superClassName.getLocation());
@@ -57,15 +56,16 @@ public class DeclClass extends AbstractDeclClass {
         /*************************name*********************/
         SymbolTable.Symbol superSymb = this.superClassName.getName();
         ClassDefinition supeer = (ClassDefinition) compiler.environmentType.defOfType(superSymb);
-        ClassDefinition classDef = new ClassDefinition(veriftyp, className.getLocation(), supeer   );
-
+        //definition of Class
+        ClassDefinition classDef = new ClassDefinition(veriftyp, className.getLocation(), supeer);
+        //adding it to the environment Type
         try{
         compiler.environmentType.declareClass(this.className.getName(), classDef);
-
-
         } catch (DoubleDefException e) {
             throw new ContextualError("Intersection of EnvExps is not empty", this.className.getLocation());
         }
+
+
         this.className.verifyExpr(compiler, null, classDef);
 
 
@@ -80,13 +80,22 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+                className.verifyType(compiler); // Verifications que la classe existe 
+                superClassName.verifyType(compiler); // Verifications que la superclasse existe  
+                listMethod.verifyListDeclMethod(compiler, null, null); // Verifications des methodes
+                listField.verifyListDeclField(compiler, null, null); // Verifications des attributs
+
+
+            
     }
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
+
+         throw new UnsupportedOperationException("not yet implemented");
+
+        
+     }
 
 
     @Override
@@ -94,8 +103,8 @@ public class DeclClass extends AbstractDeclClass {
         // Marouane Modification 
         className.prettyPrint(s, prefix, false);
         superClassName.prettyPrint(s, prefix, false);
-        listMethod.prettyPrint(s, prefix, false);
         listField.prettyPrint(s, prefix, true);
+        listMethod.prettyPrint(s, prefix, false);
         // Marouane Modification fini
 
 
@@ -106,8 +115,8 @@ public class DeclClass extends AbstractDeclClass {
         // Marouane Modification 
         className.iter(f); 
         superClassName.iter(f);
-        listMethod.iter(f);
         listField.iter(f);
+        listMethod.iter(f);
         // Marouane Modification fini
 
 
