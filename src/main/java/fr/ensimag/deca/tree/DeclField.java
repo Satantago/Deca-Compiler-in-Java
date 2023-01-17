@@ -63,6 +63,7 @@ public class DeclField extends AbstractDeclField{
     protected void verifyDeclField(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
+
         /****************visibility********************/
         
         /******************type************************/
@@ -106,5 +107,6 @@ public class DeclField extends AbstractDeclField{
     }
 
     }
+    
 }
 

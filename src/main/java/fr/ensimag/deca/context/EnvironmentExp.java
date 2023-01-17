@@ -43,11 +43,14 @@ public class EnvironmentExp {
      * symbol is undefined.
      */
     public ExpDefinition get(Symbol key) {
-        if (envExp.containsKey(key)) {
-            return envExp.get(key);
-        }
-        else if (parentEnvironment != null) {
-            return parentEnvironment.get(key);
+        EnvironmentExp parcours = this;
+        while (parcours != null){
+            if (parcours.envExp.containsKey(key)){
+                return parcours.envExp.get(key);
+            }
+            else{
+                parcours = parcours.parentEnvironment;
+            }
         }
         return null;
     }

@@ -42,13 +42,12 @@ public class EnvironmentType {
         Symbol stringSymb = compiler.createSymbol("string");
         STRING = new StringType(stringSymb);
         // not added to envTypes, it's not visible for the user.
+
         Symbol ourobjet = compiler.createSymbol("Object"); 
-       // public ClassType asClassType(String errorMessage, Location l) {
         CLASS = new ClassType(ourobjet) ; 
         envTypes.put(ourobjet,new ClassDefinition(CLASS,  Location.BUILTIN , null)); 
 
 
-        //
         
     }
 

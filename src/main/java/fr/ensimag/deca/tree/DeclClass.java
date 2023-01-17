@@ -54,9 +54,6 @@ public class DeclClass extends AbstractDeclClass {
         this.superClassName.setType(veriftyp);
 
 
-
-
-
         /*************************name*********************/
         SymbolTable.Symbol superSymb = this.superClassName.getName();
         ClassDefinition supeer = (ClassDefinition) compiler.environmentType.defOfType(superSymb);
