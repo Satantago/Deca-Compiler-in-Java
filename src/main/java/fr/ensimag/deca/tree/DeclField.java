@@ -98,7 +98,6 @@ public class DeclField extends AbstractDeclField{
             , this.visibility, currentClass,fieldFromParents.getIndex());
             currentClass.incNumberOfFields();
         }
-            
         try{
         classEnv.declare(fieldName.getName(), fieldDef);
         }

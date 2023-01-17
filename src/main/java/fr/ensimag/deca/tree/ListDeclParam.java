@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tree.DeclParam;
 
@@ -40,14 +41,16 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
      * @param currentClass 
      *          corresponds to "class" attribute (null in the main bloc).
      */    
-    void verifyListDeclParam(DecacCompiler compiler, EnvironmentExp localEnv,
+    
+    public Signature verifyListDeclParam(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
                 LOG.debug("verify listdec: start");
+                Signature sig = new Signature();
                 for (AbstractDeclParam decParam : getList()) {
-                    decParam.verifyDeclParam(compiler, localEnv, currentClass);
-                }
+                    sig.add(decParam.verifyDeclParam(compiler, localEnv, currentClass));
+                }   
                 LOG.debug("verify listdec: end");
-
+                return sig;
 
     }
 

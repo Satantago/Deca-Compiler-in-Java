@@ -9,6 +9,7 @@ import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 
+
 import java.io.PrintStream;
 
 import org.apache.commons.lang.Validate;
@@ -55,6 +56,7 @@ public class DeclClass extends AbstractDeclClass {
 
 
 
+
         /*************************name*********************/
         SymbolTable.Symbol superSymb = this.superClassName.getName();
         ClassDefinition supeer = (ClassDefinition) compiler.environmentType.defOfType(superSymb);
@@ -72,7 +74,6 @@ public class DeclClass extends AbstractDeclClass {
         this.className.setDefinition(classDef);
         this.verifyClassMembers(compiler);
 
-;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class DeclClass extends AbstractDeclClass {
 
                    
                 className.verifyType(compiler); // Verifications que la classe existe 
-                //listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
+                listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
                 listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); // Verifications des attributs
 
 

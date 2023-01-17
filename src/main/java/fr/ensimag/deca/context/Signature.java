@@ -12,8 +12,8 @@ import java.util.List;
 public class Signature {
     List<Type> args = new ArrayList<Type>();
 
-    public void add(Type t) {
-        args.add(t);
+    public void add(Object object) {
+        args.add((Type) object);
     }
     
     public Type paramNumber(int n) {
