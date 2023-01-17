@@ -3,10 +3,12 @@ package fr.ensimag.deca.context;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 
+import java.rmi.server.ObjID;
 import java.util.HashMap;
 import java.util.Map;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.Location;
+
 
 // A FAIRE: étendre cette classe pour traiter la partie "avec objet" de Déca
 /**
@@ -40,6 +42,13 @@ public class EnvironmentType {
         Symbol stringSymb = compiler.createSymbol("string");
         STRING = new StringType(stringSymb);
         // not added to envTypes, it's not visible for the user.
+        Symbol ourobjet = compiler.createSymbol("Object"); 
+       // public ClassType asClassType(String errorMessage, Location l) {
+        CLASS = new ClassType(ourobjet) ; 
+        envTypes.put(ourobjet,new ClassDefinition(CLASS,  Location.BUILTIN , null)); 
+
+
+        //
         
     }
 
@@ -67,5 +76,6 @@ public class EnvironmentType {
     public final IntType     INT;
     public final FloatType   FLOAT;
     public final StringType  STRING;
+    public final ClassType   CLASS;
     public final BooleanType BOOLEAN;
 }

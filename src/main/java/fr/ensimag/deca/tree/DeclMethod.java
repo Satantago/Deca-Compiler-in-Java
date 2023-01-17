@@ -1,7 +1,6 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -10,7 +9,6 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-import fr.ensimag.deca.context.Signature;
 
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
@@ -37,7 +35,10 @@ public class DeclMethod extends AbstractDeclMethod{
 
     @Override
     protected void codeGenDeclMethod(DecacCompiler compiler){
-        throw new UnsupportedOperationException("not yet implemented");
+        returnType.codeGen(compiler);
+        methodName.codeGenLabel(compiler);
+        listParametres.codeGenListDeclParam(compiler);
+        body.codeGenMethodBody(compiler);
     }
 
     @Override
@@ -60,20 +61,7 @@ public class DeclMethod extends AbstractDeclMethod{
     @Override
     protected void verifyDeclMethod(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
-            throws ContextualError {    
-            //    public MethodDefinition(Type type, Location location, Signature signature, int index) {
-                Type type = returnType.verifyType(compiler);
-                MethodDefinition methode_herite = currentClass.getSuperClass().getMembers().get(methodName.getName()).asMethodDefinition("Methode heritee", getLocation());
-                Signature sig = methode_herite.getSignature() ; 
-                 
-
-            MethodDefinition method = new MethodDefinition(type, getLocation() ,sig ,  currentClass.getNumberOfMethods()  );
-            try {
-                localEnv.declare(methodName.getName(), method);
-            } catch (DoubleDefException e) {
-                e.printStackTrace();
-                System.out.println("Methode deja definie");
-            }
-
+            throws ContextualError {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

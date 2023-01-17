@@ -44,7 +44,6 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-
         /*************************super*********************/
         if (!(this.superClassName.verifyType(compiler) instanceof ClassType)){
             throw new ContextualError(this.superClassName.getName() 
@@ -53,39 +52,38 @@ public class DeclClass extends AbstractDeclClass {
         ClassType veriftyp = (ClassType) this.superClassName.verifyType(compiler);
         this.superClassName.setType(veriftyp);
 
+        System.out.println("superClassName : " + this.superClassName.getName());
+        System.out.println(veriftyp);
+
+
 
         /*************************name*********************/
         SymbolTable.Symbol superSymb = this.superClassName.getName();
         ClassDefinition supeer = (ClassDefinition) compiler.environmentType.defOfType(superSymb);
-        //definition of Class
         ClassDefinition classDef = new ClassDefinition(veriftyp, className.getLocation(), supeer);
-        //adding it to the environment Type
         try{
+            System.out.println(this.className.getName());
         compiler.environmentType.declareClass(this.className.getName(), classDef);
+        className.setDefinition(classDef);
         } catch (DoubleDefException e) {
             throw new ContextualError("Intersection of EnvExps is not empty", this.className.getLocation());
         }
        
 
+        //this.className.verifyExpr(compiler  , classDef.getMembers() , classDef); 
 
-        this.className.verifyExpr(compiler, null, classDef);
-
-
-        //ListdeclMethod
-        this.listMethod.verifyListDeclMethod(compiler, null, classDef);
-
-
-        //Listdecl
-        this.listField.verifyListDeclField(compiler, null, classDef);
+;
     }
 
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
+                 //get the environmentExp of the class 
+
+                   
                 className.verifyType(compiler); // Verifications que la classe existe 
-                superClassName.verifyType(compiler); // Verifications que la superclasse existe  
-                listMethod.verifyListDeclMethod(compiler, null, null); // Verifications des methodes
-                listField.verifyListDeclField(compiler, null, null); // Verifications des attributs
+                listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
+                listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); // Verifications des attributs
 
 
             

@@ -415,8 +415,11 @@ select_expr returns[AbstractExpr tree]
         }
         | /* epsilon */ {
             // we matched "e.i"  // Q au prof
-            assert($e.tree != null);
-            $tree = $e.tree;
+            assert($e1.tree != null);
+            assert($i.tree != null);
+            $tree = new Selection($e1.tree, $i.tree);
+            setLocation($tree, $DOT);
+
         }
         )
     ;
@@ -492,7 +495,8 @@ literal returns[AbstractExpr tree]
            setLocation($tree,$blf);
         }
     | t=THIS {
-           $tree = new This(true);
+           //$tree = new This(new SymbolTable().create("this"));
+           $tree = new This(false);
            setLocation($tree, $t);
         }
     | n= NULL {

@@ -147,6 +147,10 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     protected void codeGenStore(DecacCompiler compiler) {}
 
+
+    protected void codeGenSuperClass(DecacCompiler compiler) {}
+    protected void codeGenClass(DecacCompiler compiler) {}
+    protected void codeGenLabel(DecacCompiler compiler){}
     /**
      * Methode permet de generer le code dans les condition d'iterration de if/while
      * @param compiler

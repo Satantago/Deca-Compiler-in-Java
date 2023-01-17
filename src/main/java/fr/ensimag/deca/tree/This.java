@@ -7,6 +7,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
+
 import java.io.PrintStream;
 
 /**
@@ -18,6 +20,7 @@ import java.io.PrintStream;
 public class This extends AbstractExpr {
 
     private boolean bool;
+    private Symbol sym;
     public This() {
         this.bool = false;
     }
@@ -25,7 +28,9 @@ public class This extends AbstractExpr {
         this.bool = b;
     }
 
-
+    public This(Symbol s) {
+        this.sym = s;
+    }
     public boolean getbool() {
         return bool;
     }
@@ -56,6 +61,6 @@ public class This extends AbstractExpr {
 
     @Override
     String prettyPrintNode() {
-        return "This.";
+        return "This";
     }
 }
