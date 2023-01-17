@@ -80,16 +80,15 @@ public class DeclMethod extends AbstractDeclMethod{
 
 
 
-            
-            try {
-                currentClass.getMembers().declare(methodName.getName(), method);
-            } catch (DoubleDefException e1) {
-                e1.printStackTrace();
-            } 
+
             try {
                 localEnv.declare(methodName.getName(), method);
             } catch (DoubleDefException e) {
-                e.printStackTrace();
+                throw new ContextualError("Double definition of method " + methodName.getName() + " in class " + currentClass.getNature(), this.getLocation());
             }
+          
     }
 }
+
+
+
