@@ -95,7 +95,10 @@ public class DeclMethod extends AbstractDeclMethod{
 
             //listParametres.verifyListDeclParam(compiler, localEnv, currentClass);
 
-            
+            //reject names such as int float ...
+            if (!(compiler.environmentType.defOfType(this.methodName.getName()) instanceof ClassDefinition)) {
+                throw new ContextualError("Invalid name", getLocation());
+            }
 
             MethodDefinition methodef;
 
