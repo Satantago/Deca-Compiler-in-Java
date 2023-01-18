@@ -8,6 +8,14 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
+
 
 
 import java.io.PrintStream;
@@ -64,6 +72,10 @@ public class DeclClass extends AbstractDeclClass {
         } catch (DoubleDefException e) {
             throw new ContextualError(this.className.getName() + " is already defined", this.className.getLocation());
         }
+       
+        if (!(compiler.environmentType.defOfType(this.className.getName()) instanceof ClassDefinition)) {
+            throw new ContextualError("Invalid name", getLocation());
+        }
         this.className.setDefinition(classDef);
         this.className.setType(mytype);
         this.verifyClassMembers(compiler);
@@ -83,6 +95,7 @@ public class DeclClass extends AbstractDeclClass {
 
             
     }
+
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
@@ -93,24 +106,48 @@ public class DeclClass extends AbstractDeclClass {
      }
 
 
+    
+
+    @Override
+    protected void codeGenDeclClass(DecacCompiler compiler){
+        superClassName.codeGenSuperClass(compiler);
+        className.codeGenClass(compiler);
+        listMethod.codeGenListDeclMethodLabel(compiler,className.getName().getName());
+    }
+    @Override
+    protected void codeGenDeclClassMethode(DecacCompiler compiler){
+
+    }
+
+    
+
+    @Override
+    protected void codeGenDeclClassInit(DecacCompiler compiler){
+        System.out.println(superClassName.getName().getName() + "    //  "+ className.getName().getName());
+        compiler.addLabel(new Label("init."+className.getName().getName()));
+        if(superClassName.getName().getName()!="Object"){
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB ),Register.R0));
+            compiler.addInstruction(new PUSH(Register.R0));
+            compiler.addInstruction(new BSR(new Label("init."+superClassName.getName().getName())));
+            compiler.addInstruction(new SUBSP(1));
+        }
+        listField.codeGenListDeclFieldInit(compiler,className.getName().getName());
+        listMethod.codeGenListDeclMethod(compiler,className.getName().getName());
+    }
+
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         className.prettyPrint(s, prefix, false);
         superClassName.prettyPrint(s, prefix, false);
-        listField.prettyPrint(s, prefix, true);
-        listMethod.prettyPrint(s, prefix, false);
-
-
-    }
+        listField.prettyPrint(s, prefix, false);
+        listMethod.prettyPrint(s, prefix, true);
+   }
 
     @Override
     protected void iterChildren(TreeFunction f) {
         className.iter(f); 
         superClassName.iter(f);
         listField.iter(f);
-        listMethod.iter(f);
-
-
+        listMethod.iter(f); 
     }
-
 }

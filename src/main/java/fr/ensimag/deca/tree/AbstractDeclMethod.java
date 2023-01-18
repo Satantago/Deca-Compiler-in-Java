@@ -19,7 +19,8 @@ public abstract class AbstractDeclMethod extends Tree {
      * 
      * @param compiler
      */
-    protected abstract void codeGenDeclMethod(DecacCompiler compiler);
+    protected abstract void codeGenDeclMethod(DecacCompiler compiler,String s);
+    protected abstract void codeGenDeclMethodLabel(DecacCompiler compiler,String s);
 
 
     /**

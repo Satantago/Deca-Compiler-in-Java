@@ -6,14 +6,20 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
-import fr.ensimag.deca.tree.Visibility;
+import fr.ensimag.ima.pseudocode.instructions.SUB;
 
 public class DeclField extends AbstractDeclField{
     final private Visibility visibility;
@@ -40,7 +46,20 @@ public class DeclField extends AbstractDeclField{
 
     @Override
     protected void codeGenDeclField(DecacCompiler compiler){
-        throw new UnsupportedOperationException("not yet implemented");
+            if(initialization.isInit()){
+                initialization.codeGenInitFields(compiler);            
+            }
+            else{
+                compiler.addInstruction(new LOAD(0,Register.R0));
+            }
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB ),Register.R1));
+            compiler.addInstruction(new STORE(Register.R0,new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1)));
+            fieldName.getExpDefinition().setOperand(new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1));
+            compiler.getRegisterAllocator().incCmptInitClass();
+    }
+    @Override
+    protected void codeGenDeclFieldInit(DecacCompiler compiler,int indice){
+      
     }
 
     @Override
@@ -103,7 +122,8 @@ public class DeclField extends AbstractDeclField{
         }
         catch (EnvironmentExp.DoubleDefException e){
             throw new ContextualError("field already exist", this.fieldName.getLocation());
-        } 
-}
+        }
+    
 }
 
+}

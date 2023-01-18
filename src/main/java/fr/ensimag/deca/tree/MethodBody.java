@@ -39,7 +39,8 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not yet implemented");        
+        declVariables.codeGenListDeclVar(compiler);
+        insts.codeGenListInst(compiler);
     }
     
     @Override
