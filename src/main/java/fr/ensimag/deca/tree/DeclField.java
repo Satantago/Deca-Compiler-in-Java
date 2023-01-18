@@ -95,11 +95,6 @@ public class DeclField extends AbstractDeclField{
         }
         */
         }
-        //rejects names such int, float ....
-        if (compiler.environmentType.defOfType(name) != null) {
-            if (!(compiler.environmentType.defOfType(name) instanceof ClassDefinition)){
-            throw new ContextualError("Invalid name", getLocation());
-        }
         currentClass.incNumberOfFields();
         fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility, currentClass, currentClass.getNumberOfFields());
         fieldName.setDefinition(fieldDef);

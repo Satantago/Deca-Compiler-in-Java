@@ -59,10 +59,14 @@ public class ClassDefinition extends TypeDefinition {
     }
 
     private final EnvironmentExp members;
+    private final EnvironmentExp params;
     private final ClassDefinition superClass; 
 
     public EnvironmentExp getMembers() {
         return members;
+    }
+    public EnvironmentExp getparams() {
+        return params;
     }
 
     public ClassDefinition(ClassType type, Location location, ClassDefinition superClass) {
@@ -76,6 +80,7 @@ public class ClassDefinition extends TypeDefinition {
             parent = null;
         }
         members = new EnvironmentExp(parent);
+        params = new EnvironmentExp(null);
         this.superClass = superClass;
     }
 

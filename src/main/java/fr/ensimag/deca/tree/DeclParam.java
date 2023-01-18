@@ -59,13 +59,11 @@ public class DeclParam extends AbstractDeclParam{
             throw new ContextualError("type different de void", this.type.getLocation());
         }
         ParamDefinition paramDef = new ParamDefinition(stype, this.getLocation());
-        /* 
         try {
             localEnv.declare(this.paramName.getName(), paramDef);
         } catch (DoubleDefException e) {
             throw new ContextualError("A field or method is already defined by " + paramName, paramName.getLocation());
         }
-        */
         paramName.setDefinition(paramDef);
         return stype;
     }

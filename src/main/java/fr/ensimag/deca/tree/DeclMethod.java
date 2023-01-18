@@ -95,11 +95,7 @@ public class DeclMethod extends AbstractDeclMethod{
 
             //listParametres.verifyListDeclParam(compiler, localEnv, currentClass);
 
-            //rejects names such int, float ....
-            if (compiler.environmentType.defOfType(name) != null) {
-                if (!(compiler.environmentType.defOfType(name) instanceof ClassDefinition)){
-                    throw new ContextualError("Invalid name", getLocation());
-        }
+
 
             MethodDefinition methodef;
 
@@ -121,7 +117,7 @@ public class DeclMethod extends AbstractDeclMethod{
                 if (!(this.subtype(compiler, type, parentreturnType))){
                     throw new ContextualError("returntype of the child is not a subtype of the parent's", methodName.getLocation());
                 }
-                
+    
             }
             else {
             currentClass.incNumberOfMethods();
@@ -135,8 +131,10 @@ public class DeclMethod extends AbstractDeclMethod{
             } catch (DoubleDefException e) {
                 throw new ContextualError("Double definition of method " + methodName.getName() + " in class " + currentClass.getNature(), this.getLocation());
             }
+            body.verifyMethodBody(compiler, currentClass);
     }
 }
+
 
 
 
