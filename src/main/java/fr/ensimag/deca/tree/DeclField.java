@@ -84,29 +84,26 @@ public class DeclField extends AbstractDeclField{
         /****************field ***********************/
         FieldDefinition fieldDef;
         ExpDefinition superfield = classEnv.get(fieldName.getName());
-        if (superfield == null){
-            currentClass.incNumberOfFields();
-            fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility
-            , currentClass, currentClass.getNumberOfFields());
-            fieldName.setDefinition(fieldDef);
-            }
-        else {// superfield is found in of the current classes parents
+        if (!(superfield == null)){
             if (!(superfield.isField())){
-                throw new ContextualError("A method is already defined by this name", this.fieldName.getLocation());
+                throw new ContextualError("A method or param is already defined by " + fieldName.getName(), this.fieldName.getLocation());
             }
-            FieldDefinition fieldFromParents = (FieldDefinition) superfield;
-            fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation()
-            , this.visibility, currentClass,fieldFromParents.getIndex());
-            currentClass.incNumberOfFields();
+        /*
+            //If a param has the same name of the field in the current class
+            else if (superfield.isParam() && classEnv.envExp.containsKey(fieldName.getName())){
+                throw new ContextualError("A param is already defined by this name", this.fieldName.getLocation());
         }
+        */
+        currentClass.incNumberOfFields();
+        fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility, currentClass, currentClass.getNumberOfFields());
+        fieldName.setDefinition(fieldDef);
         try{
         classEnv.declare(fieldName.getName(), fieldDef);
         }
         catch (EnvironmentExp.DoubleDefException e){
             throw new ContextualError("field already exist", this.fieldName.getLocation());
+        }
     }
-
-    }
-    
+}
 }
 

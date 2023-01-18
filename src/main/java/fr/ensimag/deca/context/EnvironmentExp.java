@@ -48,10 +48,8 @@ public class EnvironmentExp {
             if (parcours.envExp.containsKey(key)){
                 return parcours.envExp.get(key);
             }
-            else{
-                parcours = parcours.parentEnvironment;
+            parcours = parcours.parentEnvironment;
             }
-        }
         return null;
     }
 

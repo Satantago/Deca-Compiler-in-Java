@@ -69,6 +69,7 @@ public class DeclClass extends AbstractDeclClass {
             throw new ContextualError("Invalid name", getLocation());
         }
         this.className.setDefinition(classDef);
+        this.className.setType(mytype);
         this.verifyClassMembers(compiler);
 
     }
@@ -79,7 +80,7 @@ public class DeclClass extends AbstractDeclClass {
                  //get the environmentExp of the class 
 
                    
-                className.verifyType(compiler); // Verifications que la classe existe 
+                //className.verifyType(compiler); // Verifications que la classe existe 
                 listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
                 listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); // Verifications des attributs
 
