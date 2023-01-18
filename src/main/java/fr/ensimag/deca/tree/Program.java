@@ -53,9 +53,11 @@ public class Program extends AbstractProgram {
        
         compiler.addComment("Main program");
         compiler.addInstruction(new LOAD(0,Register.R0));
-        classes.codGenListDeclClass(compiler);
-        main.codeGenMain(compiler);
+        classes.codGenListDeclClass(compiler); // Cree la table des methode
+        main.codeGenMain(compiler); // PRog main
         compiler.addInstruction(new HALT());
+        classes.codGenListDeclClassInit(compiler); //Init field + methode squellete
+        //classes.codGenListDeclClassMethode(compiler);
 
 
         Label pile = new Label("pile_pleine");

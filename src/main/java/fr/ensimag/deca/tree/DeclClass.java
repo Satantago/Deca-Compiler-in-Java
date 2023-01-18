@@ -95,8 +95,16 @@ public class DeclClass extends AbstractDeclClass {
     protected void codeGenDeclClass(DecacCompiler compiler){
         superClassName.codeGenSuperClass(compiler);
         className.codeGenClass(compiler);
-        listField.codeGenListDeclField(compiler);
-        listMethod.codeGenListDeclMethod(compiler);
+        listMethod.codeGenListDeclMethodLabel(compiler,className.getName().getName());
+    }
+    @Override
+    protected void codeGenDeclClassMethode(DecacCompiler compiler){
+
+    }
+    @Override
+    protected void codeGenDeclClassInit(DecacCompiler compiler){
+        listField.codeGenListDeclFieldInit(compiler,className.getName().getName());
+        listMethod.codeGenListDeclMethod(compiler,className.getName().getName());
     }
 
     @Override
