@@ -103,8 +103,7 @@ public class DeclField extends AbstractDeclField{
         }
         catch (EnvironmentExp.DoubleDefException e){
             throw new ContextualError("field already exist", this.fieldName.getLocation());
-        }
-    
+        } 
 }
 }
 

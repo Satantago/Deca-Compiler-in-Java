@@ -62,7 +62,7 @@ public class DeclClass extends AbstractDeclClass {
         try{
             compiler.environmentType.declareClass(this.className.getName(), classDef);
         } catch (DoubleDefException e) {
-            throw new ContextualError("Intersection of EnvExps is not empty", this.className.getLocation());
+            throw new ContextualError(this.className.getName() + " is already defined", this.className.getLocation());
         }
        
         if (!(compiler.environmentType.defOfType(this.className.getName()) instanceof ClassDefinition)) {
