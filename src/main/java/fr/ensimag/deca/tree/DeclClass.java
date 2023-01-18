@@ -65,7 +65,9 @@ public class DeclClass extends AbstractDeclClass {
             throw new ContextualError(this.className.getName() + " is already defined", this.className.getLocation());
         }
        
-        if (!(compiler.environmentType.defOfType(this.className.getName()) instanceof ClassDefinition)) {
+        //rejects names such int, float ....
+        if (compiler.environmentType.defOfType(name) != null) {
+            if (!(compiler.environmentType.defOfType(name) instanceof ClassDefinition)){
             throw new ContextualError("Invalid name", getLocation());
         }
         this.className.setDefinition(classDef);
