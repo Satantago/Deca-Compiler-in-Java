@@ -10,7 +10,7 @@ import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
@@ -74,6 +74,7 @@ public class DeclField extends AbstractDeclField{
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         type.prettyPrint(s, prefix, false);
         fieldName.prettyPrint(s, prefix, false);
+
         initialization.prettyPrint(s, prefix, true);
     }
 

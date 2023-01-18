@@ -49,19 +49,25 @@ public class ClassType extends Type {
     protected ClassType(Symbol className) {
         super(className);
     }
-    
+
 
     @Override
     public boolean sameType(Type otherType) {
-        throw new UnsupportedOperationException("not yet implemented");
+        return otherType.isClass();
     }
 
     /**
      * Return true if potentialSuperClass is a superclass of this class.
      */
     public boolean isSubClassOf(ClassType potentialSuperClass) {
-        throw new UnsupportedOperationException("not yet implemented"); 
+        ClassDefinition parcoursVar = this.getDefinition().getSuperClass();
+        while (parcoursVar != null) {
+            if (parcoursVar.equals(potentialSuperClass.getDefinition())){
+                return true;
+            }
+            parcoursVar = parcoursVar.getSuperClass();
+        }
+        return false;
     }
-
 
 }

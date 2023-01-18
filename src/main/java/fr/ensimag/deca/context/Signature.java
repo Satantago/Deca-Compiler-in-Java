@@ -12,8 +12,8 @@ import java.util.List;
 public class Signature {
     List<Type> args = new ArrayList<Type>();
 
-    public void add(Type t) {
-        args.add(t);
+    public void add(Object object) {
+        args.add((Type) object);
     }
     
     public Type paramNumber(int n) {
@@ -22,6 +22,23 @@ public class Signature {
     
     public int size() {
         return args.size();
+    }
+
+    @Override
+    public boolean equals(Object ob){
+        if (this == ob) {
+            return true;
+        }
+        Signature other = (Signature) ob;
+        if (this.size() != other.size()) {
+            return false;
+        }
+        for (int i=0; i< this.size(); i++) {
+            if (!(this.paramNumber(i).sameType(other.paramNumber(i)))){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -29,8 +29,15 @@ public class MethodCall extends AbstractExpr{
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-     }
+
+                for( AbstractExpr e : lstExpr.getList()){
+                    e.verifyExpr(compiler, localEnv, currentClass);
+                }
+                Type type = expr.verifyExpr(compiler, localEnv, currentClass); 
+                return type;
+                 
+
+               }
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
@@ -44,22 +51,19 @@ public class MethodCall extends AbstractExpr{
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        //Modification Marouane 
+        
         expr.iter(f);
         ident.iter(f); 
         lstExpr.iter(f);
-        //Modification Marouane fini  
 
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         
-        //Modification Marouane 
         expr.prettyPrint(s, prefix, false);
         ident.prettyPrint(s, prefix, false);
         lstExpr.prettyPrint(s, prefix, false);
-        //Modification Marouane fini  
 
 
 

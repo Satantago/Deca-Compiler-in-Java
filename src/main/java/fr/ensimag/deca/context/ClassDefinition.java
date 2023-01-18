@@ -59,10 +59,14 @@ public class ClassDefinition extends TypeDefinition {
     }
 
     private final EnvironmentExp members;
+    private final EnvironmentExp params;
     private final ClassDefinition superClass; 
 
     public EnvironmentExp getMembers() {
         return members;
+    }
+    public EnvironmentExp getparams() {
+        return params;
     }
 
     public ClassDefinition(ClassType type, Location location, ClassDefinition superClass) {
@@ -70,11 +74,24 @@ public class ClassDefinition extends TypeDefinition {
         EnvironmentExp parent;
         if (superClass != null) {
             parent = superClass.getMembers();
+            this.setNumberOfFields(superClass.getNumberOfFields());
+            this.setNumberOfMethods(superClass.getNumberOfMethods());
         } else {
             parent = null;
         }
         members = new EnvironmentExp(parent);
+        params = new EnvironmentExp(null);
         this.superClass = superClass;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof ClassDefinition) {
+            ClassDefinition other = (ClassDefinition) obj;
+            return this.getType().getName().equals(other.getType().getName());
+        }
+        return false;
+    }
+
     
 }

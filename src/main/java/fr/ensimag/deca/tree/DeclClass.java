@@ -17,6 +17,7 @@ import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 
 
+
 import java.io.PrintStream;
 
 import org.apache.commons.lang.Validate;
@@ -69,7 +70,7 @@ public class DeclClass extends AbstractDeclClass {
         try{
             compiler.environmentType.declareClass(this.className.getName(), classDef);
         } catch (DoubleDefException e) {
-            throw new ContextualError("Intersection of EnvExps is not empty", this.className.getLocation());
+            throw new ContextualError(this.className.getName() + " is already defined", this.className.getLocation());
         }
        
         if (!(compiler.environmentType.defOfType(this.className.getName()) instanceof ClassDefinition)) {
@@ -98,8 +99,11 @@ public class DeclClass extends AbstractDeclClass {
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
+
+         throw new UnsupportedOperationException("not yet implemented");
+
+        
+     }
 
 
     
