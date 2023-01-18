@@ -43,17 +43,13 @@ public class DeclMethod extends AbstractDeclMethod{
         //ICIC
         compiler.addLabel(new Label("code."+s+"."+methodName.getName().getName()));
 
-        listParametres.codeGenListDeclParam(compiler);
+
         // set operand (-3)LB ...
-         
+        listParametres.codeGenListDeclParam(compiler);
 
+        // 
+        body.codeGenMethodBody(compiler);
 
-         
-
-        // returnType.codeGen(compiler);
-        // methodName.codeGenLabel(compiler);
-        // listParametres.codeGenListDeclParam(compiler);
-        // body.codeGenMethodBody(compiler);
     }
     protected void codeGenDeclMethodLabel(DecacCompiler compiler,String s){
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code."+s+"."+methodName.getName().getName())),Register.R0));  

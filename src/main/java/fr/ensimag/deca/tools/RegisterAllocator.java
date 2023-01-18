@@ -17,6 +17,8 @@ public class RegisterAllocator {
     private boolean[] registerStatus; // Etat des registres (utilise ou non)
     private int nbreMaxRegistre = 16; // Nombre maximal de registres disponibles
     private int maxSP;// Nombre de registre max dans la pile utilise
+    private int cmptInitClass;
+    private int cmptInitParam;
     
     // Constructeur
     public RegisterAllocator(){
@@ -24,6 +26,8 @@ public class RegisterAllocator {
         this.nbrSP = 2;
         this.maxSP = 2;
         this.nbrClass = 1;
+        this.cmptInitParam = -3;
+        this.cmptInitClass = 0;
         this.registerStatus = new boolean[nbreMaxRegistre];
         this.registerUsed = new ArrayDeque<>();
         this.listeGB = new LinkedList<>();
@@ -33,6 +37,26 @@ public class RegisterAllocator {
             this.registerStatus[i]=false;
         }
     }
+
+    public int getCmptInitClass(){
+        return cmptInitClass;
+    }
+
+    public void decCmptInitParam(){
+        cmptInitParam --;
+    }
+
+    public int getCmptInitParam(){
+        return cmptInitParam;
+    }
+
+    public void incCmptInitClass(){
+        cmptInitClass ++;
+    }
+    public void initCmptInitParam(){
+        cmptInitClass = -3;
+    }
+
     public int getMaxSP(){
         return maxSP;
     }

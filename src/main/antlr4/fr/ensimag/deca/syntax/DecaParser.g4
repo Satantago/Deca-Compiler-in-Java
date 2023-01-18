@@ -602,7 +602,7 @@ decl_field[Visibility v, ListDeclField l, AbstractIdentifier t]
         setLocation(initial, $EQUALS);
         }
       )? {
-        field = new DeclField($v, $i.tree, $t, initial);
+        field = new DeclField($v, $t, $i.tree, initial);
         $l.add(field);
         setLocation(field, $i.start);        
         }

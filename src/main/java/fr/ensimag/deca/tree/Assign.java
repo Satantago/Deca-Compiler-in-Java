@@ -42,7 +42,9 @@ public class Assign extends AbstractBinaryExpr {
         super.getRightOperand().codeGen(compiler);
         super.getLeftOperand().codeGenStore(compiler);
     }
-
+    // protected void codeGenIter(DecacCompiler compiler) {
+        
+    // }
     @Override
     protected String getOperatorName() {
         return "=";

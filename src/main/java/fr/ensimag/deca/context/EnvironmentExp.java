@@ -43,12 +43,13 @@ public class EnvironmentExp {
      * symbol is undefined.
      */
     public ExpDefinition get(Symbol key) {
-        if (envExp.containsKey(key)) {
-            return envExp.get(key);
-        }
-        else if (parentEnvironment != null) {
-            return parentEnvironment.get(key);
-        }
+        EnvironmentExp parcours = this;
+        while (parcours != null){
+            if (parcours.envExp.containsKey(key)){
+                return parcours.envExp.get(key);
+            }
+            parcours = parcours.parentEnvironment;
+            }
         return null;
     }
 
@@ -71,6 +72,10 @@ public class EnvironmentExp {
         if (envExp.containsKey(name)){
                 throw new DoubleDefException();
         }
+        /*else if (parentEnvironment != null && parentEnvironment.envExp.containsKey(name)){
+            envExp.put(name, def);
+        }
+        */
         else {
             envExp.put(name, def);
         }

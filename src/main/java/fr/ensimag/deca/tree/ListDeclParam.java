@@ -55,5 +55,6 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
         for (AbstractDeclParam i : getList()) {
             i.codeGenDeclParam(compiler);
         }
+        compiler.getRegisterAllocator().initCmptInitParam();
     }
 }

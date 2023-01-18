@@ -8,6 +8,14 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
+
 
 import java.io.PrintStream;
 
@@ -45,7 +53,6 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
         /*************************super*********************/
-
         if (!(this.superClassName.verifyType(compiler) instanceof ClassType)){
             throw new ContextualError(this.superClassName.getName() 
             + " is definetely not a class", this.superClassName.getLocation());
@@ -57,31 +64,37 @@ public class DeclClass extends AbstractDeclClass {
         /*************************name*********************/
         SymbolTable.Symbol superSymb = this.superClassName.getName();
         ClassDefinition supeer = (ClassDefinition) compiler.environmentType.defOfType(superSymb);
-        ClassDefinition classDef = new ClassDefinition(veriftyp, className.getLocation(), supeer   );
-
+        ClassType mytype = new ClassType(className.getName(), className.getLocation(), supeer);
+        ClassDefinition classDef = new ClassDefinition(mytype, className.getLocation(), supeer);
         try{
-        compiler.environmentType.declareClass(this.className.getName(), classDef);
-
-
+            compiler.environmentType.declareClass(this.className.getName(), classDef);
         } catch (DoubleDefException e) {
             throw new ContextualError("Intersection of EnvExps is not empty", this.className.getLocation());
         }
-        this.className.verifyExpr(compiler, null, classDef);
+       
+        if (!(compiler.environmentType.defOfType(this.className.getName()) instanceof ClassDefinition)) {
+            throw new ContextualError("Invalid name", getLocation());
+        }
+        this.className.setDefinition(classDef);
+        this.className.setType(mytype);
+        this.verifyClassMembers(compiler);
 
-
-        //ListdeclMethod
-        this.listMethod.verifyListDeclMethod(compiler, null, classDef);
-
-
-        //Listdecl
-        this.listField.verifyListDeclField(compiler, null, classDef);
     }
 
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+                 //get the environmentExp of the class 
+
+                   
+                //className.verifyType(compiler); // Verifications que la classe existe 
+                listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
+                listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); // Verifications des attributs
+
+
+            
     }
+
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
@@ -101,8 +114,19 @@ public class DeclClass extends AbstractDeclClass {
     protected void codeGenDeclClassMethode(DecacCompiler compiler){
 
     }
+
+    
+
     @Override
     protected void codeGenDeclClassInit(DecacCompiler compiler){
+        System.out.println(superClassName.getName().getName() + "    //  "+ className.getName().getName());
+        compiler.addLabel(new Label("init."+className.getName().getName()));
+        if(superClassName.getName().getName()!="Object"){
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB ),Register.R0));
+            compiler.addInstruction(new PUSH(Register.R0));
+            compiler.addInstruction(new BSR(new Label("init."+superClassName.getName().getName())));
+            compiler.addInstruction(new SUBSP(1));
+        }
         listField.codeGenListDeclFieldInit(compiler,className.getName().getName());
         listMethod.codeGenListDeclMethod(compiler,className.getName().getName());
     }

@@ -16,7 +16,8 @@ public abstract class AbstractInitialization extends Tree {
     
     protected abstract void codeGenInitialization(DecacCompiler compiler);
     protected abstract boolean isInit();
-    
+
+    protected abstract void codeGenInitFields(DecacCompiler compiler);
 
     /**
      * Implements non-terminal "initialization" of [SyntaxeContextuelle] in pass 3
