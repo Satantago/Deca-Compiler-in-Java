@@ -7,6 +7,7 @@ import java.rmi.server.ObjID;
 import java.util.HashMap;
 import java.util.Map;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.deca.tree.DeclMethod;
 import fr.ensimag.deca.tree.Location;
 
 
@@ -44,10 +45,19 @@ public class EnvironmentType {
         // not added to envTypes, it's not visible for the user.
 
         Symbol ourobjet = compiler.createSymbol("Object"); 
-        CLASS = new ClassType(ourobjet) ; 
-        envTypes.put(ourobjet,new ClassDefinition(CLASS,  Location.BUILTIN , null)); 
-
-
+        CLASS = new ClassType(ourobjet); 
+        envTypes.put(ourobjet,new ClassDefinition(CLASS,  Location.BUILTIN , null));
+        //Signature equals
+        Symbol equal = compiler.createSymbol("equals");
+        Signature sig = new Signature();
+        sig.add(CLASS);
+        MethodDefinition obEquals = new MethodDefinition(BOOLEAN, Location.BUILTIN, sig, 0);
+        ClassDefinition obDef = (ClassDefinition) envTypes.get(ourobjet);
+        try {
+        obDef.getMembers().declare(equal, obEquals);
+        obDef.incNumberOfMethods();
+        } catch (EnvironmentExp.DoubleDefException d) {
+        }
         
     }
 

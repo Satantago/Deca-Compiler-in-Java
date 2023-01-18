@@ -94,6 +94,7 @@ public class DeclField extends AbstractDeclField{
                 throw new ContextualError("A param is already defined by this name", this.fieldName.getLocation());
         }
         */
+        }
         currentClass.incNumberOfFields();
         fieldDef = new FieldDefinition(veriftype, this.fieldName.getLocation(), this.visibility, currentClass, currentClass.getNumberOfFields());
         fieldName.setDefinition(fieldDef);
@@ -103,7 +104,7 @@ public class DeclField extends AbstractDeclField{
         catch (EnvironmentExp.DoubleDefException e){
             throw new ContextualError("field already exist", this.fieldName.getLocation());
         }
-    }
+    
 }
 }
 

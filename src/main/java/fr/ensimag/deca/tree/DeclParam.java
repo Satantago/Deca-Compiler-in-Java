@@ -53,21 +53,20 @@ public class DeclParam extends AbstractDeclParam{
     public Type verifyDeclParam(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        Type type = this.type.verifyType(compiler);
-        ParamDefinition paramDef = new ParamDefinition(type, this.getLocation());
+        Type stype = this.type.verifyType(compiler);
+        this.type.setType(stype);
+        if (stype.isVoid()){
+            throw new ContextualError("type different de void", this.type.getLocation());
+        }
+        ParamDefinition paramDef = new ParamDefinition(stype, this.getLocation());
+        /* 
         try {
             localEnv.declare(this.paramName.getName(), paramDef);
         } catch (DoubleDefException e) {
-
-            System.out.println("Erreur : parametre deja defini");
-
-            e.printStackTrace();
+            throw new ContextualError("A field or method is already defined by " + paramName, paramName.getLocation());
         }
-        return type;
-
-
-
-     
-
+        */
+        paramName.setDefinition(paramDef);
+        return stype;
     }
 }

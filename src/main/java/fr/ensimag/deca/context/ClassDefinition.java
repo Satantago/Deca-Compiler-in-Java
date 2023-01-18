@@ -70,11 +70,23 @@ public class ClassDefinition extends TypeDefinition {
         EnvironmentExp parent;
         if (superClass != null) {
             parent = superClass.getMembers();
+            this.setNumberOfFields(superClass.getNumberOfFields());
+            this.setNumberOfMethods(superClass.getNumberOfMethods());
         } else {
             parent = null;
         }
         members = new EnvironmentExp(parent);
         this.superClass = superClass;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof ClassDefinition) {
+            ClassDefinition other = (ClassDefinition) obj;
+            return this.getType().getName().equals(other.getType().getName());
+        }
+        return false;
+    }
+
     
 }
