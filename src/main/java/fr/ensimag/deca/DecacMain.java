@@ -52,7 +52,10 @@ public class DecacMain {
                 compiler.compile();
                 compiler.displayIMAProgram();  
             } 
-        }        
+        }       
+
+
+
 
         if (options.getParallel()) {
             // A FAIRE : instancier DecacCompiler pour chaque fichier à
