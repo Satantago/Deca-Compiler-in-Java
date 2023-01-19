@@ -64,7 +64,7 @@ public class ClassType extends Type {
      * Return true if potentialSuperClass is a superclass of this class.
      */
     public boolean isSubClassOf(ClassType potentialSuperClass) {
-        ClassDefinition parcoursVar = this.getDefinition().getSuperClass();
+        ClassDefinition parcoursVar = this.getDefinition();
         while (parcoursVar != null) {
             if (parcoursVar.equals(potentialSuperClass.getDefinition())){
                 return true;

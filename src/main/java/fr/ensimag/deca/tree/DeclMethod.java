@@ -64,7 +64,7 @@ public class DeclMethod extends AbstractDeclMethod{
     /*
      * Verifies if type1 is subtype of type2
      */
-    boolean subtype(DecacCompiler compiler, Type type1, Type type2) {
+    boolean assign_compatible(DecacCompiler compiler, Type type1, Type type2) {
         try {
             ClassType newtype1 = (ClassType) type1;
             ClassType newtype2 = (ClassType) type2;
@@ -73,10 +73,10 @@ public class DeclMethod extends AbstractDeclMethod{
         catch (ClassCastException e) {
         }
         boolean b = ((type2.isFloat()) && (type1.isInt()));
-            if (!(b || type1.sameType(type2))){
-                return false;
+            if ((b || type1.sameType(type2))){
+                return true;
             }
-            return true;
+            return false;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class DeclMethod extends AbstractDeclMethod{
             methodName.setDefinition(methodef);
             //subtype
             Type parentreturnType = expdef2.getType();
-            if (!(this.subtype(compiler, type, parentreturnType))){
+            if (!(this.assign_compatible(compiler, type, parentreturnType))){
                 throw new ContextualError("returntype of the child is not a subtype of the parent's", methodName.getLocation());
             }
 
