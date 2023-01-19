@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -32,9 +33,9 @@ public class MethodBody extends AbstractMethodBody {
     private static final Logger LOG = Logger.getLogger(MethodBody.class);
         
     @Override
-    protected void verifyMethodBody(DecacCompiler compiler,ClassDefinition currentClass) throws ContextualError {
-        declVariables.verifyListDeclVariable(compiler,null, currentClass);
-        insts.verifyListInst(compiler, null, null, null);
+    protected void verifyMethodBody(DecacCompiler compiler,EnvironmentExp localEnv,ClassDefinition currentClass,Type t) throws ContextualError {
+        declVariables.verifyListDeclVariable(compiler, localEnv, currentClass);
+        insts.verifyListInst(compiler, localEnv , currentClass, t);
     }
 
     @Override

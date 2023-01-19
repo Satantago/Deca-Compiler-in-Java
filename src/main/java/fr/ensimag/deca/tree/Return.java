@@ -34,8 +34,16 @@ public class Return extends AbstractInst {
 
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass, Type returnType) {
-        throw new UnsupportedOperationException("not yet implemented");
+            ClassDefinition currentClass, Type returnType) throws ContextualError {
+        if (returnType.isVoid()){
+            throw new ContextualError("In order to return, returntype should be different than void", getLocation());
+        }
+        try{
+        returnExpression.verifyRValue(compiler, localEnv, currentClass, returnType);
+        }
+        catch(ContextualError e){
+            throw new ContextualError("return type is not compatible with the expected", getLocation());
+        }
     }
 
     @Override
