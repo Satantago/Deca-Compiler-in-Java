@@ -1,5 +1,6 @@
 package fr.ensimag.deca.context;
 
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.deca.tree.Location;
 import fr.ensimag.ima.pseudocode.Label;
 import org.apache.commons.lang.Validate;
@@ -12,7 +13,14 @@ import org.apache.commons.lang.Validate;
  */
 public class ClassDefinition extends TypeDefinition {
 
+    private DAddr regAdresse;
 
+    public DAddr getAdresse(){
+        return regAdresse;
+    }
+    public void setAdresse(DAddr regAdresse){
+        this.regAdresse = regAdresse;
+    }
     public void setNumberOfFields(int numberOfFields) {
         this.numberOfFields = numberOfFields;
     }

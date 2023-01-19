@@ -248,9 +248,11 @@ public class Identifier extends AbstractIdentifier {
     }
 
     @Override
-    protected void codeGenClass(DecacCompiler compiler) {
+    protected void codeGenClass(DecacCompiler compiler,AbstractIdentifier className) {
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")),Register.R0));  
-        compiler.addInstruction(new STORE(Register.R0, compiler.getRegisterAllocator().newGBRegistre()));
+        DAddr registerAddr = compiler.getRegisterAllocator().newGBRegistre();
+        compiler.addInstruction(new STORE(Register.R0, registerAddr));
+        className.getClassDefinition().setAdresse(registerAddr);  
     }
     @Override
     protected void codeGenLabel(DecacCompiler compiler) {

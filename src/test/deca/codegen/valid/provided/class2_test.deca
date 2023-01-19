@@ -1,7 +1,7 @@
 
 
 class C {
-   int x;
+   public int x;
    int y=1;
    void setx(int a,int c, int f){
     x = a + 5 + c * f;
@@ -18,7 +18,9 @@ class B extends C{
 }
 
 {
- B fg; //= new C();
-
-  println("hhhh");
+ C fg;
+ B gg = new B();
+ int x = 4;
+ fg = new C();
+ println(fg.x);
 }

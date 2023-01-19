@@ -83,6 +83,12 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
 
+        Label tas = new Label("tas_pleine");
+        compiler.addLabel(tas);
+        compiler.addInstruction(new WSTR("Erreur : tas pleine"));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
         compiler.addLabel(new Label("opArith"));
         compiler.addInstruction(new WSTR("Erreur :Stack Overflow"));
         compiler.addInstruction(new WNL());

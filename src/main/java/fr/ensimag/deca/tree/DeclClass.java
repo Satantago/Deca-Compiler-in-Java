@@ -9,12 +9,15 @@ import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.LabelOperand;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
+import fr.ensimag.ima.pseudocode.DAddr;
 
 
 
@@ -109,7 +112,17 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void codeGenDeclClass(DecacCompiler compiler){
         superClassName.codeGenSuperClass(compiler);
-        className.codeGenClass(compiler);
+
+        className.codeGenClass(compiler,className);
+        // compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")),Register.R0));  
+        // DAddr registerAddr = compiler.getRegisterAllocator().newGBRegistre();
+        // compiler.addInstruction(new STORE(Register.R0, registerAddr));
+        // className.getExpDefinition().setOperand(registerAddr);  // !!!!!!!!!!! TODO ***
+
+
+
+        //
+
         listMethod.codeGenListDeclMethodLabel(compiler,className.getName().getName());
     }
     @Override
@@ -121,7 +134,7 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenDeclClassInit(DecacCompiler compiler){
-        System.out.println(superClassName.getName().getName() + "    //  "+ className.getName().getName());
+        //System.out.println(superClassName.getName().getName() + "    //  "+ className.getName().getName());
         compiler.addLabel(new Label("init."+className.getName().getName()));
         if(superClassName.getName().getName()!="Object"){
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB ),Register.R0));
