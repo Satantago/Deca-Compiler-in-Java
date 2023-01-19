@@ -1,7 +1,7 @@
 
 
 class C {
-   public int x;
+  int x;
    int y=1;
    void setx(int a,int c, int f){
     x = a + 5 + c * f;
@@ -10,17 +10,7 @@ class C {
 
 }
 
-class B extends C{
-	int z=6;
-  int x =  z + z;
-  
-
-}
-
 {
- C fg;
- B gg = new B();
- int x = 4;
- fg = new C();
- println(fg.x);
+C gg = new C();
+gg.setx(5,22,2);
 }
