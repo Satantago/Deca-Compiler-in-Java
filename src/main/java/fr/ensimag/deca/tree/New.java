@@ -49,7 +49,10 @@ public class New extends AbstractExpr {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print(" new ");
+        newtype.decompile(s);
+        s.print("()");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
     @Override
     public void codeGen(DecacCompiler compiler) {

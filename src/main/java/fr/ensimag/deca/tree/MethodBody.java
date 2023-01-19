@@ -50,7 +50,12 @@ public class MethodBody extends AbstractMethodBody {
     
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        s.indent();
+        declVariables.decompile(s);
+        s.println();
+        insts.decompile(s);
+        s.unindent();
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

@@ -66,7 +66,7 @@ public class CompilerOptions {
     
     public void parseArgs(String[] args) throws CLIException {
 
-        //le fichier entré doit être un .deca sinon il est rejeté
+    /*    //le fichier entré doit être un .deca sinon il est rejeté
         for(int i = 0 ; i <args.length ; i++){
             if(args[i].endsWith(".deca")){
                 sourceFiles.add(new File(args[i]));
@@ -87,7 +87,7 @@ public class CompilerOptions {
             }
 
        
-        }
+        }*/
         for(int i = 0 ; i <args.length ; i++){
             if(args[i].equals("-b")){
                 printBanner = true;
@@ -95,17 +95,19 @@ public class CompilerOptions {
             else if(args[i].equals("-P")){
                 parallel = true ;
             }
-            else if(args[i].equals("-p") && error_options == 0){
+            else if(args[i].equals("-p")) {
                 decompiler = true ;
             }
             else if(args[i].equals("-d")){
                 debug = 1  ;
             }
-            else if(args[i].equals("-v") && error_options == 0){
+            else if(args[i].equals("-v")) {
                 verify = true  ;
 
-            }  
-
+            }
+            else {
+                sourceFiles.add(new File(args[i]));
+/*
             else if(args[i].equals("-n")){
                 nocheck = true  ;  // TODO a faire 
             }  
@@ -120,7 +122,7 @@ public class CompilerOptions {
            
             }
             else if (error_options == 1 ) { 
-                throw new CLIException("Les options -v et -p ne sont pas compatibles");
+                throw new CLIException("Les options -v et -p ne sont pas compatibles");*/
             }
             
 

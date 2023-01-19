@@ -39,7 +39,16 @@ public class DeclMethod extends AbstractDeclMethod{
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        this.returnType.decompile(s);
+        s.print(" ");
+        this.methodName.decompile(s);
+        s.print(" (");
+        this.listParametres.decompile(s);
+        s.print(") {");
+
+        this.body.decompile(s);
+        s.println("}");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     protected void codeGenDeclMethod(DecacCompiler compiler,String s){

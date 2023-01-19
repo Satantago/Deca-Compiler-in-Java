@@ -26,7 +26,13 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        String separat = "";
+        for (AbstractDeclParam param : getList()) {
+            s.print(separat);
+            param.decompile(s);
+            separat = ", ";
+        }
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**

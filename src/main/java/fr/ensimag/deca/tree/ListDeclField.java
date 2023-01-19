@@ -23,7 +23,11 @@ import org.apache.commons.lang.Validate;
 public class ListDeclField extends TreeList<AbstractDeclField> {
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        for (AbstractDeclField field : getList()) {
+            field.decompile(s);
+        }
+
+       // throw new UnsupportedOperationException("Not yet implemented");
     }
     private static final Logger LOG = Logger.getLogger(ListDeclField.class);
 
