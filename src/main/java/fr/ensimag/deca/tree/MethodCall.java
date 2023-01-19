@@ -39,8 +39,15 @@ public class MethodCall extends AbstractExpr{
 
                }
 
+
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        //p14
         throw new UnsupportedOperationException("not yet implemented");
     }
 

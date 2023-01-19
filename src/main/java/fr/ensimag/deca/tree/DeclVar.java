@@ -69,7 +69,7 @@ public class DeclVar extends AbstractDeclVar {
         initialization.codeGenInitialization(compiler);
         DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
         this.varName.getExpDefinition().setOperand(GBAdresse);
-        if(initialization.isInit()){
+        if(initialization.isInit()){//ajouter le cas de new
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
             compiler.getRegisterAllocator().freeRegistre(compiler);
         }

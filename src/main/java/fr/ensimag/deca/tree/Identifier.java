@@ -210,7 +210,8 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),getExpDefinition().getOperand()));
-        compiler.getRegisterAllocator().freeRegistre(compiler);
+       //  compiler.getRegisterAllocator().freeRegistre(compiler);
+
     }
 
     @Override
@@ -220,7 +221,8 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
-        Label l = new Label("FinIF" + compiler.getCmptLabel());compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
+        Label l = new Label("FinIF" + compiler.getCmptLabel());
+        compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();

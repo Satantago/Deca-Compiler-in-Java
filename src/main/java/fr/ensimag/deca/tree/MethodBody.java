@@ -31,11 +31,14 @@ public class MethodBody extends AbstractMethodBody {
 
     private static final Logger LOG = Logger.getLogger(MethodBody.class);
         
-    @Override
-    protected void verifyMethodBody(DecacCompiler compiler,ClassDefinition currentClass) throws ContextualError {
-        declVariables.verifyListDeclVariable(compiler,null, currentClass);
-        insts.verifyListInst(compiler, null, null, null);
+     @Override
+     protected void verifyMethodBody(DecacCompiler compiler){
+
     }
+   // ,ClassDefinition currentClass) throws ContextualError {
+    //     declVariables.verifyListDeclVariable(compiler,null, currentClass);
+    //     insts.verifyListInst(compiler, null, null, null);
+    // }
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {

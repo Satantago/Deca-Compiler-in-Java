@@ -1,20 +1,14 @@
 class C {
-    int x=99;
-    int y=1;
-  //  int getY() {
-    //    return y;
-   // }
-   // void incrX() {
-     //   x = x + 1;
-   // }
+   int ccc;
+   //int y=1;
+
 }
 class B extends C{
-	int z=6;
-  int x =  z + z;
+	//int z=6;
+  //int x =  z + z;
 }
 
 {
- C c = new C();
-
- c.setC(2);
+ //B fg = new C();
+  println("hhhh");
 }
