@@ -14,13 +14,12 @@ public class RegisterAllocator {
     private boolean[] registerStatus; // Etat des registres (utilise ou non)
     private int nbreMaxRegistre = 16; // Nombre maximal de registres disponibles
     private int maxSP;// Nombre de registre max dans la pile utilise
-    
     // Constructeur
     public RegisterAllocator(){
         this.nbrGB = 2;
         this.nbrSP = 2;
         this.maxSP = 2;
-        this.registerStatus = new boolean[nbreMaxRegistre];
+        this.registerStatus = new boolean[getnbreMaxRegistre()];
         this.registerUsed = new ArrayDeque<>();
         this.registerStatus[0]=true;
         this.registerStatus[1]=true;
@@ -33,6 +32,14 @@ public class RegisterAllocator {
     }
     public int getNbGB(){
         return nbrGB;
+    }
+    // modification ici -r
+    public void setnbreMaxRegistre(int nbreMaxRegistre){
+        this.nbreMaxRegistre = nbreMaxRegistre;
+    }
+    // modification ici -r
+    public int  getnbreMaxRegistre(){
+        return nbreMaxRegistre;
     }
 
     /**
