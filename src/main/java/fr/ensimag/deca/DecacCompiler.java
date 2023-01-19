@@ -268,8 +268,8 @@ public class DecacCompiler {
             return false;
         }
 
-       // prog.verifyProgram(this);
-        //assert(prog.checkAllDecorations());
+       prog.verifyProgram(this);
+        assert(prog.checkAllDecorations());
 
         addComment("start main program");
         prog.codeGenProgram(this);

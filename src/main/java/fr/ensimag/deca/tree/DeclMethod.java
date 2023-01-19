@@ -150,12 +150,6 @@ public class DeclMethod extends AbstractDeclMethod{
         /**************bodyverification **************/
         body.verifyMethodBody(compiler, ExpParamsVars,currentClass, type);
 
-            try {
-                localEnv.declare(methodName.getName(), methodef);
-            } catch (DoubleDefException e) {
-                throw new ContextualError("Double definition of method " + methodName.getName() + " in class " + currentClass.getNature(), this.getLocation());
-            }
-           // body.verifyMethodBody(compiler, currentClass);
     }
 }
 

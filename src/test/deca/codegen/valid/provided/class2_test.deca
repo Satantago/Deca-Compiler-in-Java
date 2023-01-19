@@ -1,14 +1,24 @@
+
+
 class C {
-   int ccc;
-   //int y=1;
+   int x;
+   int y=1;
+   void setx(int a,int c, int f){
+    x = a + 5 + c * f;
+    y = x;
+  }
 
 }
+
 class B extends C{
-	//int z=6;
-  //int x =  z + z;
+	int z=6;
+  int x =  z + z;
+  
+
 }
 
 {
- //B fg = new C();
+ B fg; //= new C();
+
   println("hhhh");
 }

@@ -66,6 +66,9 @@ public class RegisterAllocator {
     public int getNbGB(){
         return nbrGB;
     }
+    public void setNbrClass(int x){
+        nbrClass=x;
+    }
     // modification ici -r
     public void setnbreMaxRegistre(int nbreMaxRegistre){
         this.nbreMaxRegistre = nbreMaxRegistre;
