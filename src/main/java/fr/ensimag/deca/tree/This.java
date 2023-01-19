@@ -22,16 +22,11 @@ import java.io.PrintStream;
 public class This extends AbstractExpr {
 
     private boolean bool;
-    private Symbol sym;
     public This() {
         this.bool = false;
     }
     public This(boolean b) {
         this.bool = b;
-    }
-
-    public This(Symbol s) {
-        this.sym = s;
     }
     public boolean getbool() {
         return bool;

@@ -34,10 +34,11 @@ public class Selection extends AbstractLValue {
         if (!type.isClass()) {
             throw new ContextualError("selection exp must be a class", this.expr.getLocation());
         }
-        if (compiler.environmentType.defOfType(classtyp.getName()) == null){
+        ClassDefinition classdef = (ClassDefinition) compiler.environmentType.defOfType(classtyp.getName());
+        if (classdef== null){
             throw new ContextualError("selection expects a field", this.ident.getLocation());
         }
-        Type identype = this.ident.verifyExpr(compiler, currentClass.getMembers(), currentClass);
+        Type identype = this.ident.verifyExpr(compiler, classtyp.getDefinition().getMembers(), currentClass);
         FieldDefinition fieldef = (FieldDefinition) ident.getFieldDefinition();
         this.ident.setType(identype);
 

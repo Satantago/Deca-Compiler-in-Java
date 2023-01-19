@@ -67,7 +67,6 @@ public class DeclClass extends AbstractDeclClass {
         this.className.setDefinition(classDef);
         this.className.setType(mytype);
         this.verifyClassMembers(compiler);
-
     }
 
     @Override
