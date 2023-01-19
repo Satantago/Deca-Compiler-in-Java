@@ -66,9 +66,15 @@ public class RegisterAllocator {
     public int getNbGB(){
         return nbrGB;
     }
-    public void setNbrClass(int x){
-        this.nbrClass=x;
+    // modification ici -r
+    public void setnbreMaxRegistre(int nbreMaxRegistre){
+        this.nbreMaxRegistre = nbreMaxRegistre;
     }
+    // modification ici -r
+    public int  getnbreMaxRegistre(){
+        return nbreMaxRegistre;
+    }
+
     /**
      *  Methode pour obtenir un registre libre
      * @param compiler

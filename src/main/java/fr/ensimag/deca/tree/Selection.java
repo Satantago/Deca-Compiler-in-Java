@@ -3,8 +3,10 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
@@ -26,8 +28,31 @@ public class Selection extends AbstractLValue {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-     }
+        Type type = this.expr.verifyExpr(compiler, localEnv, currentClass);
+        ClassType classtyp = (ClassType) type;
+        this.expr.setType(classtyp);
+        if (!type.isClass()) {
+            throw new ContextualError("selection exp must be a class", this.expr.getLocation());
+        }
+        ClassDefinition classdef = (ClassDefinition) compiler.environmentType.defOfType(classtyp.getName());
+        if (classdef== null){
+            throw new ContextualError("selection expects a field", this.ident.getLocation());
+        }
+        Type identype = this.ident.verifyExpr(compiler, classtyp.getDefinition().getMembers(), currentClass);
+        FieldDefinition fieldef = (FieldDefinition) ident.getFieldDefinition();
+        this.ident.setType(identype);
+
+        if (fieldef.getVisibility() == Visibility.PROTECTED) {
+            if (currentClass == null) {
+                throw new ContextualError("can't acces this field from main", this.ident.getLocation());
+            }
+            if ((!this.subtype(compiler, type, currentClass.getType()))
+            && !(this.subtype(compiler, currentClass.getType(), fieldef.getType()))){
+                throw new ContextualError("can't acces this field 1", this.ident.getLocation());
+            }
+        }
+        return fieldef.getType();
+    }
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {

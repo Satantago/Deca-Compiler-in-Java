@@ -79,7 +79,6 @@ public class DeclClass extends AbstractDeclClass {
         this.className.setDefinition(classDef);
         this.className.setType(mytype);
         this.verifyClassMembers(compiler);
-
     }
 
     @Override
@@ -88,12 +87,11 @@ public class DeclClass extends AbstractDeclClass {
                  //get the environmentExp of the class 
 
                    
-                //className.verifyType(compiler); // Verifications que la classe existe 
-                listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition()) ;  // Verifications des methodes
-                listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); // Verifications des attributs
+        //className.verifyType(compiler); // Verifications que la classe existe 
+      // Verifications des methodes
+        listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); 
+        listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition());
 
-
-            
     }
 
     

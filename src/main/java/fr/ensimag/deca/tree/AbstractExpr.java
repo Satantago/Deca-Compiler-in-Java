@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -68,6 +69,30 @@ public abstract class AbstractExpr extends AbstractInst {
                                     EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError;
 
+    /*
+     * Verifies if type1 is subtype of type2
+    */
+    /**
+     * @param compiler
+     * @param type1
+     * @param type2
+     * @return
+     */
+    boolean subtype(DecacCompiler compiler, Type type1, Type type2) {
+        try {
+            ClassType newtype1 = (ClassType) type1;
+            ClassType newtype2 = (ClassType) type2;
+            return newtype1.isSubClassOf(newtype2);
+        }
+        catch (ClassCastException e) {
+        }
+        boolean b = ((type2.isFloat()) && (type1.isInt()));
+            if (!(b || type1.sameType(type2))){
+                return false;
+            }
+            return true;
+    }
+
     /**
      * Verify the expression in right hand-side of (implicit) assignments
      *
@@ -85,7 +110,7 @@ public abstract class AbstractExpr extends AbstractInst {
             throws ContextualError {
         Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
         boolean b = ((expectedType.isFloat()) && (type2.isInt()));
-        if (!(b || expectedType.sameType(type2))) {
+        if (!(b || expectedType.sameType(type2)) && subtype(compiler, expectedType, type2)) {
             throw new ContextualError("incompatible types", this.getLocation());
         }
         return this;

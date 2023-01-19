@@ -8,6 +8,8 @@ import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 import fr.ensimag.deca.context.EnvironmentType;
+import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.*;
 
 /**
@@ -16,6 +18,7 @@ import fr.ensimag.deca.tools.*;
  * @author gl32
  * @date 01/01/2023
  */
+//no abstract
 public class MethodAsmBody extends AbstractMethodBody {
     private AbstractStringLiteral text;
 
@@ -27,7 +30,7 @@ public class MethodAsmBody extends AbstractMethodBody {
     }
 
     @Override
-    protected void verifyMethodBody(DecacCompiler compiler) throws ContextualError {
+    protected void verifyMethodBody(DecacCompiler compiler,EnvironmentExp localEnv ,ClassDefinition currentClass,Type t) throws ContextualError {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 

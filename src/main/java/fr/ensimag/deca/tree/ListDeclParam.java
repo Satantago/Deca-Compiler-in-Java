@@ -47,7 +47,7 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
                 LOG.debug("verify listdec: start");
                 Signature sig = new Signature();
                 for (AbstractDeclParam decParam : getList()) {
-                    sig.add(decParam.verifyDeclParam(compiler, currentClass.getparams(), currentClass));
+                    sig.add(decParam.verifyDeclParam(compiler, localEnv, currentClass));
                 }
                 LOG.debug("verify listdec: end");
                 return sig;
