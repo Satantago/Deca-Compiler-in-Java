@@ -51,11 +51,13 @@ public class Cast extends AbstractExpr {
 
     @Override
     protected void iterChildren(TreeFunction f) {
+        type.iter(f);
         Expression.iter(f);
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
+        type.prettyPrint(s, prefix, false);
         Expression.prettyPrint(s, prefix, true);
     }
 
