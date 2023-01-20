@@ -78,7 +78,10 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param type2
      * @return
      */
-    boolean assign_compatible(DecacCompiler compiler, Type type1, Type type2) {
+    protected boolean assign_compatible(DecacCompiler compiler, Type type1, Type type2) {
+        if (type1.isNull() && type2.isClass()){
+            return true;
+        }
         try {
             ClassType newtype1 = (ClassType) type1;
             ClassType newtype2 = (ClassType) type2;

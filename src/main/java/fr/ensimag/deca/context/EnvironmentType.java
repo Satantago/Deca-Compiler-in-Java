@@ -40,6 +40,10 @@ public class EnvironmentType {
         BOOLEAN = new BooleanType(booleanSymb);
         envTypes.put(booleanSymb, new TypeDefinition(BOOLEAN, Location.BUILTIN));
 
+        Symbol nullSymb = compiler.createSymbol("null");
+        NULL = new NullType(nullSymb);
+
+
         Symbol stringSymb = compiler.createSymbol("string");
         STRING = new StringType(stringSymb);
         // not added to envTypes, it's not visible for the user.
@@ -87,4 +91,5 @@ public class EnvironmentType {
     public final StringType  STRING;
     public final ClassType   CLASS;
     public final BooleanType BOOLEAN;
+    public final NullType NULL;
 }

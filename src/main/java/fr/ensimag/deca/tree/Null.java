@@ -18,7 +18,8 @@ public class Null extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        this.setType(compiler.environmentType.NULL);
+        return compiler.environmentType.NULL;
     }
 
 
@@ -29,16 +30,16 @@ public class Null extends AbstractExpr {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("not yet implemented");
+        //nada
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+     //nada
     }
 
     @Override
     String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return "null";
     }
 }
