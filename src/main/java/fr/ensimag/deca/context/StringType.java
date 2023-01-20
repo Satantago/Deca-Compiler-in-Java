@@ -28,5 +28,4 @@ public class StringType extends Type {
         return false;
     }
 
-
 }

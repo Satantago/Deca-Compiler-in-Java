@@ -34,8 +34,15 @@ public abstract class AbstractOpExactCmp extends AbstractOpCmp {
             this.setType(compiler.environmentType.BOOLEAN);
             return compiler.environmentType.BOOLEAN;
         }
-        
-        throw new ContextualError("Cannot be applied to this type" + leftType.toString() + 
+
+        //equals and not equals
+        if (this instanceof Equals || this instanceof NotEquals ){
+            if ((leftType.isClass() || leftType.isNull()) && (rightType.isClass() || rightType.isNull())){
+                this.setType(compiler.environmentType.BOOLEAN);
+                return compiler.environmentType.BOOLEAN;
+            }
+        }
+        throw new ContextualError("Cannot be applied to this type" + leftType.toString() + " " +
                 rightType.toString(), this.getLocation());
     }
 
