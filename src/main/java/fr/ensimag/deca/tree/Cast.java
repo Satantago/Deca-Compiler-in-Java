@@ -6,6 +6,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tree.AbstractExpr;
+import fr.ensimag.deca.tree.AbstractIdentifier;
+import fr.ensimag.deca.tree.TreeFunction;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -16,18 +19,18 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2023
  */
 public class Cast extends AbstractExpr {
-    private AbstractExpr returnExpression;
-    private AbstractIdentifier ident ;
+    private AbstractIdentifier type;
+    private AbstractExpr Expression;
 
     public AbstractExpr getReturnExpression() {
-        return this.returnExpression;
+        return this.Expression;
     }
 
     public Cast(AbstractIdentifier ident, AbstractExpr returnExpression) {
-        Validate.notNull(returnExpression);
         Validate.notNull(ident) ; 
-        this.returnExpression = returnExpression;
-        this.ident = ident ;
+        Validate.notNull(returnExpression);
+        this.Expression = returnExpression;
+        this.type = ident;
     }
 
     @Override
@@ -48,17 +51,25 @@ public class Cast extends AbstractExpr {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        returnExpression.iter(f);
+        Expression.iter(f);
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        returnExpression.prettyPrint(s, prefix, true);
+        Expression.prettyPrint(s, prefix, true);
     }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-                throw new UnsupportedOperationException("not yet implemented") ; 
-                }
+            Type T2 = this.type.verifyType(compiler);
+            Type T1 = this.Expression.verifyExpr(compiler, localEnv, currentClass);
+            if (T1.isVoid()){
+                throw new ContextualError("cannot cast a void type", this.Expression.getLocation());
+            }
+            if (!(this.assign_compatible(compiler,T2, T1) || this.assign_compatible(compiler,T1, T2))){
+                throw new ContextualError("Invalid cast", this.type.getLocation());
+            }
+            return T2;
+    }
 }
