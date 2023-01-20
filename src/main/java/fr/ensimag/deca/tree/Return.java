@@ -48,7 +48,10 @@ public class Return extends AbstractInst {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("return ");
+        returnExpression.decompile(s);
+
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

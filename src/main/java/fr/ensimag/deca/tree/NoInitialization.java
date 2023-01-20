@@ -24,7 +24,10 @@ public class NoInitialization extends AbstractInitialization {
         //throw new UnsupportedOperationException("not yet implemented");
         return;
     }
+    @Override
+    protected void codeGenInitFields(DecacCompiler compiler) {
 
+    }
 
     @Override
     protected  void codeGenInitialization(DecacCompiler compiler){
@@ -56,5 +59,8 @@ public class NoInitialization extends AbstractInitialization {
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         // leaf node => nothing to do
     }
+
+
+    
 
 }

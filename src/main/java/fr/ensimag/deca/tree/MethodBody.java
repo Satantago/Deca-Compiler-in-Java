@@ -37,15 +37,25 @@ public class MethodBody extends AbstractMethodBody {
         declVariables.verifyListDeclVariable(compiler, localEnv, currentClass);
         insts.verifyListInst(compiler, localEnv , currentClass, t);
     }
+   // ,ClassDefinition currentClass) throws ContextualError {
+    //     declVariables.verifyListDeclVariable(compiler,null, currentClass);
+    //     insts.verifyListInst(compiler, null, null, null);
+    // }
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not yet implemented");        
+        declVariables.codeGenListDeclVar(compiler);
+        insts.codeGenListInst(compiler);
     }
     
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        s.indent();
+        declVariables.decompile(s);
+        s.println();
+        insts.decompile(s);
+        s.unindent();
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

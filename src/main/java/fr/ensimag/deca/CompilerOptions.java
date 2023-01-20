@@ -67,16 +67,10 @@ public class CompilerOptions {
     public void parseArgs(String[] args) throws CLIException {
 
         //le fichier entré doit être un .deca sinon il est rejeté
-        for(int i = 0 ; i <args.length ; i++){
-            if(args[i].endsWith(".deca")){
-                sourceFiles.add(new File(args[i]));
-            }
-        }
-        if(sourceFiles.isEmpty()){
-            throw new CLIException("Le fichier entré n'est pas un .deca");
-        }
+        
+        
 
-
+/*
         for(int i = 0 ; i <args.length ; i++){
             // if we find -v and -p error options = 1
             if(args[i].equals("-v")){
@@ -87,7 +81,7 @@ public class CompilerOptions {
             }
 
        
-        }
+        }*/
         for(int i = 0 ; i <args.length ; i++){
             if(args[i].equals("-b")){
                 printBanner = true;
@@ -95,44 +89,49 @@ public class CompilerOptions {
             else if(args[i].equals("-P")){
                 parallel = true ;
             }
-            else if(args[i].equals("-p") && error_options == 0){
+            else if(args[i].equals("-p")) {
                 decompiler = true ;
             }
             else if(args[i].equals("-d")){
                 debug = 1  ;
             }
-            else if(args[i].equals("-v") && error_options == 0){
+            else if(args[i].equals("-v")) {
                 verify = true  ;
-
-            }  
-
-            else if(args[i].equals("-n")){
-                nocheck = true  ;  // TODO a faire 
-            }  
+            }
             else if(args[i].equals("-r")){ 
                 register = true ; 
-                //System.out.println(i);
-                //System.out.println(args.length);
-                nb_register  = Integer.parseInt(args[i+1]);
-                if(nb_register < 4 || nb_register >16){ 
-                    throw new CLIException("Le nombre de registre doit être compris entre 4 et 16");
+                try{
+                    nb_register  = Integer.parseInt(args[i+1]);
+                } catch(NumberFormatException e){
+                    throw new CLIException("Le parametre n'est pas un entier ! ");
                 }
-           
+                if(nb_register < 5 || nb_register >16){ 
+                    throw new CLIException("Le nombre de registre doit être compris entre 5 et 16");
+                }
+                i++;
             }
-            else if (error_options == 1 ) { 
-                throw new CLIException("Les options -v et -p ne sont pas compatibles");
+            else{
+                if(args[i].endsWith(".deca")) {
+                    sourceFiles.add(new File(args[i]));
+                }
+                else{
+                    throw new CLIException("Le fichier entré n'est pas un .deca");
+                }
             }
-            
+/*
+            else if(args[i].equals("-n")){
+                nocheck = true  ;  
+            }  
+            */
+            }
+            if(verify && decompiler ){
+                throw new CLIException("-v et -p sont incompatibles");
+            }
+            if(! printBanner && sourceFiles.isEmpty()){
+                throw new CLIException("Pas de fichier a compiler");
+            }
 
-            
 
-            
-
-
-      
-        }
-
-        
         Logger logger = Logger.getRootLogger();
         // map command-line debug option to log4j's level.
         switch (getDebug()) {

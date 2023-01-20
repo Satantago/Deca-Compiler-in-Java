@@ -1,15 +1,25 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
+import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.*;
-import java.io.PrintStream;
-import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.ERROR;
+import fr.ensimag.ima.pseudocode.instructions.HALT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.RTS;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+import fr.ensimag.ima.pseudocode.instructions.WNL;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 /**
  * Deca complete program (class definition plus main block)
@@ -55,13 +65,13 @@ public class Program extends AbstractProgram {
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
 
-       
-    //   compiler.addInstruction(new TSTO(new ImmediateInteger(compiler.getRegisterAllocator().getNbreSP())));
-
-        compiler.addComment("Main program");
         compiler.addInstruction(new LOAD(0,Register.R0));
-        main.codeGenMain(compiler);
+        compiler.addComment("Table des Methodes");
+        classes.codGenListDeclClass(compiler); // Cree la table des methodes
+        compiler.addComment("Main program");
+        main.codeGenMain(compiler); // PRog main
         compiler.addInstruction(new HALT());
+        classes.codGenListDeclClassInit(compiler); //Init field + methode squellete
 
 
         Label pile = new Label("pile_pleine");
@@ -73,16 +83,19 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
 
+        Label tas = new Label("tas_pleine");
+        compiler.addLabel(tas);
+        compiler.addInstruction(new WSTR("Erreur : tas pleine"));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
         compiler.addLabel(new Label("opArith"));
         compiler.addInstruction(new WSTR("Erreur :Stack Overflow"));
         compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
 
-        compiler.addLabel(new Label("divpar0"));
-        compiler.addInstruction(new WSTR("Erreur : Division par 0"));
-        compiler.addInstruction(new WNL());
-        compiler.addInstruction(new ERROR());
-
+        compiler.addLabel(new Label("code.object.equals"));
+        compiler.addInstruction(new RTS());
     }
 
     @Override

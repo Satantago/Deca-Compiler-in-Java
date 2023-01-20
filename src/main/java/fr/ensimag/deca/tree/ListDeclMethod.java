@@ -25,7 +25,10 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        for (AbstractDeclMethod method : getList()) {
+            method.decompile(s);
+        }
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -50,10 +53,17 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
 
 
     }
+    
 
-    public void codeGenListDeclMethod(DecacCompiler compiler) {
+    public void codeGenListDeclMethodLabel(DecacCompiler compiler,String s) {
         for (AbstractDeclMethod i : getList()) {
-            i.codeGenDeclMethod(compiler);
+            i.codeGenDeclMethodLabel(compiler,s);
+        }
+    }
+
+    public void codeGenListDeclMethod(DecacCompiler compiler,String s) {
+        for (AbstractDeclMethod i : getList()) {
+            i.codeGenDeclMethod(compiler, s);
         }
     }
 }
