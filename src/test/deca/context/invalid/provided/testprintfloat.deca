@@ -1,6 +1,6 @@
 
 {int x = 2;
-int y = readfloat();
+int y = readFloat();
 println(y);
 }
 

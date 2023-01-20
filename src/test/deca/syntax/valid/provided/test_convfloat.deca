@@ -6,6 +6,5 @@
     float y = 2;
     y = y + x;
     print(x);
-    print(y);
-
+    println(y);
 }

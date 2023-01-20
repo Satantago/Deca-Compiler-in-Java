@@ -1,9 +1,7 @@
-
-
 {
     int a = 2, b=0;
 
-    while (!(a==1)) {
+    while (!(u==1)) {
 	if (a%2 == 0) {
 	    a = a/2;
 	} else	{
@@ -11,5 +9,4 @@
 	//	println(a);
     }}
     println(b);
-
 }

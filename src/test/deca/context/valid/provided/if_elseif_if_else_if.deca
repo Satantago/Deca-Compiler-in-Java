@@ -1,0 +1,24 @@
+// Description:
+
+//
+
+//
+// Historique:
+//    cree le 01/01/2023
+
+// Un exemple de programme Deca,
+//sortie: ça marche
+
+{
+int x = -5;
+boolean t = true;
+if(!t){
+     println("ça marche pas");
+     println(-4);
+     }
+else if(true){
+     if(x == -5){
+        println("ça marche");
+        }
+    }
+}

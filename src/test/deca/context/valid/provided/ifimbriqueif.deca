@@ -1,0 +1,18 @@
+// Description:
+
+//
+
+//
+// Historique:
+//    cree le 01/01/2023
+
+// Un exemple de programme Deca,
+//sortie: ça marche
+
+{
+if(true){
+    if(true){
+        println("ça marche");
+        }
+    }
+}

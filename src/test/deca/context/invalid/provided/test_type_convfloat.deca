@@ -1,5 +1,5 @@
 // convfloat
 {
     int x = 5;
-    x = convfloat();
+    x = readFloat();
 }

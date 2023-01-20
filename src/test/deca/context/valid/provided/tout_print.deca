@@ -4,7 +4,7 @@ x = 5;
 print("test"); 
 printx("test") ;
 println("test") ;
-printlnx("x"); 
+printlnx(x); 
 }
 
 /*  Commentaire  */

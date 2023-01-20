@@ -1,0 +1,5 @@
+{
+if (true || false) {
+	println("if_or_test_done");
+	}
+}

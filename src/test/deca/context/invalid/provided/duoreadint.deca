@@ -1,8 +1,8 @@
 
 {int x = 2;
 x = 5;
-int y = readint();
-int z = readfloat() ; 
+int y = readInt();
+int z = readFloat() ; 
  z= y 
  print(z);
 }

@@ -1,0 +1,17 @@
+// Description:tester la pile avec une operation commutative
+
+//
+
+//
+// Historique:
+//    cree le 01/01/2023
+
+// Un exemple de programme Deca,
+//sortie testé en java: 2116,47...
+
+{
+float x = 1.2;
+x = x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*(x*x))))))))))))))))))))))))))))))))))))))));
+println(x);
+
+}

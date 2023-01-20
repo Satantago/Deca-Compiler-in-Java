@@ -1,0 +1,13 @@
+{
+
+if (false && true) { println("true");}
+else if (false || false) {println("HO");}
+else if (true != true) {println("PILE");}
+else if (2 <= 1) {println("a");}
+else if (2 == 23) {println("AZAE");}
+else if (2 < 1) {printlnx(35);}
+else if (2 > 3) {println("a");}
+else if (2 >= 3) {println("AA2");}
+else if (2 != 2) {println("a");}
+else {println("finally");}
+}

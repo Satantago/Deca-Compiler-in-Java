@@ -2,7 +2,7 @@
 
 DEBUT=$(date +%s.%N)
 
-for i in src/test/deca/syntax/invalid/provided/*.deca
+for i in src/test/deca/context/invalid/provided/*.deca
 do
 echo "$i"
 

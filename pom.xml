@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compileSource>1.8</compileSource>
-        <jacoco.skip>true</jacoco.skip>
+        <jacoco.skip>false</jacoco.skip>
         <jacoco.report_dir>${project.build.directory}/site</jacoco.report_dir>
     </properties>
 
@@ -234,6 +234,28 @@
                         <id>test_context_decac</id>
                         <configuration>
                             <executable>test_context.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_syntax_decac</id>
+                        <configuration>
+                            <executable>test_syntax.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_syntax_invalid_decac</id>
+                        <configuration>
+                            <executable>test_syntax_invalid.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>
