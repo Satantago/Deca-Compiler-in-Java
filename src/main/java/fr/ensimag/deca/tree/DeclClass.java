@@ -78,17 +78,12 @@ public class DeclClass extends AbstractDeclClass {
         SymbolTable.Symbol superSymb = this.superClassName.getName();
         ClassDefinition supeer = (ClassDefinition) compiler.environmentType.defOfType(superSymb);
         ClassType mytype = new ClassType(className.getName(), className.getLocation(), supeer);
-        ClassDefinition classDef = new ClassDefinition(mytype, className.getLocation(), supeer);
         try{
-            compiler.environmentType.declareClass(this.className.getName(), classDef);
+            compiler.environmentType.declareClass(this.className.getName(), mytype.getDefinition());
         } catch (DoubleDefException e) {
             throw new ContextualError(this.className.getName() + " is already defined", this.className.getLocation());
         }
-       
-        if (!(compiler.environmentType.defOfType(this.className.getName()) instanceof ClassDefinition)) {
-            throw new ContextualError("Invalid name", getLocation());
-        }
-        this.className.setDefinition(classDef);
+        this.className.setDefinition(mytype.getDefinition());
         this.className.setType(mytype);
         this.verifyClassMembers(compiler);
     }

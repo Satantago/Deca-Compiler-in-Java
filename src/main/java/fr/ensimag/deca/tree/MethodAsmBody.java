@@ -31,7 +31,7 @@ public class MethodAsmBody extends AbstractMethodBody {
 
     @Override
     protected void verifyMethodBody(DecacCompiler compiler,EnvironmentExp localEnv ,ClassDefinition currentClass,Type t) throws ContextualError {
-        throw new UnsupportedOperationException("Not yet implemented");
+        //nada
     }
 
     @Override

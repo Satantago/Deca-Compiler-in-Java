@@ -42,7 +42,7 @@ public class Return extends AbstractInst {
         returnExpression.verifyRValue(compiler, localEnv, currentClass, returnType);
         }
         catch(ContextualError e){
-            throw new ContextualError("return type is not compatible with the expected", getLocation());
+            throw e;
         }
     }
 

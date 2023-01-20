@@ -78,7 +78,7 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param type2
      * @return
      */
-    boolean subtype(DecacCompiler compiler, Type type1, Type type2) {
+    boolean assign_compatible(DecacCompiler compiler, Type type1, Type type2) {
         try {
             ClassType newtype1 = (ClassType) type1;
             ClassType newtype2 = (ClassType) type2;
@@ -87,11 +87,11 @@ public abstract class AbstractExpr extends AbstractInst {
         catch (ClassCastException e) {
         }
         boolean b = ((type2.isFloat()) && (type1.isInt()));
-            if (!(b || type1.sameType(type2))){
-                return false;
-            }
+        if ((b || type1.sameType(type2))){
             return true;
-    }
+        }
+        return false;
+        }
 
     /**
      * Verify the expression in right hand-side of (implicit) assignments
@@ -109,11 +109,12 @@ public abstract class AbstractExpr extends AbstractInst {
                                      Type expectedType)
             throws ContextualError {
         Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
-        boolean b = ((expectedType.isFloat()) && (type2.isInt()));
-        if (!(b || expectedType.sameType(type2)) && subtype(compiler, expectedType, type2)) {
-            throw new ContextualError("incompatible types", this.getLocation());
+        System.out.println(type2.getName());
+        System.out.println(expectedType.getName());
+        if ((assign_compatible(compiler, type2, expectedType))){
+            return this;
         }
-        return this;
+        throw new ContextualError("incompatible types", this.getLocation());
     }
 
     @Override

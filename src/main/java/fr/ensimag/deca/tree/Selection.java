@@ -24,10 +24,11 @@ public class Selection extends AbstractLValue {
         this.expr = expr;
         this.ident = ident;
     }
-
+    /* 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        
         Type type = this.expr.verifyExpr(compiler, localEnv, currentClass);
         ClassType classtyp = (ClassType) type;
         this.expr.setType(classtyp);
@@ -46,9 +47,46 @@ public class Selection extends AbstractLValue {
             if (currentClass == null) {
                 throw new ContextualError("can't acces this field from main", this.ident.getLocation());
             }
-            if ((!this.subtype(compiler, type, currentClass.getType()))
-            && !(this.subtype(compiler, currentClass.getType(), fieldef.getType()))){
-                throw new ContextualError("can't acces this field 1", this.ident.getLocation());
+            if(!(this.assign_compatible(compiler,classtyp, currentClass.getType()))){
+                throw new ContextualError("we're not in a subtype of the class where the field is defined", this.ident.getLocation());
+            }
+            if (!(this.assign_compatible(compiler, currentClass.getType(), type))){
+                throw new ContextualError("expression type is not a subtype of current class", this.ident.getLocation());
+            }
+        }
+        return fieldef.getType();
+    }
+    */
+    
+    @Override
+    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
+            ClassDefinition currentClass) throws ContextualError {
+        
+        Type type = this.expr.verifyExpr(compiler, localEnv, currentClass);
+        ClassType classtyp = (ClassType) type;
+        this.expr.setType(classtyp);
+        if (!type.isClass()) {
+            throw new ContextualError("selection exp must be a class", this.expr.getLocation());
+        }
+        ClassDefinition classdef = (ClassDefinition) compiler.environmentType.defOfType(classtyp.getName());
+        Type identype = this.ident.verifyExpr(compiler, classtyp.getDefinition().getMembers(), currentClass);
+        FieldDefinition fieldef;
+        try{
+        fieldef = (FieldDefinition) ident.getFieldDefinition();
+        } catch (ClassCastException e){
+            throw new ContextualError("selection expects a field", this.ident.getLocation());
+        }
+        this.ident.setType(identype);
+
+        if (fieldef.getVisibility() == Visibility.PROTECTED) {
+            if (currentClass == null) {
+                throw new ContextualError("can't acces this field from main", this.ident.getLocation());
+            }
+            if(!(this.assign_compatible(compiler,classtyp, currentClass.getType()))){
+                throw new ContextualError("we're not in a subtype of the class where the field is defined", this.ident.getLocation());
+            }
+            if (!(this.assign_compatible(compiler, currentClass.getType(), type))){
+                throw new ContextualError("expression type is not a subtype of current class", this.ident.getLocation());
             }
         }
         return fieldef.getType();
