@@ -254,14 +254,9 @@ public class DecacCompiler {
         }
         assert(prog.checkAllLocations());
     
-
-
         if (getCompilerOptions().getRegister()) {
             RegisterAllocator.setnbreMaxRegistre(getCompilerOptions().getnbRegister());
         }
-
-
-        
 
         if(getCompilerOptions().getDecompiler()){
             System.out.println(prog.decompile());
