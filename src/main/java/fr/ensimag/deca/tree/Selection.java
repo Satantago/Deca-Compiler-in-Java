@@ -89,6 +89,7 @@ public class Selection extends AbstractLValue {
                 throw new ContextualError("expression type is not a subtype of current class", this.ident.getLocation());
             }
         }
+        this.setType(fieldef.getType());
         return fieldef.getType();
     }
 

@@ -59,11 +59,11 @@ public class MethodCall extends AbstractExpr{
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         Type type = expr.verifyExpr(compiler, localEnv, currentClass); 
-        ClassType typ2 = (ClassType) type;
         expr.setType(type);
         if (!type.isClass()){
             throw new ContextualError("A method is called by a non class type", this.expr.getLocation());
         }
+        ClassType typ2 = (ClassType) type;
         ident.verifyExpr(compiler, typ2.getDefinition().getMembers(), currentClass);
         MethodDefinition metodef;
         try{

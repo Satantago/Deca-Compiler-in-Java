@@ -26,7 +26,13 @@ public class InstanceOf extends AbstractExpr{
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type T1 = this.expr.verifyExpr(compiler, localEnv, currentClass);
+        Type T2 = this.ident.verifyExpr(compiler, localEnv, currentClass);
+        if (!((T1.isNull() || T1.isClass()) && T2.isClass())){
+            throw new ContextualError("Type error while using instanceof", this.expr.getLocation());
+        }
+        this.setType(compiler.environmentType.BOOLEAN);
+        return compiler.environmentType.BOOLEAN;
      }
 
     @Override
@@ -46,7 +52,6 @@ public class InstanceOf extends AbstractExpr{
     protected void iterChildren(TreeFunction f) {
         expr.iter(f);
         ident.iter(f);
-        
     }
 
     @Override
@@ -57,6 +62,6 @@ public class InstanceOf extends AbstractExpr{
     
     @Override
     String prettyPrintNode() {
-        return "InstanceOf";
+        return "instanceof";
     }
 }
