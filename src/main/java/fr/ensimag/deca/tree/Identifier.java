@@ -222,6 +222,8 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
         Label l = new Label("FinIF" + compiler.getCmptLabel());
+        // Sekkal
+        compiler.addInstruction(new LOAD(0, Register.R0));
         compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);

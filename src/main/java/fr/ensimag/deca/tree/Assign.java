@@ -54,7 +54,8 @@ public class Assign extends AbstractBinaryExpr {
         super.getRightOperand().codeGen(compiler);
         super.getLeftOperand().codeGenStore(compiler);
         Label l = new Label("FinIF" + compiler.getCmptLabel());
-        compiler.addInstruction(new CMP(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.R0));
+        // sekkal
+        compiler.addInstruction(new CMP(0,Register.getR(compiler.getRegisterAllocator().popRegister())));
         compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);

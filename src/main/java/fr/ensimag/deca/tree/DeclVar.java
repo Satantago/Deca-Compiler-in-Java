@@ -12,6 +12,8 @@ import org.apache.commons.lang.Validate;
 
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 /**
@@ -69,11 +71,26 @@ public class DeclVar extends AbstractDeclVar {
         initialization.codeGenInitialization(compiler);
         DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
         this.varName.getExpDefinition().setOperand(GBAdresse);
-        if(initialization.isInit()){//ajouter le cas de new
+        if(initialization.isInit()){
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
             compiler.getRegisterAllocator().freeRegistre(compiler);
         }
     }
+
+    @Override
+    protected void codeGenDeclVarMethod(DecacCompiler compiler){
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
+        initialization.codeGenInitialization(compiler);
+        DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
+        this.varName.getExpDefinition().setOperand(GBAdresse);
+
+        if(initialization.isInit()){
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
+    }
+
+
     @Override
     public void decompile(IndentPrintStream s) {
         type.decompile(s);

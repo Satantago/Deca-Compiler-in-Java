@@ -10,6 +10,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
@@ -48,24 +49,15 @@ public class Program extends AbstractProgram {
     @Override
     public void verifyProgram(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify program: start");
-
         classes.verifyListClass(compiler);
         main.verifyMain(compiler);
-
-
-
-
-
-
-     
- 
         LOG.debug("verify program: end");
     }
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
 
-        compiler.addInstruction(new LOAD(0,Register.R0));
+        compiler.addInstruction(new LOAD(new NullOperand(),Register.R0));
         compiler.addComment("Table des Methodes");
         classes.codGenListDeclClass(compiler); // Cree la table des methodes
         compiler.addComment("Main program");
