@@ -1,5 +1,7 @@
 class A{
-    void m(){
+    int x=1;
+    void g(int a){
+        x = x + a ;
     }
     void p(){
     }
@@ -7,11 +9,13 @@ class A{
 class B extends A{
     void p(){
     }
-    int z(){
+    int gm(){
     }
 }
-class C extends A{
-    void g(){
+class C extends B{
+    int z = 6;
+ void g(int a){
+        z = z + a ;
     }
     int t(){
     }
@@ -19,5 +23,8 @@ class C extends A{
 
 
 {   
-   
+  
+  C aa =  new C();
+  aa.g(4);
+  println("a = ",aa.z);
 }

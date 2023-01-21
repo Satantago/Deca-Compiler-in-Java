@@ -48,13 +48,11 @@ public class Assign extends AbstractBinaryExpr {
         super.getRightOperand().codeGen(compiler);
         super.getLeftOperand().codeGenStore(compiler);
         compiler.getRegisterAllocator().freeRegistre(compiler);
-
     }
     protected void codeGenIter(DecacCompiler compiler) {
         super.getRightOperand().codeGen(compiler);
         super.getLeftOperand().codeGenStore(compiler);
         Label l = new Label("FinIF" + compiler.getCmptLabel());
-        // sekkal
         compiler.addInstruction(new CMP(0,Register.getR(compiler.getRegisterAllocator().popRegister())));
         compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new BEQ(l));

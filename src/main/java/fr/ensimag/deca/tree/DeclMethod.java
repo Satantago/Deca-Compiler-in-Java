@@ -71,7 +71,7 @@ public class DeclMethod extends AbstractDeclMethod{
    public LinkedList<String> ajoutMethodLabel(LinkedList<String> list,String s) {
     boolean b = true;
     for(int i=0;i<list.size();i++) {
-        if( list.get(i).split(".",2)[1].equals(("."+methodName.getName().getName())) ){
+        if( list.get(i).split("\\.",2)[1].equals((methodName.getName().getName())) ){
             list.remove(i);
             list.add(i, s+"."+methodName.getName().getName());
             b = false;

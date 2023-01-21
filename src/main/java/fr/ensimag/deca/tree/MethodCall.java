@@ -124,12 +124,13 @@ public class MethodCall extends AbstractExpr{
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
         LinkedList<String> l = compiler.getRegisterAllocator().getListMethodClass();
         for(indice=0;indice<l.size();indice++){
-            System.out.println( l.get(indice).split(".",2)[1]);
-            if( l.get(indice).split(".",2)[1].equals(("."+ident.getName().getName())) ){
+            System.out.println( "Sekkal zamal     "+(l.get(indice).split("\\."))[1]);
+            if( l.get(indice).split("\\.",2)[1].equals((ident.getName().getName())) ){
                 break;
             }
         }
-        compiler.addInstruction(new BSR(new RegisterOffset(indice-1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
+        System.out.println("Liste : "+l);
+        compiler.addInstruction(new BSR(new RegisterOffset(indice+1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
         compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new SUBSP(new ImmediateInteger(1+lstExpr.size())));
        
