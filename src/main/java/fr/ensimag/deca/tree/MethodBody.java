@@ -6,6 +6,10 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.RTS;
+
+import static org.mockito.Mockito.never;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -38,14 +42,22 @@ public class MethodBody extends AbstractMethodBody {
         insts.verifyListInst(compiler, localEnv , currentClass, t);
     }
 
+
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not yet implemented");        
+        declVariables.codeGenListDeclVar(compiler);
+        insts.codeGenListInst(compiler);
+        compiler.addInstruction(new RTS());
     }
     
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        s.indent();
+        declVariables.decompile(s);
+        s.println();
+        insts.decompile(s);
+        s.unindent();
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

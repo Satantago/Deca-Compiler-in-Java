@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
+import fr.ensimag.deca.context.ParamDefinition;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
@@ -18,6 +19,8 @@ import java.io.PrintStream;
 
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.LabelOperand;
+import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -207,7 +210,8 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),getExpDefinition().getOperand()));
-        compiler.getRegisterAllocator().freeRegistre(compiler);
+       //  compiler.getRegisterAllocator().freeRegistre(compiler);
+
     }
 
     @Override
@@ -217,7 +221,8 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
-        Label l = new Label("FinIF" + compiler.getCmptLabel());compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
+        Label l = new Label("FinIF" + compiler.getCmptLabel());
+        compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
@@ -231,21 +236,30 @@ public class Identifier extends AbstractIdentifier {
     protected void codeGenSuperClass(DecacCompiler compiler) {
         DAddr regGB = compiler.getRegisterAllocator().newGBRegistre();
         if(compiler.getRegisterAllocator().getNbGB() == 2){
-            compiler.addInstruction(new LOAD(0, Register.R0)); // null pas 0
-            compiler.addInstruction(new STORE(Register.R0,regGB));              
+            compiler.addInstruction(new LOAD(new NullOperand(), Register.R0)); 
+            compiler.addInstruction(new STORE(Register.R0,regGB)); 
         }
         else{
-            compiler.addInstruction(new LEA(regGB,Register.R0)); // regGB a modof 
+            compiler.addInstruction(new LEA(compiler.getRegisterAllocator().getGBRegistre(compiler.getRegisterAllocator().getNbrClass()),Register.R0));  
+            compiler.getRegisterAllocator().setNbrClass(compiler.getRegisterAllocator().getNbGB());
             compiler.addInstruction(new STORE(Register.R0,regGB));
 
         }
     }
 
     @Override
-    protected void codeGenClass(DecacCompiler compiler) {
-        //compiler.addInstruction(new LOAD(code.Object.equals,Register.R0));  // code ..
-        compiler.addInstruction(new STORE(Register.R0, compiler.getRegisterAllocator().newGBRegistre()));
+    protected void codeGenClass(DecacCompiler compiler,AbstractIdentifier className) {
+        compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")),Register.R0));  
+        DAddr registerAddr = compiler.getRegisterAllocator().newGBRegistre();
+        compiler.addInstruction(new STORE(Register.R0, registerAddr));
+        if(compiler.getRegisterAllocator().getNbGB() == 3){
+            codeGenSuperClass(compiler);
+            codeGenClass(compiler,className);
+        }
+        else
+            className.getClassDefinition().setAdresse(registerAddr);  
     }
+
     @Override
     protected void codeGenLabel(DecacCompiler compiler) {
         compiler.addLabel(new Label(getName().getName()));
@@ -303,6 +317,12 @@ public class Identifier extends AbstractIdentifier {
             s.print(d);
             s.println();
         }
+    }
+
+    @Override
+    public ParamDefinition getParamDefinition() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

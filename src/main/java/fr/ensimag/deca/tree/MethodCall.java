@@ -10,13 +10,32 @@ import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.NullOperand;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
+
+
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.time.format.SignStyle;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.apache.commons.lang.Validate;
@@ -66,14 +85,70 @@ public class MethodCall extends AbstractExpr{
 
     }
 
+
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(Register.R0,Register.R1)); 
+       if(ident.getDefinition().getType().isInt()){
+        compiler.addInstruction(new WINT());
+        }
+        else if(ident.getDefinition().getType().isFloat()){
+            compiler.addInstruction(new WFLOAT());
+        }   
+        
     }
 
     @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        //p12
+        int indice=0;
+        compiler.addInstruction(new ADDSP(new ImmediateInteger(1+lstExpr.size())));
+        expr.codeGenInst(compiler);
+        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
+
+        
+
+         // For les parametre !!!!
+
+         for(int i=0;i<lstExpr.size();i++){
+            lstExpr.getIndex(i).codeGen(compiler);
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(-1-i, Register.SP)));
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
+
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(compiler.getRegisterAllocator().popRegister())));
+        compiler.addInstruction(new CMP(new NullOperand(),(Register.getR(compiler.getRegisterAllocator().popRegister()))));
+        compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
+        
+        compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
+        LinkedList<String> l = compiler.getRegisterAllocator().getListMethodClass();
+        System.out.println( l);
+
+        for(indice=0;indice<l.size();indice++){
+            System.out.println( l.get(indice).split(".",2)[1]);
+            if( l.get(indice).split(".",2)[1].equals(("."+ident.getName().getName())) ){
+                break;
+            }
+        }
+        compiler.addInstruction(new BSR(new RegisterOffset(indice+1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
+        compiler.getRegisterAllocator().freeRegistre(compiler);
+        compiler.addInstruction(new SUBSP(new ImmediateInteger(1+lstExpr.size())));
+       
+    }
+    
+
+    @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        //throw new UnsupportedOperationException("not yet implemented");
+        expr.decompile(s);
+        s.print('.');
+        ident.decompile(s);
+        s.print('(');
+        lstExpr.decompile(s);
+        s.print(')');
+
+
     }
 
     @Override

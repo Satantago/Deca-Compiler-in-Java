@@ -1,7 +1,15 @@
 package fr.ensimag.deca.context;
 
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.deca.tree.Location;
 import fr.ensimag.ima.pseudocode.Label;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
 import org.apache.commons.lang.Validate;
 
 /**
@@ -12,7 +20,24 @@ import org.apache.commons.lang.Validate;
  */
 public class ClassDefinition extends TypeDefinition {
 
+    private  LinkedList<String>  listSuperMethod;
 
+
+    public LinkedList<String>  getList(){
+        return listSuperMethod ;
+    }
+    public  void setList(LinkedList<String>  l){
+        listSuperMethod = l ;
+    }
+
+    private DAddr regAdresse;
+
+    public DAddr getAdresse(){
+        return regAdresse;
+    }
+    public void setAdresse(DAddr regAdresse){
+        this.regAdresse = regAdresse;
+    }
     public void setNumberOfFields(int numberOfFields) {
         this.numberOfFields = numberOfFields;
     }
@@ -67,6 +92,7 @@ public class ClassDefinition extends TypeDefinition {
 
     public ClassDefinition(ClassType type, Location location, ClassDefinition superClass) {
         super(type, location);
+        listSuperMethod = new LinkedList<String> ();
         EnvironmentExp parent;
         if (superClass != null) {
             parent = superClass.getMembers();

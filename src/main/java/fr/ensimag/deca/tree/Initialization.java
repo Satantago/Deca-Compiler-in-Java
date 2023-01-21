@@ -26,6 +26,16 @@ public class Initialization extends AbstractInitialization {
         this.expression = expression;
     }
 
+    @Override
+    protected void codeGenInitFields(DecacCompiler compiler) {
+        expression.codeGenInitFields(compiler);
+    }
+
+
+
+
+
+
     public Initialization(AbstractExpr expression) {
         Validate.notNull(expression);
         this.expression = expression;

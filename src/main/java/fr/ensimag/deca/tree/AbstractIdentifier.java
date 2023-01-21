@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
+import fr.ensimag.deca.context.ParamDefinition;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.SymbolTable;
@@ -83,7 +84,7 @@ public abstract class AbstractIdentifier extends AbstractLValue {
 
     public abstract void setDefinition(Definition definition);
 
-
+    public abstract ParamDefinition getParamDefinition();
 
     /**
      * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes

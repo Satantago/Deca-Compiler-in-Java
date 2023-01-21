@@ -36,12 +36,15 @@ public class MethodAsmBody extends AbstractMethodBody {
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not yet implemented");        
+        text.codeGen(compiler);      
     }
     
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        s.print("asm(");
+        text.decompile(s);
+        s.print(");");
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

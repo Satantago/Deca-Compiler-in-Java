@@ -13,6 +13,7 @@ import org.apache.commons.lang.Validate;
 
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 public class DeclParam extends AbstractDeclParam{
@@ -28,12 +29,16 @@ public class DeclParam extends AbstractDeclParam{
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        type.decompile(s);
+        s.print(" ");
+        paramName.decompile(s);
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override
     protected void codeGenDeclParam(DecacCompiler compiler){
-        throw new UnsupportedOperationException("not yet implemented");
+        paramName.getExpDefinition().setOperand(new RegisterOffset(compiler.getRegisterAllocator().getCmptInitParam(),Register.LB));
+        compiler.getRegisterAllocator().decCmptInitParam();
     }
 
     @Override

@@ -18,7 +18,9 @@ public class Multiply extends AbstractOpArith {
 
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
         compiler.addInstruction(new MUL(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
-        compiler.addInstruction(new BOV(new Label("opArith")));
+        if(super.getType().isFloat()){
+            compiler.addInstruction(new BOV(new Label("opArith")));
+        }
         compiler.getRegisterAllocator().freeRegistre(compiler);
     } 
 

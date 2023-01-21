@@ -6,7 +6,16 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tree.DeclField;
-
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.ADD;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.RTS;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.SUB;
 
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.Validate;
@@ -14,7 +23,11 @@ import org.apache.commons.lang.Validate;
 public class ListDeclField extends TreeList<AbstractDeclField> {
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        for (AbstractDeclField field : getList()) {
+            field.decompile(s);
+        }
+
+       // throw new UnsupportedOperationException("Not yet implemented");
     }
     private static final Logger LOG = Logger.getLogger(ListDeclField.class);
 
@@ -46,5 +59,13 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
         for (AbstractDeclField i : getList()) {
             i.codeGenDeclField(compiler);
         }
+    }
+
+    public void codeGenListDeclFieldInit(DecacCompiler compiler,String s) {
+        for (AbstractDeclField i : getList()) {
+            i.codeGenDeclField(compiler);
+        }
+        compiler.addInstruction(new RTS());    
+        
     }
 }

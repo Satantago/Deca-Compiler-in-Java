@@ -11,11 +11,22 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.LabelOperand;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.SUB;
+import net.bytebuddy.asm.Advice.OffsetMapping.ForThisReference;
 
 public class DeclMethod extends AbstractDeclMethod{
     public AbstractIdentifier returnType;
@@ -33,16 +44,44 @@ public class DeclMethod extends AbstractDeclMethod{
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        this.returnType.decompile(s);
+        s.print(" ");
+        this.methodName.decompile(s);
+        s.print(" (");
+        this.listParametres.decompile(s);
+        s.print(") {");
+
+        this.body.decompile(s);
+        s.println("}");
+        //throw new UnsupportedOperationException("not yet implemented");
     }
 
-    @Override
-    protected void codeGenDeclMethod(DecacCompiler compiler){
-        returnType.codeGen(compiler);
-        methodName.codeGenLabel(compiler);
+    protected void codeGenDeclMethod(DecacCompiler compiler,String s){
+        compiler.addLabel(new Label("code."+s+"."+methodName.getName().getName()));
         listParametres.codeGenListDeclParam(compiler);
         body.codeGenMethodBody(compiler);
     }
+    protected void codeGenDeclMethodLabel(DecacCompiler compiler,String s){
+        compiler.addInstruction(new LOAD(new LabelOperand(new Label("code."+s+"."+methodName.getName().getName())),Register.R0));  
+        compiler.addInstruction(new STORE(Register.R0, compiler.getRegisterAllocator().newGBRegistre()));
+    }
+
+   // list.add(new String[][]{{"j"," " }});
+
+   public LinkedList<String> ajoutMethodLabel(LinkedList<String> list,String s) {
+    boolean b = true;
+    for(int i=0;i<list.size();i++) {
+        if( list.get(i).split(".",2)[1].equals(("."+methodName.getName().getName())) ){
+            list.remove(i);
+            list.add(i, s+"."+methodName.getName().getName());
+            b = false;
+            break;
+        }        
+    }
+    if(b)
+        list.addLast(s+"."+methodName.getName().getName());
+    return list;
+   }
 
     @Override
     protected
@@ -126,8 +165,7 @@ public class DeclMethod extends AbstractDeclMethod{
         methodef = new MethodDefinition(type, this.getLocation(), signature,currentClass.getNumberOfMethods());
         methodName.setDefinition(methodef);
         }
-
-
+        
         try {
             localEnv.declare(methodName.getName(), methodef);
         } catch (DoubleDefException e) {

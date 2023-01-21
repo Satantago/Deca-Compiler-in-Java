@@ -13,6 +13,7 @@ public abstract class AbstractDeclField extends Tree{
      * @param compiler
      */
     protected abstract void codeGenDeclField(DecacCompiler compiler);
+    protected abstract void codeGenDeclFieldInit(DecacCompiler compiler,int indice);
 
 
     /**
