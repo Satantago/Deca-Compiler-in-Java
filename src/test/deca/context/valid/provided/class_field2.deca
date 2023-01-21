@@ -1,0 +1,4 @@
+class A {
+  int x = 0;
+  float y = 2.3;
+}

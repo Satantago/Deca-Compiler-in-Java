@@ -1,0 +1,8 @@
+class A {
+ protected int x = 0;
+}
+
+{
+A a = new A();
+int y = a.x;
+}
