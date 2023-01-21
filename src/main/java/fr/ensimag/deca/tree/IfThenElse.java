@@ -58,10 +58,12 @@ public class IfThenElse extends AbstractInst   {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
                               ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        this.condition.verifyCondition(compiler, localEnv, currentClass);
-        this.thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
-        if (this.arbe != null) {
-            this.arbe.verifyInst(compiler, localEnv, currentClass, returnType);
+       
+            
+        this.getCondition().verifyCondition(compiler, localEnv, currentClass);
+        this.getThenBranch().verifyListInst(compiler, localEnv, currentClass, returnType);
+        if (this.getArbe() != null) {
+            this.getArbe().verifyInst(compiler, localEnv, currentClass, returnType);
         }
     }
 

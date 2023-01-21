@@ -18,19 +18,14 @@ import java.io.PrintStream;
  * @author gl32
  * @date 01/01/2023
  */
-// A faire   !!!!!!!!!!!!
 public class This extends AbstractExpr {
 
     private boolean bool;
-    public This() {
-        this.bool = false;
-    }
+
     public This(boolean b) {
         this.bool = b;
     }
-    public boolean getbool() {
-        return bool;
-    }
+   
 
    
 
