@@ -45,7 +45,10 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        declVariables.codeGenListDeclVar(compiler);
+
+        declVariables.codeGenListDeclVarMethod(compiler);
+        compiler.addComment("instruction");
+
         insts.codeGenListInst(compiler);
         compiler.addInstruction(new RTS());
     }
@@ -57,7 +60,6 @@ public class MethodBody extends AbstractMethodBody {
         s.println();
         insts.decompile(s);
         s.unindent();
-        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

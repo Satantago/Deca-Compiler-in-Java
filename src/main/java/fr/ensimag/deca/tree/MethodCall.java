@@ -123,8 +123,6 @@ public class MethodCall extends AbstractExpr{
         
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
         LinkedList<String> l = compiler.getRegisterAllocator().getListMethodClass();
-        System.out.println( l);
-
         for(indice=0;indice<l.size();indice++){
             System.out.println( l.get(indice).split(".",2)[1]);
             if( l.get(indice).split(".",2)[1].equals(("."+ident.getName().getName())) ){

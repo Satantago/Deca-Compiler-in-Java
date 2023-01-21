@@ -38,9 +38,6 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        // throw new UnsupportedOperationException("not yet implemented");
-        //compiler.addLabel(new Label("START_WHILE"));
-
         Label lWhile =  new Label("START_WHILE"+compiler.getcmptLabelFin());
         compiler.inccmptLabelFin();
         compiler.addDqueLabelWhile(lWhile);

@@ -6,6 +6,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
  * 
@@ -37,7 +40,6 @@ public class ListInst extends TreeList<AbstractInst> {
             i.codeGenInst(compiler);
         }
     }
-
     @Override
     public void decompile(IndentPrintStream s) {
         for (AbstractInst i : getList()) {

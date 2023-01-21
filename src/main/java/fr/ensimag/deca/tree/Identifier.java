@@ -26,6 +26,7 @@ import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 
 /**
  * Deca Identifier
@@ -209,19 +210,31 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
-        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),getExpDefinition().getOperand()));
-       //  compiler.getRegisterAllocator().freeRegistre(compiler);
-
+        if(getExpDefinition().isField()){
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
+        else
+          compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),getExpDefinition().getOperand()));
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+       if(getExpDefinition().isField()){
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
+        compiler.addInstruction(new LOAD(new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())),Register.getR(compiler.getRegisterAllocator().popRegister())));
+       }
+       else
+            compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
     }
+
+
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
         Label l = new Label("FinIF" + compiler.getCmptLabel());
+         compiler.addInstruction(new LOAD(0, Register.R0));
         compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);
@@ -270,7 +283,13 @@ public class Identifier extends AbstractIdentifier {
 
     @Override 
     protected void codeGenPrint(DecacCompiler compiler) { 
-        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
+        if(getExpDefinition().isField()){
+            compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
+        else 
+            compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
+
         if(getDefinition().getType().isInt()){
             compiler.addInstruction(new WINT());
         }
