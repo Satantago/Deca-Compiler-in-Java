@@ -3,8 +3,8 @@
 x = 5;
 int y = readInt();
 int z = readFloat() ; 
- z= y 
- print(z);
+z = y 
+print(z);
 }
 
 /*  Commentaire  */
