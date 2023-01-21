@@ -5,7 +5,11 @@
  */
 package fr.ensimag.deca.tree;
 
+import org.junit.jupiter.api.Test;
+
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.SHR;
 
 /**
  *
@@ -51,8 +55,12 @@ public class ManualTestInitialGencode {
     }    
 
         
-        
+   @Test
     public static void main(String args[]) {
-        test1();
+
+        DecacCompiler compiler = new DecacCompiler(null,null);
+        SHR s = new SHR(Register.R1);
+        compiler.addInstruction(s);
+        System.out.println(compiler.displayIMAProgram());
     }
 }

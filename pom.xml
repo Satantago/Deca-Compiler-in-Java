@@ -228,12 +228,71 @@
                         <goals>
                             <goal>java</goal>
                         </goals>
+                    
+                    </execution>
+                    <execution>
+                        <!-- run a unit test by defining our own class with a main
+                        function -->
+                        <!-- warning: java assertions are not enabled -->
+                        <id>unit-test-gencode</id>
+                        <configuration>
+                            <mainClass>fr.ensimag.deca.tree.ManualTestInitialGencode</mainClass>
+                            <classpathScope>test</classpathScope>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
 
                     </execution>
                     <execution>
                         <id>test_context_decac</id>
                         <configuration>
                             <executable>test_context.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    
+                    </execution>
+                    <execution>
+                        <id>test_alloptions</id>
+                        <configuration>
+                            <executable>test_decac_alloptions.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_display_usage</id>
+                        <configuration>
+                            <executable>test_decac_vide.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    
+                    </execution>
+                    <execution>
+                        <id>test_decac_-v</id>
+                        <configuration>
+                            <executable>test_decac_-v.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_ima-s</id>
+                        <configuration>
+                            <executable>test_ima_-s.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>

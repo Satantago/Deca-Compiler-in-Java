@@ -1,0 +1,8 @@
+class A {
+  protected int x = 2;
+}
+
+class B {
+  int x;
+  float y = 2.1;
+}
