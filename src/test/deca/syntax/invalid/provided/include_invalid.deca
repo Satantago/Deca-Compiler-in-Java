@@ -1,0 +1,3 @@
+#include "doesnt_exist.deca"
+
+{println("doenst exist");}
