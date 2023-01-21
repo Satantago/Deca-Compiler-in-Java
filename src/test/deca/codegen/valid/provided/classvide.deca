@@ -1,0 +1,4 @@
+//Une fois compilé, le fichier .ass permet d'assurer la bonne création de la table de méthodes, et des labels des
+//differents types d'erreurs ainsi que leur contenu
+class A{
+    }

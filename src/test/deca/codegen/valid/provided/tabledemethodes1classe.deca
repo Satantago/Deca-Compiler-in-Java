@@ -1,0 +1,7 @@
+//Permet de vérifier que la table de méthodes a été bien créé pour une class contenant plusieurs méthodes
+class A
+    {
+    void a(){}
+    void b(){}
+    void c(){}
+    }
