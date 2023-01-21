@@ -1,6 +1,12 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -41,7 +47,20 @@ public class Assign extends AbstractBinaryExpr {
     public void codeGenInst(DecacCompiler compiler){
         super.getRightOperand().codeGen(compiler);
         super.getLeftOperand().codeGenStore(compiler);
+        compiler.getRegisterAllocator().freeRegistre(compiler);
+
     }
+    protected void codeGenIter(DecacCompiler compiler) {
+        super.getRightOperand().codeGen(compiler);
+        super.getLeftOperand().codeGenStore(compiler);
+        Label l = new Label("FinIF" + compiler.getCmptLabel());
+        compiler.addInstruction(new CMP(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.R0));
+        compiler.getRegisterAllocator().freeRegistre(compiler);
+        compiler.addInstruction(new BEQ(l));
+        compiler.addDqueLabel(l);
+        compiler.incCmptLabel();
+    }
+
 
     @Override
     protected String getOperatorName() {

@@ -81,7 +81,7 @@ fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ) ;
 
 
 fragment DIGITHEX : ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f') ;
-NUMHEX : DIGITHEX+ ;
+fragment NUMHEX : DIGITHEX+ ;
 fragment FLOATHEX : ('0x' |'0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | ) ;
 FLOAT : FLOATDEC | FLOATHEX ;
 

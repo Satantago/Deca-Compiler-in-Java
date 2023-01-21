@@ -18,6 +18,10 @@ public class ClassType extends Type {
     public ClassDefinition getDefinition() {
         return this.definition;
     }
+
+    public void setDefinition(ClassDefinition def){
+        this.definition = def;
+    }
             
     @Override
     public ClassType asClassType(String errorMessage, Location l) {
@@ -49,19 +53,29 @@ public class ClassType extends Type {
     protected ClassType(Symbol className) {
         super(className);
     }
-    
+
 
     @Override
     public boolean sameType(Type otherType) {
-        throw new UnsupportedOperationException("not yet implemented");
+        return otherType.isClass();
     }
 
     /**
      * Return true if potentialSuperClass is a superclass of this class.
      */
-    public boolean isSubClassOf(ClassType potentialSuperClass) {
-        throw new UnsupportedOperationException("not yet implemented"); 
+    public boolean isSubClassOf(ClassType potentialSuperClass)
+    {   
+        if (this.isNull()){
+            return true;
+        }
+        ClassDefinition parcoursVar = this.getDefinition();
+        while (parcoursVar != null) {
+            if (parcoursVar.equals(potentialSuperClass.getDefinition())){
+                return true;
+            }
+            parcoursVar = parcoursVar.getSuperClass();
+        }
+        return false;
     }
-
 
 }

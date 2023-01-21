@@ -58,10 +58,16 @@ public class FloatLiteral extends AbstractExpr {
     protected void codeGen(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(this.getValue(),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
     }
-
+    
+    protected void codeGenInitFields(DecacCompiler compiler) {
+        compiler.addInstruction(new LOAD(this.getValue(),Register.R0));      
+    }
     @Override
     public void decompile(IndentPrintStream s) {
+
         s.print(java.lang.Float.toHexString(value));
+
+
     }
 
     @Override

@@ -1,0 +1,27 @@
+class A{
+    void m(){
+        println("je suis entré en A");
+    }
+    void p(){
+        println("fffffff");
+    }
+}
+class B extends A{
+    int x=5;
+    void p(){
+        println("je suis entré");
+    }
+    int z(int a,int b){
+        return 9+a*x-b;
+    }
+}
+
+{   
+    B gg = new B();
+    A ff = new A();
+    gg.p();
+    gg.m();
+    println("dddd");
+    println(gg.z(2,6));
+    ff.p();
+}
