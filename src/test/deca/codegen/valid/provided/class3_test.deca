@@ -1,8 +1,0 @@
-class P {
-    int x;
-    int y;
-    void move(int a, int b) {
-        x = x + a;
-        y = y + b;
-    }
-}
