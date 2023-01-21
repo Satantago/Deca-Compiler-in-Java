@@ -1,0 +1,8 @@
+class A {
+}
+class B extends A{
+A boom(int x){}
+}
+class C extends B{
+B boom(int x){}
+}

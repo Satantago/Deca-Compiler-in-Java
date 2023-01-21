@@ -1,0 +1,17 @@
+class X{
+    protected int x;
+    protected float y;
+}
+class Y extends X{
+    protected int z;
+}
+{
+    X w = null;
+    X x = new X();
+    Y y = new Y();
+    X z = (X)(y);
+    if (y instanceof x){
+        x = (X)(y);
+        print("hoooooop");
+    }
+}

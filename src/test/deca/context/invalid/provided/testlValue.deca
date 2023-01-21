@@ -1,0 +1,22 @@
+class A {
+protected int x;
+int getX(int a){
+return this.x;
+}
+}
+class B extends A {
+float getX(int a){
+float y = 6.2;
+return y + a;
+}
+}
+/*
+class X {
+void m() {
+B a = new B();
+int x = 5;
+//B b = new B();
+println(a.getX(x); // Ok du point de vue de la condition (2)
+}
+}
+*/

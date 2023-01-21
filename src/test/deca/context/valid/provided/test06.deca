@@ -1,0 +1,11 @@
+class A{
+    protected int x;
+    void testparam(boolean a, int b, float c){
+        if (a){
+        println(b);
+        }
+        else{
+        println(c);
+        }
+    }
+}
