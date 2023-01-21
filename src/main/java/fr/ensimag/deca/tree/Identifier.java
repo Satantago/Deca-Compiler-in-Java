@@ -253,8 +253,9 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new STORE(Register.R0,regGB)); 
         }
         else{
+            System.out.println("444   "+compiler.getRegisterAllocator().getNbrClass());
             compiler.addInstruction(new LEA(compiler.getRegisterAllocator().getGBRegistre(compiler.getRegisterAllocator().getNbrClass()),Register.R0));  
-            compiler.getRegisterAllocator().setNbrClass(compiler.getRegisterAllocator().getNbGB());
+            compiler.getRegisterAllocator().setNbrClass(compiler.getRegisterAllocator().getNbGB()-1);
             compiler.addInstruction(new STORE(Register.R0,regGB));
 
         }
