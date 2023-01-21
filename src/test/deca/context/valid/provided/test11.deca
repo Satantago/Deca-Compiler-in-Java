@@ -1,0 +1,23 @@
+class A{
+    void test(int a, boolean b, float c){
+        float p = -2.2;
+        int d;
+        d=2;
+        a = a%d;
+        if (a>a){
+        }
+        else if (a<=c){
+            println("gooo");
+        }
+        else if (c < a){
+            print("booom");
+        }
+        else{
+            a = 1;
+            print(a);
+        }
+        if (b){
+        print("lowerofequals");
+        }
+    }
+}

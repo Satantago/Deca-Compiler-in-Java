@@ -1,0 +1,6 @@
+class A{
+int somme (int x, int y){
+x = x+y;
+return x;
+}
+}
