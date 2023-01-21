@@ -22,6 +22,8 @@ import fr.ensimag.ima.pseudocode.DAddr;
 
 
 import java.io.PrintStream;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import org.apache.commons.lang.Validate;
 
@@ -116,29 +118,22 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void codeGenDeclClass(DecacCompiler compiler){
         superClassName.codeGenSuperClass(compiler);
-
         className.codeGenClass(compiler,className);
-        // compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")),Register.R0));  
-        // DAddr registerAddr = compiler.getRegisterAllocator().newGBRegistre();
-        // compiler.addInstruction(new STORE(Register.R0, registerAddr));
-        // className.getExpDefinition().setOperand(registerAddr);  // !!!!!!!!!!! TODO ***
-
-
-
-        //
-
-        listMethod.codeGenListDeclMethodLabel(compiler,className.getName().getName());
+        LinkedList<String> list = superClassName.getClassDefinition().getList();
+        list = listMethod.ajoutMethode(list,className.getName().getName());
+        className.getClassDefinition().setList(list);
+        for(int i=0;i<list.size();i++){
+            compiler.addInstruction(new LOAD(new LabelOperand(new Label("code."+list.get(i))),Register.R0));  
+            compiler.addInstruction(new STORE(Register.R0, compiler.getRegisterAllocator().newGBRegistre()));    
+        }
+        compiler.getRegisterAllocator().setListMethodClass(className.getClassDefinition().getList());
     }
     @Override
     protected void codeGenDeclClassMethode(DecacCompiler compiler){
 
     }
-
-    
-
     @Override
     protected void codeGenDeclClassInit(DecacCompiler compiler){
-        //System.out.println(superClassName.getName().getName() + "    //  "+ className.getName().getName());
         compiler.addLabel(new Label("init."+className.getName().getName()));
         if(superClassName.getName().getName()!="Object"){
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB ),Register.R0));

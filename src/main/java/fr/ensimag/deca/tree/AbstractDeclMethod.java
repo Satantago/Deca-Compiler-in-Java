@@ -1,6 +1,10 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+
+
+import java.util.LinkedList;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -22,6 +26,8 @@ public abstract class AbstractDeclMethod extends Tree {
     protected abstract void codeGenDeclMethod(DecacCompiler compiler,String s);
     protected abstract void codeGenDeclMethodLabel(DecacCompiler compiler,String s);
 
+    protected abstract LinkedList<String> ajoutMethodLabel(LinkedList<String>list,String s);
+    
 
     /**
      * Implements non-terminal "decl_Method" of [SyntaxeContextuelle] in pass 2

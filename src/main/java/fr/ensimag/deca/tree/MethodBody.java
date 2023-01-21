@@ -6,6 +6,10 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.RTS;
+
+import static org.mockito.Mockito.never;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -37,15 +41,13 @@ public class MethodBody extends AbstractMethodBody {
         declVariables.verifyListDeclVariable(compiler, localEnv, currentClass);
         insts.verifyListInst(compiler, localEnv , currentClass, t);
     }
-   // ,ClassDefinition currentClass) throws ContextualError {
-    //     declVariables.verifyListDeclVariable(compiler,null, currentClass);
-    //     insts.verifyListInst(compiler, null, null, null);
-    // }
+
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
         declVariables.codeGenListDeclVar(compiler);
         insts.codeGenListInst(compiler);
+        compiler.addInstruction(new RTS());
     }
     
     @Override

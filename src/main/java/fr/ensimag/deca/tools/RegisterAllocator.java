@@ -14,6 +14,7 @@ public class RegisterAllocator {
     private int nbrClass; // Nombre de registres GB
     private Deque<Integer> registerUsed; // Liste des registres utilises
     private LinkedList<DAddr> listeGB; // Liste des registres utilises
+    private LinkedList<String> listeMethodClass; //
     private boolean[] registerStatus; // Etat des registres (utilise ou non)
     private int nbreMaxRegistre = 16; // Nombre maximal de registres disponibles
     private int maxSP;// Nombre de registre max dans la pile utilise
@@ -22,8 +23,8 @@ public class RegisterAllocator {
     
     // Constructeur
     public RegisterAllocator(){
-        this.nbrGB = 2;
-        this.nbrSP = 2;
+        this.nbrGB = 1;
+        this.nbrSP = 1;
         this.maxSP = 2;
         this.nbrClass = 1;
         this.cmptInitParam = -3;
@@ -31,11 +32,20 @@ public class RegisterAllocator {
         this.registerStatus = new boolean[nbreMaxRegistre];
         this.registerUsed = new ArrayDeque<>();
         this.listeGB = new LinkedList<>();
+        this.listeMethodClass = new LinkedList<>();
         this.registerStatus[0]=true;
         this.registerStatus[1]=true;
         for(int i = 2;i<nbreMaxRegistre;i++){
             this.registerStatus[i]=false;
         }
+    }
+
+
+    public LinkedList<String> getListMethodClass(){
+        return listeMethodClass;
+    }
+    public void setListMethodClass(LinkedList<String> l){
+        listeMethodClass = l;
     }
 
     public int getCmptInitClass(){
@@ -54,7 +64,7 @@ public class RegisterAllocator {
         cmptInitClass ++;
     }
     public void initCmptInitParam(){
-        cmptInitClass = -3;
+        cmptInitParam = -3;
     }
 
     public int getMaxSP(){

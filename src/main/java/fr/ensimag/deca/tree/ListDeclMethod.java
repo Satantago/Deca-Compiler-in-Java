@@ -6,9 +6,16 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tree.DeclMethod;
-
+import net.bytebuddy.asm.Advice.Return;
 
 import org.apache.log4j.Logger;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
 import org.apache.commons.lang.Validate;
 
 
@@ -60,6 +67,15 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
             i.codeGenDeclMethodLabel(compiler,s);
         }
     }
+
+
+
+    public LinkedList<String>  ajoutMethode(LinkedList<String>  list,String s) {
+        for (AbstractDeclMethod i : getList()) {
+            list = i.ajoutMethodLabel(list,s);
+        }
+        return list;
+     }
 
     public void codeGenListDeclMethod(DecacCompiler compiler,String s) {
         for (AbstractDeclMethod i : getList()) {

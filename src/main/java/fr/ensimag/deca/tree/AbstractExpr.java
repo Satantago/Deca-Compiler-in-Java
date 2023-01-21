@@ -165,7 +165,9 @@ public abstract class AbstractExpr extends AbstractInst {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("Vide");
     }
+
 
     /**
      * Methode permet de generer l'instruction STORE, utilise pour les variables

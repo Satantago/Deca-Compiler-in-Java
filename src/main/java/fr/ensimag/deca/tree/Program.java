@@ -75,7 +75,7 @@ public class Program extends AbstractProgram {
 
 
         Label pile = new Label("pile_pleine");
-        compiler.addFirst(new ADDSP(new ImmediateInteger(compiler.getRegisterAllocator().getNbGB()-2)));
+        compiler.addFirst(new ADDSP(new ImmediateInteger(compiler.getRegisterAllocator().getNbGB()-1)));
         compiler.addFirst(new BOV(pile));
         compiler.addFirst(new TSTO(new ImmediateInteger(compiler.getRegisterAllocator().getMaxSP())));
         compiler.addLabel(pile);
@@ -83,7 +83,7 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
 
-        Label tas = new Label("tas_pleine");
+        Label tas = new Label("tas_plein");
         compiler.addLabel(tas);
         compiler.addInstruction(new WSTR("Erreur : tas pleine"));
         compiler.addInstruction(new WNL());
@@ -94,6 +94,15 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
 
+        compiler.addLabel(new Label("dereferencement_null"));
+        compiler.addInstruction(new WSTR("Erreur : Dereferencement Null"));
+        compiler.addInstruction(new WNL());
+        compiler.addInstruction(new ERROR());
+
+
+        
+
+        
         compiler.addLabel(new Label("code.object.equals"));
         compiler.addInstruction(new RTS());
     }

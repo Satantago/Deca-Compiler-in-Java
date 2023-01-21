@@ -7,6 +7,10 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -29,7 +33,13 @@ public class Return extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        returnExpression.codeGen(compiler);
+        System.out.println("jjjj");
+        compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.R0));   
+    }
+
+    protected void codeGenPrint(DecacCompiler compiler) {
+        //TODO  
     }
 
     @Override
@@ -38,7 +48,7 @@ public class Return extends AbstractInst {
         if (returnType.isVoid()){
             throw new ContextualError("In order to return, returntype should be different than void", getLocation());
         }
-        try{
+        try{         
         returnExpression.verifyRValue(compiler, localEnv, currentClass, returnType);
         }
         catch(ContextualError e){

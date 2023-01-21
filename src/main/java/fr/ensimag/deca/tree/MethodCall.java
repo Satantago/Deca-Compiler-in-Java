@@ -10,6 +10,8 @@ import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.Label;
@@ -19,9 +21,12 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 
@@ -30,6 +35,7 @@ import java.lang.reflect.Method;
 import java.time.format.SignStyle;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.apache.commons.lang.Validate;
@@ -58,14 +64,14 @@ public class MethodCall extends AbstractExpr{
         if (!type.isClass()){
             throw new ContextualError("A method is called by a non class type", this.expr.getLocation());
         }
-        Type ident_type = ident.verifyExpr(compiler, typ2.getDefinition().getMembers(), currentClass);
+        ident.verifyExpr(compiler, typ2.getDefinition().getMembers(), currentClass);
         MethodDefinition metodef;
         try{
             metodef = (MethodDefinition) ident.getMethodDefinition();
         }catch (ClassCastException e) {
             throw new ContextualError("Methodcall expects a method", this.ident.getLocation());
         }
-        ident.setType(ident_type);
+        ident.setType(metodef.getType());
         Signature sig = metodef.getSignature();
         Signature sig2 = new Signature();
         for (AbstractExpr a : this.lstExpr.getList()){
@@ -74,6 +80,7 @@ public class MethodCall extends AbstractExpr{
         if (!(sig.equals(sig2))){
             throw new ContextualError("Wrong signature for method : " + this.ident.getName(), this.ident.getLocation());
         }
+        this.setType(metodef.getType());
         return metodef.getType();
 
     }
@@ -81,42 +88,53 @@ public class MethodCall extends AbstractExpr{
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(Register.R0,Register.R1)); 
+       if(ident.getDefinition().getType().isInt()){
+        compiler.addInstruction(new WINT());
+        }
+        else if(ident.getDefinition().getType().isFloat()){
+            compiler.addInstruction(new WFLOAT());
+        }   
+        
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         //p12
+        int indice=0;
         compiler.addInstruction(new ADDSP(new ImmediateInteger(1+lstExpr.size())));
-        //compiler.addInstruction(new LOAD(,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
-
+        expr.codeGenInst(compiler);
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
 
-        // DAddr dr = expr.getExpDefinition().getOperand() // Code gen qui pemet d'appeler getExpe
+        
 
-         // For les parametre !!!! 
+         // For les parametre !!!!
 
          for(int i=0;i<lstExpr.size();i++){
-            //Ajouter codeGen adresse // popRegister=> on prend la derniere valeur du registre !!!!!!
-            //compiler.addInstruction(new LOAD(Register.getR(lstExpr.getIndex(i).,Register.getR(compiler.getRegisterAllocator().popRegister()))));
+            lstExpr.getIndex(i).codeGen(compiler);
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(-1-i, Register.SP)));
-         }
-       
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
 
-       
         compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(compiler.getRegisterAllocator().popRegister())));
-        compiler.addInstruction(new LOAD(new NullOperand(),(Register.getR(compiler.getRegisterAllocator().popRegister()))));
-      
-      //  compiler.addInstruction(new BEQ(new Label("dereferncement_null")));
+        compiler.addInstruction(new CMP(new NullOperand(),(Register.getR(compiler.getRegisterAllocator().popRegister()))));
+        compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
         
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
-        compiler.addInstruction(new BSR(new RegisterOffset(2,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
+        LinkedList<String> l = compiler.getRegisterAllocator().getListMethodClass();
+        System.out.println( l);
+
+        for(indice=0;indice<l.size();indice++){
+            System.out.println( l.get(indice).split(".",2)[1]);
+            if( l.get(indice).split(".",2)[1].equals(("."+ident.getName().getName())) ){
+                break;
+            }
+        }
+        compiler.addInstruction(new BSR(new RegisterOffset(indice+1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
+        compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new SUBSP(new ImmediateInteger(1+lstExpr.size())));
-        
-        
-    
-    
-    
+       
     }
     
 

@@ -237,7 +237,7 @@ public class Identifier extends AbstractIdentifier {
         DAddr regGB = compiler.getRegisterAllocator().newGBRegistre();
         if(compiler.getRegisterAllocator().getNbGB() == 2){
             compiler.addInstruction(new LOAD(new NullOperand(), Register.R0)); 
-            compiler.addInstruction(new STORE(Register.R0,regGB));              
+            compiler.addInstruction(new STORE(Register.R0,regGB)); 
         }
         else{
             compiler.addInstruction(new LEA(compiler.getRegisterAllocator().getGBRegistre(compiler.getRegisterAllocator().getNbrClass()),Register.R0));  
@@ -252,8 +252,14 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new LOAD(new LabelOperand(new Label("code.Object.equals")),Register.R0));  
         DAddr registerAddr = compiler.getRegisterAllocator().newGBRegistre();
         compiler.addInstruction(new STORE(Register.R0, registerAddr));
-        className.getClassDefinition().setAdresse(registerAddr);  
+        if(compiler.getRegisterAllocator().getNbGB() == 3){
+            codeGenSuperClass(compiler);
+            codeGenClass(compiler,className);
+        }
+        else
+            className.getClassDefinition().setAdresse(registerAddr);  
     }
+
     @Override
     protected void codeGenLabel(DecacCompiler compiler) {
         compiler.addLabel(new Label(getName().getName()));
