@@ -54,7 +54,6 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
     
 
     public void codeGenListDeclVarMethod(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
         for (AbstractDeclVar i : getList()) {
             i.codeGenDeclVarMethod(compiler);
         }

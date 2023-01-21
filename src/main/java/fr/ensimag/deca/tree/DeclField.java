@@ -63,6 +63,8 @@ public class DeclField extends AbstractDeclField{
             compiler.addInstruction(new STORE(Register.R0,new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1)));
             System.out.println(1+compiler.getRegisterAllocator().getCmptInitClass());
             fieldName.getFieldDefinition().setOperand(new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1));
+            fieldName.getFieldDefinition().setIndex(1+compiler.getRegisterAllocator().getCmptInitClass());
+            fieldName.getFieldDefinition().setisField(true);
             compiler.getRegisterAllocator().incCmptInitClass();
     }
     @Override
@@ -71,7 +73,7 @@ public class DeclField extends AbstractDeclField{
     }
 
     @Override
-    protected
+    protected 
     void iterChildren(TreeFunction f) {
         type.iter(f);
         fieldName.iter(f);
