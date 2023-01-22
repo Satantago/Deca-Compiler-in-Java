@@ -1,6 +1,7 @@
 package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.tree.Location;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Label;
 import org.apache.commons.lang.Validate;
 
@@ -11,7 +12,7 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2023
  */
 public class MethodDefinition extends ExpDefinition {
-
+    private DAddr classAddr;
     @Override
     public boolean isMethod() {
         return true;
@@ -37,6 +38,14 @@ public class MethodDefinition extends ExpDefinition {
     public MethodDefinition asMethodDefinition(String errorMessage, Location l)
             throws ContextualError {
         return this;
+    }
+
+
+    public DAddr getClassAdresse(){
+        return classAddr;
+    }
+    public void setClassAdresse(DAddr reg){
+        classAddr=reg;
     }
 
     private final Signature signature;

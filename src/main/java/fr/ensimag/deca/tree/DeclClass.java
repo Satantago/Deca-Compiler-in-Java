@@ -142,7 +142,7 @@ public class DeclClass extends AbstractDeclClass {
             compiler.addInstruction(new SUBSP(1));
         }
         listField.codeGenListDeclFieldInit(compiler,className.getName().getName());
-        listMethod.codeGenListDeclMethod(compiler,className.getName().getName());
+        listMethod.codeGenListDeclMethod(compiler,className.getName().getName(), className.getClassDefinition().getAdresse() );
     }
 
     @Override

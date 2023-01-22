@@ -227,13 +227,18 @@ public class Identifier extends AbstractIdentifier {
        }
        else
             compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
-    }
+       
+        }
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
         Label l = new Label("FinIF" + compiler.getCmptLabel());
          compiler.addInstruction(new LOAD(0, Register.R0));
-        compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
+         if(getExpDefinition().isField()){
+            compiler.addInstruction(new CMP(new RegisterOffset(-2, Register.LB),Register.R0));
+        }
+        else
+            compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
@@ -313,7 +318,7 @@ public class Identifier extends AbstractIdentifier {
 
         s.print(name.toString());
     }
-    
+
     @Override
     String prettyPrintNode() {
         return "Identifier (" + getName() + ")";

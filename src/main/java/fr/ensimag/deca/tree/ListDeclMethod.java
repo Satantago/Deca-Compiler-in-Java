@@ -6,6 +6,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tree.DeclMethod;
+import fr.ensimag.ima.pseudocode.DAddr;
 import net.bytebuddy.asm.Advice.Return;
 
 import org.apache.log4j.Logger;
@@ -77,9 +78,9 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
         return list;
      }
 
-    public void codeGenListDeclMethod(DecacCompiler compiler,String s) {
+    public void codeGenListDeclMethod(DecacCompiler compiler,String s,DAddr adresseClass) {
         for (AbstractDeclMethod i : getList()) {
-            i.codeGenDeclMethod(compiler, s);
+            i.codeGenDeclMethod(compiler, s,adresseClass);
         }
     }
 }
