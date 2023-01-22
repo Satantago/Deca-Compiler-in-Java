@@ -177,7 +177,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
     protected void codeGenInitFields(DecacCompiler compiler){
     }
-    protected void codeGenSuperClass(DecacCompiler compiler) {}
+    protected void codeGenSuperClass(DecacCompiler compiler,AbstractIdentifier className) {}
     protected void codeGenClass(DecacCompiler compiler,AbstractIdentifier className) {}
     protected void codeGenLabel(DecacCompiler compiler){}
     /**

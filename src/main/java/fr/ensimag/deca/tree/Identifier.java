@@ -244,7 +244,7 @@ public class Identifier extends AbstractIdentifier {
     }
 
     @Override
-    protected void codeGenSuperClass(DecacCompiler compiler) {
+    protected void codeGenSuperClass(DecacCompiler compiler,AbstractIdentifier className) {
         DAddr regGB = compiler.getRegisterAllocator().newGBRegistre();
         if(compiler.getRegisterAllocator().getNbGB() == 2){
             compiler.addInstruction(new LOAD(new NullOperand(), Register.R0)); 
@@ -254,7 +254,7 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new LEA(compiler.getRegisterAllocator().getGBRegistre(compiler.getRegisterAllocator().getNbrClass()),Register.R0));  
             compiler.getRegisterAllocator().setNbrClass(compiler.getRegisterAllocator().getNbGB()-1);
             compiler.addInstruction(new STORE(Register.R0,regGB));
-
+            className.getClassDefinition().setAdresse(regGB);  
         }
     }
 
@@ -264,14 +264,9 @@ public class Identifier extends AbstractIdentifier {
         DAddr registerAddr = compiler.getRegisterAllocator().newGBRegistre();
         compiler.addInstruction(new STORE(Register.R0, registerAddr));
         if(compiler.getRegisterAllocator().getNbGB() == 3){
-            codeGenSuperClass(compiler);
+            codeGenSuperClass(compiler,className);
             codeGenClass(compiler,className);
-        }
-        else{
-            className.getClassDefinition().setAdresse(registerAddr);  
-        }
-
-        
+        }        
     }
 
     @Override
@@ -290,7 +285,6 @@ public class Identifier extends AbstractIdentifier {
         }
         else 
             compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
-
         if(getDefinition().getType().isInt()){
             compiler.addInstruction(new WINT());
         }
@@ -303,8 +297,6 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
         compiler.addInstruction(new WFLOATX());
     }
-
-
 
     @Override
     protected void iterChildren(TreeFunction f) {
@@ -320,9 +312,8 @@ public class Identifier extends AbstractIdentifier {
     public void decompile(IndentPrintStream s) {
 
         s.print(name.toString());
-
     }
-
+    
     @Override
     String prettyPrintNode() {
         return "Identifier (" + getName() + ")";

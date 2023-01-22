@@ -117,7 +117,7 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenDeclClass(DecacCompiler compiler){
-        superClassName.codeGenSuperClass(compiler);
+        superClassName.codeGenSuperClass(compiler,className);
         className.codeGenClass(compiler,className);
         LinkedList<String> list =new LinkedList<>(superClassName.getClassDefinition().getList());
         list = listMethod.ajoutMethode(list,className.getName().getName());

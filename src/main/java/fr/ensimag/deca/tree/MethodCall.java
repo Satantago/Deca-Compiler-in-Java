@@ -134,7 +134,7 @@ public class MethodCall extends AbstractExpr{
                 break;
             }
         }
-        compiler.addInstruction(new BSR(new RegisterOffset(indice+1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
+        compiler.addInstruction(new BSR(new RegisterOffset(indice+2,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
         compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new SUBSP(new ImmediateInteger(1+lstExpr.size())));
     }

@@ -52,8 +52,8 @@ public class New extends AbstractExpr {
         s.print(" new ");
         newtype.decompile(s);
         s.print("()");
-        //throw new UnsupportedOperationException("not yet implemented");
     }
+    
     @Override
     public void codeGen(DecacCompiler compiler) {
         compiler.addInstruction(new NEW(newtype.getClassDefinition().getNumberOfFields()+1, Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
@@ -63,12 +63,6 @@ public class New extends AbstractExpr {
         compiler.addInstruction(new PUSH( Register.getR(compiler.getRegisterAllocator().popRegister())));
         compiler.addInstruction(new BSR(new Label("init."+newtype.getClassDefinition().getType().getName().getName())));
         compiler.addInstruction(new POP( Register.getR(compiler.getRegisterAllocator().popRegister())));
-        //compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(0, Register.getR(compiler.getRegisterAllocator().popRegister()))));
-       
-        //super.getLeftOperand().getType().getName()
-        
-        //getNumberOfFields()
-
     }
     
     @Override
