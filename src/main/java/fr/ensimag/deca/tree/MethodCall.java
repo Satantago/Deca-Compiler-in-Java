@@ -116,7 +116,12 @@ public class MethodCall extends AbstractExpr{
     protected void codeGenInst(DecacCompiler compiler) {
         int indice=0;
         compiler.addInstruction(new ADDSP(new ImmediateInteger(1+lstExpr.size())));
-        expr.codeGenInst(compiler);
+        if (expr !=null){
+            expr.codeGenInst(compiler);
+        }
+        // else{
+            
+        // }
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
          for(int i=0;i<lstExpr.size();i++){
             lstExpr.getIndex(i).codeGen(compiler);

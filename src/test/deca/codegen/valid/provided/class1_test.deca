@@ -1,12 +1,13 @@
-
-class C {
-    //boolean t = false;
-    boolean g(){
-        return true;
+class A{
+    int x;
+    int getx(){
+        return x;
     }
-    
+    void setx(int v){
+        int y = getx();
+        x = v;
+    }
 }
-
 
 {   
  
