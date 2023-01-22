@@ -75,17 +75,17 @@ public class MethodCall extends AbstractExpr{
             env = currentClass.getMembers();
         }
         ident.verifyExpr(compiler, env, currentClass);
-        MethodDefinition metodef;
-        try{
-            metodef = (MethodDefinition) ident.getMethodDefinition();
-        }catch (ClassCastException e) {
-            throw new ContextualError("Methodcall expects a method", this.ident.getLocation());
-        }
+        MethodDefinition metodef = (MethodDefinition) ident.getMethodDefinition();
         ident.setType(metodef.getType());
         Signature sig = metodef.getSignature();
         Signature sig2 = new Signature();
+        int cmp = 0;
         for (AbstractExpr a : this.lstExpr.getList()){
+            try{
+            a = a.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(cmp));
+            } catch (ContextualError e){}
             sig2.add(a.verifyExpr(compiler, localEnv, currentClass));
+            cmp++;
         }
         if (!(sig.equals(sig2))){
             throw new ContextualError("Wrong signature for method : " + this.ident.getName(), this.ident.getLocation());

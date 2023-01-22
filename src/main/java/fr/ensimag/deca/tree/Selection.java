@@ -89,9 +89,9 @@ public class Selection extends AbstractLValue {
         this.ident.setType(identype);
         fieldef = (FieldDefinition) ident.getFieldDefinition();
     } catch (DecacInternalError e){
-        throw new ContextualError("selection expects a field", this.ident.getLocation());
+        throw new ContextualError("type class expects a field or a method", this.ident.getLocation());
     } catch (ContextualError e){
-         throw new ContextualError("selection expects a field", this.ident.getLocation());
+         throw new ContextualError("type class expects a field or a method", this.ident.getLocation());
     }
     
     if (fieldef.getVisibility() == Visibility.PROTECTED) {

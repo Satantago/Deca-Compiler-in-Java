@@ -48,7 +48,7 @@ public class Return extends AbstractInst {
             throw new ContextualError("In order to return, returntype should be different than void", getLocation());
         }
         try{         
-        returnExpression.verifyRValue(compiler, localEnv, currentClass, returnType);
+        this.returnExpression = returnExpression.verifyRValue(compiler, localEnv, currentClass, returnType);
         }
         catch(ContextualError e){
             throw e;
