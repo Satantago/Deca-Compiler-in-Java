@@ -210,8 +210,6 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
-        compiler.addComment("Sekkal");
-
         if(getExpDefinition().isField()){
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
@@ -230,8 +228,6 @@ public class Identifier extends AbstractIdentifier {
        else
             compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
     }
-
-
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
@@ -255,7 +251,6 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new STORE(Register.R0,regGB)); 
         }
         else{
-            System.out.println("444   "+compiler.getRegisterAllocator().getNbrClass());
             compiler.addInstruction(new LEA(compiler.getRegisterAllocator().getGBRegistre(compiler.getRegisterAllocator().getNbrClass()),Register.R0));  
             compiler.getRegisterAllocator().setNbrClass(compiler.getRegisterAllocator().getNbGB()-1);
             compiler.addInstruction(new STORE(Register.R0,regGB));
@@ -272,8 +267,11 @@ public class Identifier extends AbstractIdentifier {
             codeGenSuperClass(compiler);
             codeGenClass(compiler,className);
         }
-        else
+        else{
             className.getClassDefinition().setAdresse(registerAddr);  
+        }
+
+        
     }
 
     @Override

@@ -59,9 +59,9 @@ public class DeclField extends AbstractDeclField{
                 compiler.addInstruction(new LOAD(0,Register.R0));
             }
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB ),Register.R1));
-            System.out.println(compiler.getRegisterAllocator().getCmptInitClass());
+            // System.out.println(compiler.getRegisterAllocator().getCmptInitClass());
             compiler.addInstruction(new STORE(Register.R0,new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1)));
-            System.out.println(1+compiler.getRegisterAllocator().getCmptInitClass());
+            // System.out.println(1+compiler.getRegisterAllocator().getCmptInitClass());
             fieldName.getFieldDefinition().setOperand(new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1));
             fieldName.getFieldDefinition().setIndex(1+compiler.getRegisterAllocator().getCmptInitClass());
             fieldName.getFieldDefinition().setisField(true);

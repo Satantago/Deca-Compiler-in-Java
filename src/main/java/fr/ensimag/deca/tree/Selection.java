@@ -69,8 +69,12 @@ public class Selection extends AbstractLValue {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
  ClassDefinition currentClass) throws ContextualError {
-    
-    Type type = this.expr.verifyExpr(compiler, localEnv, currentClass);
+    Type type;
+    try{
+    type = this.expr.verifyExpr(compiler, localEnv, currentClass);
+    } catch (ContextualError e) {
+        throw new ContextualError("selection exp must be a class", this.expr.getLocation());
+    }
     if (!type.isClass()) {
         throw new ContextualError("selection exp must be a class", this.expr.getLocation());
     }
@@ -95,10 +99,11 @@ public class Selection extends AbstractLValue {
             throw new ContextualError("can't acces this field from main", this.ident.getLocation());
         }
         if(!(this.assign_compatible(compiler,classtyp, currentClass.getType()))){
-            throw new ContextualError("we're not in a subtype of the class where the field is defined", this.ident.getLocation());
-        }
-        if (!(this.assign_compatible(compiler, currentClass.getType(), type))){
             throw new ContextualError("expression type is not a subtype of current class", this.ident.getLocation());
+
+        }
+        if (!(this.assign_compatible(compiler, currentClass.getType(), classtyp))){
+            throw new ContextualError("we're not in a subtype of the class where the field is defined", this.ident.getLocation());
         }
     }
     this.setType(fieldef.getType());

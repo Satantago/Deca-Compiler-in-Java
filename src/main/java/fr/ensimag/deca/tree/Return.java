@@ -34,7 +34,6 @@ public class Return extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         returnExpression.codeGen(compiler);
-        System.out.println("jjjj");
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.R0));   
     }
 

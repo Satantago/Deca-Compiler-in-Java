@@ -1,30 +1,14 @@
-class A{
-    int x=1;
-    void g(int a){
-        x = x + a ;
+
+class C {
+    //boolean t = false;
+    boolean g(){
+        return true;
     }
-    void p(){
-    }
-}
-class B extends A{
-    void p(){
-    }
-    int gm(){
-    }
-}
-class C extends B{
-    int z = 6;
- void g(int a){
-        z = z + a ;
-    }
-    int t(){
-    }
+    
 }
 
 
 {   
-  
-  C aa =  new C();
-  aa.g(4);
-  println("a = ",aa.z);
+ 
+   
 }

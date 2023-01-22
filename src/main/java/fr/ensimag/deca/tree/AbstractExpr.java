@@ -112,8 +112,6 @@ public abstract class AbstractExpr extends AbstractInst {
                                      Type expectedType)
             throws ContextualError {
         Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
-        System.out.println(type2.getName());
-        System.out.println(expectedType.getName());
         if ((assign_compatible(compiler, type2, expectedType))){
             return this;
         }
@@ -168,7 +166,6 @@ public abstract class AbstractExpr extends AbstractInst {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("Vide");
     }
 
 

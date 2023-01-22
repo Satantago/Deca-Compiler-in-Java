@@ -119,12 +119,9 @@ public class DeclClass extends AbstractDeclClass {
     protected void codeGenDeclClass(DecacCompiler compiler){
         superClassName.codeGenSuperClass(compiler);
         className.codeGenClass(compiler,className);
-        // System.out.println("Class : "+className.getName().getName() +" SuperClass : "+superClassName.getName().getName());
         LinkedList<String> list =new LinkedList<>(superClassName.getClassDefinition().getList());
         list = listMethod.ajoutMethode(list,className.getName().getName());
         className.getClassDefinition().setList(list);
-        System.out.println("Class : "+className.getName().getName() +"  " +className.getClassDefinition().getList());
-        System.out.println(" SuperClass : "+superClassName.getName().getName() +"  " + superClassName.getClassDefinition().getList());
         for(int i=0;i<list.size();i++){
             compiler.addInstruction(new LOAD(new LabelOperand(new Label("code."+list.get(i))),Register.R0));  
             compiler.addInstruction(new STORE(Register.R0, compiler.getRegisterAllocator().newGBRegistre()));    

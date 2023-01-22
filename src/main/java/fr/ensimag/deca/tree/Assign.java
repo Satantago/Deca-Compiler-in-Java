@@ -59,7 +59,11 @@ public class Assign extends AbstractBinaryExpr {
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
     }
-
+    @Override
+    public void codeGen(DecacCompiler compiler){
+        super.getRightOperand().codeGen(compiler);
+        super.getLeftOperand().codeGenStore(compiler);
+    }
 
     @Override
     protected String getOperatorName() {

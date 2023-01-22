@@ -47,7 +47,7 @@ public class MethodCall extends AbstractExpr{
     private ListExpr lstExpr;
 
     public MethodCall(AbstractExpr expr, AbstractIdentifier ident, ListExpr lstExpr) {
-        Validate.notNull(expr);
+        //Validate.notNull(expr);
         Validate.notNull(ident);
         Validate.notNull(lstExpr);
         this.expr = expr;
@@ -58,13 +58,23 @@ public class MethodCall extends AbstractExpr{
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        Type type = expr.verifyExpr(compiler, localEnv, currentClass); 
-        expr.setType(type);
-        if (!type.isClass()){
-            throw new ContextualError("A method is called by a non class type", this.expr.getLocation());
+        EnvironmentExp env;
+        if (currentClass == null && expr == null){
+            throw new ContextualError("can't call a method in main without a class behind", getLocation());
         }
-        ClassType typ2 = (ClassType) type;
-        ident.verifyExpr(compiler, typ2.getDefinition().getMembers(), currentClass);
+        if (expr !=null){
+            Type type = expr.verifyExpr(compiler, localEnv, currentClass); 
+            expr.setType(type);
+            if (!type.isClass()){
+                throw new ContextualError("A method is called by a non class type", this.expr.getLocation());
+            }
+            ClassType typ2 = (ClassType) type;
+            env = typ2.getDefinition().getMembers();
+        }
+        else{
+            env = currentClass.getMembers();
+        }
+        ident.verifyExpr(compiler, env, currentClass);
         MethodDefinition metodef;
         try{
             metodef = (MethodDefinition) ident.getMethodDefinition();
@@ -98,25 +108,21 @@ public class MethodCall extends AbstractExpr{
         }   
         
     }
-
+    protected void codeGen(DecacCompiler compiler) {
+        codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(Register.R0,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+    }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        //p12
         int indice=0;
         compiler.addInstruction(new ADDSP(new ImmediateInteger(1+lstExpr.size())));
         expr.codeGenInst(compiler);
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
-
-        
-
-         // For les parametre !!!!
-
          for(int i=0;i<lstExpr.size();i++){
             lstExpr.getIndex(i).codeGen(compiler);
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(-1-i, Register.SP)));
             compiler.getRegisterAllocator().freeRegistre(compiler);
         }
-
         compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(compiler.getRegisterAllocator().popRegister())));
         compiler.addInstruction(new CMP(new NullOperand(),(Register.getR(compiler.getRegisterAllocator().popRegister()))));
         compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
@@ -124,50 +130,74 @@ public class MethodCall extends AbstractExpr{
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
         LinkedList<String> l = compiler.getRegisterAllocator().getListMethodClass();
         for(indice=0;indice<l.size();indice++){
-            System.out.println( "Sekkal zamal     "+(l.get(indice).split("\\."))[1]);
             if( l.get(indice).split("\\.",2)[1].equals((ident.getName().getName())) ){
                 break;
             }
         }
-        System.out.println("Liste : "+l);
         compiler.addInstruction(new BSR(new RegisterOffset(indice+1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
         compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new SUBSP(new ImmediateInteger(1+lstExpr.size())));
-       
     }
-    
+
+    protected void codeGenIter(DecacCompiler compiler) {
+        codeGenInst(compiler);int indice=0;
+        compiler.addInstruction(new ADDSP(new ImmediateInteger(1+lstExpr.size())));
+        expr.codeGenInst(compiler);
+        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
+         for(int i=0;i<lstExpr.size();i++){
+            lstExpr.getIndex(i).codeGen(compiler);
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(-1-i, Register.SP)));
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(compiler.getRegisterAllocator().popRegister())));
+        compiler.addInstruction(new CMP(new NullOperand(),(Register.getR(compiler.getRegisterAllocator().popRegister()))));
+        compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
+        
+        compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
+        LinkedList<String> l = compiler.getRegisterAllocator().getListMethodClass();
+        for(indice=0;indice<l.size();indice++){
+            if( l.get(indice).split("\\.",2)[1].equals((ident.getName().getName())) ){
+                break;
+            }
+        }
+        compiler.addInstruction(new BSR(new RegisterOffset(indice+1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
+        Label label = new Label("FinIF" + compiler.getCmptLabel());
+        compiler.addInstruction(new CMP(0,Register.R0));
+        // compiler.addInstruction(new CMP(0,Register.getR(compiler.getRegisterAllocator().popRegister())));
+        // compiler.getRegisterAllocator().freeRegistre(compiler);
+        compiler.addInstruction(new BEQ(label));
+        compiler.addDqueLabel(label);
+        compiler.incCmptLabel();
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        //throw new UnsupportedOperationException("not yet implemented");
-        expr.decompile(s);
+        if (expr!=null){
+            expr.decompile(s);
+        }
         s.print('.');
         ident.decompile(s);
         s.print('(');
         lstExpr.decompile(s);
         s.print(')');
-
-
     }
 
     @Override
-    protected void iterChildren(TreeFunction f) {
-        
-        expr.iter(f);
+    protected void iterChildren(TreeFunction f) {     
+        if (expr!=null){
+            expr.iter(f);
+        }
         ident.iter(f); 
         lstExpr.iter(f);
-
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        
-        expr.prettyPrint(s, prefix, false);
+        if (expr!=null){
+            expr.prettyPrint(s, prefix, false);
+        }
         ident.prettyPrint(s, prefix, false);
-        lstExpr.prettyPrint(s, prefix, false);
-
-
-
+        lstExpr.prettyPrint(s, prefix, true);
     }
     
     @Override
