@@ -210,8 +210,6 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
-        compiler.addComment("Sekkal");
-
         if(getExpDefinition().isField()){
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
@@ -231,8 +229,6 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
     }
 
-
-
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
         Label l = new Label("FinIF" + compiler.getCmptLabel());
@@ -248,18 +244,17 @@ public class Identifier extends AbstractIdentifier {
     }
 
     @Override
-    protected void codeGenSuperClass(DecacCompiler compiler) {
+    protected void codeGenSuperClass(DecacCompiler compiler,AbstractIdentifier className) {
         DAddr regGB = compiler.getRegisterAllocator().newGBRegistre();
         if(compiler.getRegisterAllocator().getNbGB() == 2){
             compiler.addInstruction(new LOAD(new NullOperand(), Register.R0)); 
             compiler.addInstruction(new STORE(Register.R0,regGB)); 
         }
         else{
-            System.out.println("444   "+compiler.getRegisterAllocator().getNbrClass());
             compiler.addInstruction(new LEA(compiler.getRegisterAllocator().getGBRegistre(compiler.getRegisterAllocator().getNbrClass()),Register.R0));  
             compiler.getRegisterAllocator().setNbrClass(compiler.getRegisterAllocator().getNbGB()-1);
             compiler.addInstruction(new STORE(Register.R0,regGB));
-
+            className.getClassDefinition().setAdresse(regGB);  
         }
     }
 
@@ -269,11 +264,9 @@ public class Identifier extends AbstractIdentifier {
         DAddr registerAddr = compiler.getRegisterAllocator().newGBRegistre();
         compiler.addInstruction(new STORE(Register.R0, registerAddr));
         if(compiler.getRegisterAllocator().getNbGB() == 3){
-            codeGenSuperClass(compiler);
+            codeGenSuperClass(compiler,className);
             codeGenClass(compiler,className);
-        }
-        else
-            className.getClassDefinition().setAdresse(registerAddr);  
+        }        
     }
 
     @Override
@@ -292,7 +285,6 @@ public class Identifier extends AbstractIdentifier {
         }
         else 
             compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
-
         if(getDefinition().getType().isInt()){
             compiler.addInstruction(new WINT());
         }
@@ -305,8 +297,6 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.R1));
         compiler.addInstruction(new WFLOATX());
     }
-
-
 
     @Override
     protected void iterChildren(TreeFunction f) {
@@ -322,9 +312,8 @@ public class Identifier extends AbstractIdentifier {
     public void decompile(IndentPrintStream s) {
 
         s.print(name.toString());
-
     }
-
+    
     @Override
     String prettyPrintNode() {
         return "Identifier (" + getName() + ")";
