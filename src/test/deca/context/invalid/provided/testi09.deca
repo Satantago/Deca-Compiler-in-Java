@@ -1,0 +1,9 @@
+class X{
+    X boomy(float x){}
+}
+class Z {
+    X boomy(float x){}
+}
+class Y extends X{
+    Z boomy(float x){}
+}

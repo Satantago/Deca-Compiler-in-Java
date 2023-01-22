@@ -1,0 +1,8 @@
+class A{
+    protected int x;
+}
+class B extends A {
+int getX(A a) {
+return a.x;
+}
+}

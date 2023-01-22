@@ -1,0 +1,8 @@
+class A{
+    boolean b;
+}
+{
+    int x;
+    A a = new A();
+    print(a.x);
+}

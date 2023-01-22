@@ -1,0 +1,8 @@
+class A{
+    protected boolean b;
+}
+class B{
+    void setB(int b){
+        this.b = b;
+    }
+}

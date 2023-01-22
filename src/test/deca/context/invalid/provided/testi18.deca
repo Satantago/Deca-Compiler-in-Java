@@ -1,0 +1,5 @@
+{
+    boolean b = true;
+    float x;
+    x = (float)(b);
+}

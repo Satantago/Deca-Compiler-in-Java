@@ -1,0 +1,6 @@
+class A{
+    int hmida;
+}
+class B extends A{
+    int hmida(){}
+}

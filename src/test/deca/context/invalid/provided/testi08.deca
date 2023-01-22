@@ -1,0 +1,6 @@
+class X{
+    boolean is_int(){}
+}
+class Y extends X{
+    int is_int(){}
+}

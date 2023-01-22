@@ -1,0 +1,6 @@
+class A{
+    int methody(boolean a){}
+}
+class B extends A{
+    float methody(boolean a){}
+}

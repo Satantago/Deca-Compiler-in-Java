@@ -1,0 +1,6 @@
+class A{
+    int testa(float x){}
+}
+class B extends A{
+    int testa(int x){}
+}

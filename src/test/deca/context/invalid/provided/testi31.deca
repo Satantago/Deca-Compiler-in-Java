@@ -1,0 +1,9 @@
+class A{
+    protected int x;
+}
+class B{
+    int getX(){
+        A a = new A();
+        return a.x;
+    }
+}

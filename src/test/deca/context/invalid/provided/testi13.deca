@@ -1,0 +1,5 @@
+class A{
+    void saso(int x){
+        return x;
+    }
+}

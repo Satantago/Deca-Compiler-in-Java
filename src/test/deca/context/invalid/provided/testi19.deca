@@ -1,0 +1,6 @@
+class A{}
+{
+    float x;
+    A a = new A();
+    x = (float)(a);
+}
