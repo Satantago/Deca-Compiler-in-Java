@@ -111,19 +111,27 @@ public class Selection extends AbstractLValue {
  }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        expr.codeGenInst(compiler);
-        compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
-        compiler.addInstruction(new CMP(new NullOperand(),(Register.getR(compiler.getRegisterAllocator().popRegister()))));
-        compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
-        compiler.addInstruction(new LOAD(new RegisterOffset(ident.getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
-    }
+        if(expr instanceof This){
+            System.out.println("SSSSSSSSSSSSSSSSSSSSSsssss");
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+            compiler.addInstruction(new LOAD(new RegisterOffset(ident.getFieldDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())),Register.getR(compiler.getRegisterAllocator().popRegister())));
+            //compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
+        }
+        else{
+            expr.codeGenInst(compiler);
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
+            compiler.addInstruction(new CMP(new NullOperand(),(Register.getR(compiler.getRegisterAllocator().popRegister()))));
+            compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
+            compiler.addInstruction(new LOAD(new RegisterOffset(ident.getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
+
+        }
+      }
     protected void codeGen(DecacCompiler compiler) {        
         codeGenInst(compiler);  
     }
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
         if(ident.getExpDefinition().isField()){
-            compiler.addComment("null");
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(ident.getFieldDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
             compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);

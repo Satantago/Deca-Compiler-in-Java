@@ -180,8 +180,9 @@ public class MethodCall extends AbstractExpr{
     public void decompile(IndentPrintStream s) {
         if (expr!=null){
             expr.decompile(s);
+            s.print('.');
         }
-        s.print('.');
+        
         ident.decompile(s);
         s.print('(');
         lstExpr.decompile(s);
