@@ -1,8 +1,11 @@
-
+// Description:
+//    Affectation et typage
+//
 // Resultats:
-//Erreur contextuelle
-//Ligne 12: Right value doesn't match the expected type
-
+//    Ligne 15: Affectation de types incompatibles.
+// 
+// Historique:
+//    cree le 01/01/2023
 
 {
    int a;
@@ -11,3 +14,4 @@
    // Doit etre refuse.
    a = b;
 }
+
