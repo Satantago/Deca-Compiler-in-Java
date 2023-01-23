@@ -76,7 +76,7 @@ class Math {
         if (x < 0.0) {
             return -(sin(-x));
         }
-        else if (x < pi_major) {
+        else if (x < 0.785398) {
             return _sin_taylor(x);
         }
         else {
