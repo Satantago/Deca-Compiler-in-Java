@@ -1,0 +1,14 @@
+class A{
+    boolean t = true;
+
+    void setx(int v){
+        if(t){
+        t = false;
+    }
+}
+}
+
+{
+    A a = new A();
+   a.setx(4);
+}
