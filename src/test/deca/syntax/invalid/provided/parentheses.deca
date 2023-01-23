@@ -1,4 +1,8 @@
-//test des parentheses
+// Description:
+//   Extra Parentheses
+//
+// Résultats:
+//   :3:13: extraneous input ')' expecting ';'
 {
 float x = (5));
 }

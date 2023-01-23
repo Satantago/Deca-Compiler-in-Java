@@ -1,4 +1,8 @@
-//ifvide
+// Description
+//   If statement without condition
+//
+// Résultats:
+//   Erreur: :3:7: mismatched input ')' expecting ... 
 {
     if(){
         println("ifvide");

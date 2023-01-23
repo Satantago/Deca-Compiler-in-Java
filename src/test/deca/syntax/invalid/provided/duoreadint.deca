@@ -1,3 +1,8 @@
+// Description:
+//   Faire une déclaration après début de ListInstruction
+//
+// Résultats:
+//   Erreur syntaxique: :4:4: no viable alternative at input 'y'
 
 {int x = 2;
 x = 5;
