@@ -75,17 +75,17 @@ public class MethodCall extends AbstractExpr{
             env = currentClass.getMembers();
         }
         ident.verifyExpr(compiler, env, currentClass);
-        MethodDefinition metodef;
-        try{
-            metodef = (MethodDefinition) ident.getMethodDefinition();
-        }catch (ClassCastException e) {
-            throw new ContextualError("Methodcall expects a method", this.ident.getLocation());
-        }
+        MethodDefinition metodef = (MethodDefinition) ident.getMethodDefinition();
         ident.setType(metodef.getType());
         Signature sig = metodef.getSignature();
         Signature sig2 = new Signature();
+        int cmp = 0;
         for (AbstractExpr a : this.lstExpr.getList()){
+            try{
+            a = a.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(cmp));
+            } catch (ContextualError e){}
             sig2.add(a.verifyExpr(compiler, localEnv, currentClass));
+            cmp++;
         }
         if (!(sig.equals(sig2))){
             throw new ContextualError("Wrong signature for method : " + this.ident.getName(), this.ident.getLocation());
@@ -116,7 +116,13 @@ public class MethodCall extends AbstractExpr{
     protected void codeGenInst(DecacCompiler compiler) {
         int indice=0;
         compiler.addInstruction(new ADDSP(new ImmediateInteger(1+lstExpr.size())));
-        expr.codeGenInst(compiler);
+        if (expr !=null){
+            expr.codeGenInst(compiler);
+        }
+        else{
+            compiler.addInstruction(new LOAD(ident.getMethodDefinition().getClassAdresse() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+            
+        }
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));
          for(int i=0;i<lstExpr.size();i++){
             lstExpr.getIndex(i).codeGen(compiler);

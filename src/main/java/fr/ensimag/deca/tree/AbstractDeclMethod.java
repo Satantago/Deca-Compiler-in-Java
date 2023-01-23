@@ -1,7 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
-
+import fr.ensimag.ima.pseudocode.DAddr;
 
 import java.util.LinkedList;
 
@@ -23,7 +23,7 @@ public abstract class AbstractDeclMethod extends Tree {
      * 
      * @param compiler
      */
-    protected abstract void codeGenDeclMethod(DecacCompiler compiler,String s);
+    protected abstract void codeGenDeclMethod(DecacCompiler compiler,String s,DAddr adresseClass);
     protected abstract void codeGenDeclMethodLabel(DecacCompiler compiler,String s);
 
     protected abstract LinkedList<String> ajoutMethodLabel(LinkedList<String>list,String s);

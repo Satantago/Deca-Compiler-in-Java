@@ -112,10 +112,16 @@ public abstract class AbstractExpr extends AbstractInst {
                                      Type expectedType)
             throws ContextualError {
         Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
+        boolean b = ((expectedType.isFloat()) && (type2.isInt()));
+        if (b){
+            ConvFloat con = new ConvFloat(this);
+            con.verifyExpr(compiler, localEnv, currentClass);
+            return con;
+        }
         if ((assign_compatible(compiler, type2, expectedType))){
             return this;
         }
-        throw new ContextualError("incompatible types", this.getLocation());
+        throw new ContextualError("Right value doesn't match the expected type", this.getLocation());
     }
 
     @Override

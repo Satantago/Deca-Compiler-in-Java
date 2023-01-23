@@ -93,7 +93,7 @@ public class CompilerOptions {
                 decompiler = true ;
             }
             else if(args[i].equals("-d")){
-                debug = 1  ;
+                debug++  ;
             }
             else if(args[i].equals("-v")) {
                 verify = true  ;

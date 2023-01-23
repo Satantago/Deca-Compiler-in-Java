@@ -1,0 +1,7 @@
+{
+    int a;
+    float b;
+    if (a>=b){
+        print("zooom");
+    }
+}

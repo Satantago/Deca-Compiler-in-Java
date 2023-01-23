@@ -27,7 +27,18 @@ public abstract class AbstractOpExactCmp extends AbstractOpCmp {
         Type leftType = leftOperand.verifyExpr(compiler, localEnv, currentClass);
         Type rightType = rightOperand.verifyExpr(compiler, localEnv, currentClass);
 
-        if (((leftType.isInt() || leftType.isFloat()) && (rightType.isInt() || rightType.isFloat()))
+        if (leftType.isInt() && rightType.isFloat()) {
+            setLeftOperand(new ConvFloat(leftOperand));
+            getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+            return compiler.environmentType.BOOLEAN;
+        }
+        else if (leftType.isFloat() && rightType.isInt()) {  
+            setRightOperand(new ConvFloat(rightOperand));
+            getRightOperand().verifyExpr(compiler, localEnv, currentClass);
+            return compiler.environmentType.BOOLEAN;
+        }
+
+        else if (((leftType.isInt() || leftType.isFloat()) && (rightType.isInt() || rightType.isFloat()))
             || (leftType.isBoolean() && rightType.isBoolean()))
             // pour les classes || leftType)
          {

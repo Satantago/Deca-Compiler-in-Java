@@ -13,5 +13,4 @@ class A
 class B extends A
     {
     int g;
-    inh;
-    }
+}

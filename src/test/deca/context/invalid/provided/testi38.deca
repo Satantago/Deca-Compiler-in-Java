@@ -1,0 +1,10 @@
+class A{
+    protected int x;
+    int getX(){
+        return x;
+    }
+}
+{
+    float b;
+    int x = b.getX();
+}

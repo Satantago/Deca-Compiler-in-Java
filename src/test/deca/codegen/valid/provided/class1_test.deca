@@ -1,14 +1,17 @@
-
-class C {
-    //boolean t = false;
-    boolean g(){
-        return true;
+class A{
+    int x = 5;
+    int getx(){
+        return x;
     }
-    
+    void setx(int v){
+        x = getx();
+    }
 }
 
-
-{   
- 
-   
+{  
+    A aa= new A(); 
+    
+    println(aa.getx());
+    aa.setx(1);
+    //println(aa.getx());
 }
