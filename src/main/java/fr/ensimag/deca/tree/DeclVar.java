@@ -46,7 +46,7 @@ public class DeclVar extends AbstractDeclVar {
         assert(type != null);
         this.type.setType(veriftype);
         if (veriftype.isVoid()){
-            throw new ContextualError("type different de void", this.type.getLocation());
+            throw new ContextualError("Void can't be used as a Type", this.type.getLocation());
         }
 
         /*****************Inialization non terminal *************/

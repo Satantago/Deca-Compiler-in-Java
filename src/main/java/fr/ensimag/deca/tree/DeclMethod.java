@@ -145,7 +145,7 @@ public class DeclMethod extends AbstractDeclMethod{
         
         if (expdef != null) {
             if (!(expdef.isMethod())) {
-                throw new ContextualError("A field or param is already defined by " + methodName.getName(), methodName.getLocation());
+                throw new ContextualError("A field is already defined by " + methodName.getName(), methodName.getLocation());
             }
             MethodDefinition expdef2 = (MethodDefinition) expdef;
             if (!signature.equals(expdef2.getSignature())){

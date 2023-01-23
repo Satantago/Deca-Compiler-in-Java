@@ -73,10 +73,10 @@ public class Selection extends AbstractLValue {
     try{
     type = this.expr.verifyExpr(compiler, localEnv, currentClass);
     } catch (ContextualError e) {
-        throw new ContextualError("selection exp must be a class", this.expr.getLocation());
+        throw new ContextualError("Expecting a class", this.expr.getLocation());
     }
     if (!type.isClass()) {
-        throw new ContextualError("selection exp must be a class", this.expr.getLocation());
+        throw new ContextualError("Expecting a class", this.expr.getLocation());
     }
 
     ClassType classtyp = (ClassType) type;

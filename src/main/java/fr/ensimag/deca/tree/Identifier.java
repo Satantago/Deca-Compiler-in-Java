@@ -181,7 +181,7 @@ public class Identifier extends AbstractIdentifier {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
                            ClassDefinition currentClass) throws ContextualError {
         if (localEnv.get(name) == null) {
-            throw new ContextualError(name +" is not in localEnv", getLocation());
+            throw new ContextualError(name +" is undefined", getLocation());
         }
         this.setDefinition(localEnv.get(name));
         return localEnv.get(name).getType();
