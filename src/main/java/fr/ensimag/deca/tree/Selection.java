@@ -117,12 +117,24 @@ public class Selection extends AbstractLValue {
         compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
         compiler.addInstruction(new LOAD(new RegisterOffset(ident.getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
     }
-    protected void codeGen(DecacCompiler compiler) {
+    protected void codeGen(DecacCompiler compiler) {        
         codeGenInst(compiler);  
     }
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
-          compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),ident.getExpDefinition().getOperand()));
+        if(ident.getExpDefinition().isField()){
+            compiler.addComment("null");
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(ident.getFieldDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
+            compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
+
+
+        }
+        else{
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),ident.getExpDefinition().getOperand()));
+
+        }
+        
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {

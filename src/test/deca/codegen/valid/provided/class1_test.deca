@@ -4,7 +4,7 @@ class A{
         return x;
     }
     void setx(int tt){
-       this.x = tt;  // +getx()   ==> chenger le truc !:
+        x = tt;  // +getx()   ==> chenger le truc !:
     }
 }
 

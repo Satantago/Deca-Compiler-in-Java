@@ -211,6 +211,7 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
         if(getExpDefinition().isField()){
+            compiler.addComment("bbbbb");
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
             compiler.getRegisterAllocator().freeRegistre(compiler);
@@ -222,8 +223,6 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
        if(getExpDefinition().isField()){
-        compiler.addComment("bbbbb");
-
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
             compiler.addInstruction(new LOAD(new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())),Register.getR(compiler.getRegisterAllocator().popRegister())));
        }
