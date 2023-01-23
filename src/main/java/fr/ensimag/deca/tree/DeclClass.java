@@ -93,11 +93,6 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-                 //get the environmentExp of the class 
-
-                   
-        //className.verifyType(compiler); // Verifications que la classe existe 
-      // Verifications des methodes
         listField.verifyListDeclField(compiler, className.getClassDefinition().getMembers(), className.getClassDefinition()); 
         listMethod.verifyListDeclMethod(compiler, className.getClassDefinition().getMembers() ,className.getClassDefinition());
 
@@ -142,6 +137,7 @@ public class DeclClass extends AbstractDeclClass {
             compiler.addInstruction(new SUBSP(1));
         }
         listField.codeGenListDeclFieldInit(compiler,className.getName().getName());
+        //ICI
         listMethod.codeGenListDeclMethod(compiler,className.getName().getName(), className.getClassDefinition().getAdresse() );
     }
 

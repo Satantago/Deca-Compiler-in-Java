@@ -121,6 +121,10 @@ public class Selection extends AbstractLValue {
         codeGenInst(compiler);  
     }
     @Override
+    protected void codeGenStore(DecacCompiler compiler) {
+          compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),ident.getExpDefinition().getOperand()));
+    }
+    @Override
     protected void codeGenPrint(DecacCompiler compiler) {
         codeGenInst(compiler);  
         ident.codeGenPrint(compiler);  
@@ -131,7 +135,6 @@ public class Selection extends AbstractLValue {
         expr.decompile(s);
         s.print('.');
         ident.decompile(s);
-        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

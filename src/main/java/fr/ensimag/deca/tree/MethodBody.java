@@ -50,6 +50,8 @@ public class MethodBody extends AbstractMethodBody {
         compiler.addComment("instruction");
 
         insts.codeGenListInst(compiler);
+        compiler.addComment("vvvvvvvv");
+
         compiler.addInstruction(new RTS());
     }
     
