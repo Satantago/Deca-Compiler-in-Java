@@ -3,67 +3,90 @@ class Math {
     float pi_minor = -0.00000008742278;
     float pi_2 = 1.5707964;
 
-    float _sin_chebyshev(float x) {
-        float c0 = -0.10132118f;
-        float c1 = 0.0066208798f;
-        float c2 = -0.00017350505f;
-        float c3 = 0.0000025222919f;
-        float c4 = -0.000000023317787f;
-        float c5 = 0.00000000013291342f;
+    // SIN CHEBYSHEV coefficients
+    float a0 = -0.10132118f;
+    float a1 = 0.0066208798f;
+    float a2 = -0.00017350505f;
+    float a3 = 0.0000025222919f;
+    float a4 = -0.000000023317787f;
+    float a5 = 0.00000000013291342f;
 
-        float x2 = x*x;
-        float res = (((((c5 * x2) + c4)*x2 + c3)*x2 + c2)*x2 + c1)*x2 + c0;
-        
+    // SIN TAYLOR coefficients
+    float S1  = -0.16666667; 
+    float S2  =  0.008333334;
+    float S3  = -1.984127e-4;
+    float S4  =  2.7557314e-6;
+    float S5  = -2.505076e-8;
+    float S6  =  1.589691e-10;
+
+    // ARCTAN TAYLOR coefficients
+    float SS1  = -0.33333334; 
+    float SS2  =  0.2; 
+    float SS3  = -0.14285715;
+    float SS4  =  0.11111111; 
+    float SS5  = -0.09090909;
+    float SS6  =  0.07692308;
+
+    float x2, res; 
+
+    // for reduction
+    float x_etoile;
+    int k, c;
+    float c1 = 3.140625;
+    float c2 = 9.67653589793e-4;
+
+    // for newton's method
+    float v;
+    int i;
+
+    // for ulp
+    int min, max, middle;
+    
+    float _sin_chebyshev(float x) {
+        x2 = x*x;
+        res = (((((a5 * x2) + a4)*x2 + a3)*x2 + a2)*x2 + a1)*x2 + a0;
         return ((x - pi_major - pi_minor) *(x + pi_major + pi_minor) * res * x);
     }
 
 
-   float _sin_taylor(float x) {
-        float x2 = x*x;
-        float S1  = -0.16666667; 
-        float S2  =  0.008333334;
-        float S3  = -1.984127e-4;
-        float S4  =  2.7557314e-6;
-        float S5  = -2.505076e-8;
-        float S6  =  1.589691e-10 ;
-        float res = 1 + x2*(S1+x2*(S2+x2*(S3+x2*(S4+x2*(S5+x2*(S6))))));
-        return res*x;
+    float _sin_taylor(float x) {
+        x2 = x*x;
+        res = 1 + x2*(S1+x2*(S2+x2*(S3+x2*(S4+x2*(S5+x2*(S6))))));
+        res = res * x;
+        return res;
     }
 
+
     float _reduce(float x) {
-        float c1 = 3.140625;
-        float c2 = 9.67653589793e-4;
-        int k = (int) (x / (c1+c2));
-        int c = 1;
+        k = (int) (x / (c1+c2));
+        c = 1;
         if (k % 2 == 1) {
             c = -1;
         }
-        return c*((x - k*c1) - k*c2); 
+        return c*((x - k*c1) - k*c2);
     }
 
-    int _reduce_k(float x) {
-        float c1 = 3.140625f;
-        float c2 = 9.67653589793e-4;
-        int k = (int) (x / (c1+c2));
+      int _reduce_k(float x) {
+        k = (int) (x / (c1+c2));
         return k;
     }
 
-     float sin(float x) {
-        float x_etoile = _reduce(x);
-        if (x < 0) {
-            return -(sin-x);
+
+    float sin(float x) {
+        if (x < 0.0) {
+            return -(sin(-x));
         }
-        else if (x < 1.5) {
+        else if (x < pi_major) {
             return _sin_taylor(x);
         }
-        return _sin_chebyshev(x_etoile);
+        else {
+            x_etoile = _reduce(x);
+            return _sin_chebyshev(x_etoile);
+        }
     }
 
 
     float cos(float x) {
-        float x_etoile;
-        int k;
-        int c;
         if (x > pi_major) {
             x_etoile = _reduce(x);
             k = _reduce_k(x);
@@ -81,8 +104,8 @@ class Math {
     }
 
      float _sqrt(float x) {
-        float v = 1.0;
-        int i = 10;
+        v = 1.0;
+        i = 10;
         while (i > 0) {
             v = ( v + (x / v) ) / 2;
             i = i - 1;
@@ -91,33 +114,27 @@ class Math {
     }
 
     
-    float atan(float x) {
-        float S1  = -0.33333334; 
-        float S2  =  0.2; 
-        float S3  = -0.14285715;
-        float S4  =  0.11111111; 
-        float S5  = -0.09090909;
-        float S6  =  0.07692308;
-        float x2; 
-        float res;
+     float atan(float x) {
         if (x < 0) {
             return -atan(-x);
         }
         else if (x == 1) {
             return 0.7853982;
         }
-        else if (x < 1) {
+        else if (x < 0.35) {
             x2 = x*x;
-            res = 1 + x2*(S1+x2*(S2+x2*(S3+x2*(S4+x2*(S5+x2*(S6))))));
+            res = 1 + x2*(SS1+x2*(SS2+x2*(SS3+x2*(SS4+x2*(SS5+x2*(SS6))))));
             return res*x;
+        }
+        else if (0.35 < x && x < 1.25) {
+            return 2 * atan(x / (1 + _sqrt(1 + x*x)));
         }
         else {
             return (pi_2 - atan(1/x));
         }
     }
-     float asin(float x) {
-        float v ;
-        int i;
+
+    float asin(float x) {
         if (x < 0) {
             return -asin(-x);
         }
@@ -147,28 +164,26 @@ class Math {
     }
 
     float ulp(float x){
-        int expmin = -125;
-        int expmax = 128;
-        int expmiddle ;
         if (x < 0) {return ulp(-x);}
         else if (x < _pow(2, -125)) {return _pow(2,-129);}
         else if (x > (1 - _pow(2, -24))*_pow(2, 128)) {return _pow(2, 104);}
         else {
-          
-            while (expmax - expmin > 1) {
-                expmiddle = (int) (expmax + expmin)/2;
-                if (x >= _pow(2, expmiddle)){
-                    expmin = expmiddle;
+            min = -125;
+            max = 128;
+            while (max - min > 1) {
+                middle = (int) (max + min)/2;
+                if (x >= _pow(2, middle)){
+                    min = middle;
                 }
                 else{
-                    expmax = expmiddle;
+                    max = middle;
                 }
             }
-            if (x == _pow(2, expmin)){
-                return _pow(2,expmin-24);
+            if (x == _pow(2, min)){
+                return _pow(2,min-24);
             }
             else{
-                return _pow(2,expmin-23);
+                return _pow(2,min-23);
             }
         }
     }
