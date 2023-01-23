@@ -57,7 +57,9 @@ public class New extends AbstractExpr {
     @Override
     public void codeGen(DecacCompiler compiler) {
         compiler.addInstruction(new NEW(newtype.getClassDefinition().getNumberOfFields()+1, Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
-        compiler.addInstruction(new BOV(new Label("tas_plein")));
+        if(!compiler.getCompilerOptions().getnoCheck()){
+            compiler.addInstruction(new BOV(new Label("tas_plein")));
+        }
         compiler.addInstruction(new LEA(newtype.getClassDefinition().getAdresse(),Register.R0));
         compiler.addInstruction(new STORE(Register.R0,new RegisterOffset(0, Register.getR(compiler.getRegisterAllocator().popRegister()))));
         compiler.addInstruction(new PUSH( Register.getR(compiler.getRegisterAllocator().popRegister())));

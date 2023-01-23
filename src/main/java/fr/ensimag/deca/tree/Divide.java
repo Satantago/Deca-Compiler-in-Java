@@ -28,7 +28,9 @@ public class Divide extends AbstractOpArith {
         else{
             compiler.addInstruction(new QUO(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
         }
-        compiler.addInstruction(new BOV(new Label("opArith")));
+        if(!compiler.getCompilerOptions().getnoCheck()){
+            compiler.addInstruction(new BOV(new Label("opArith")));
+        }
         compiler.getRegisterAllocator().freeRegistre(compiler);
     } 
 

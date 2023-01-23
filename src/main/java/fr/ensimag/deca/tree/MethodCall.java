@@ -80,13 +80,16 @@ public class MethodCall extends AbstractExpr{
         Signature sig = metodef.getSignature();
         Signature sig2 = new Signature();
         int cmp = 0;
+        ListExpr lit = new ListExpr();
         for (AbstractExpr a : this.lstExpr.getList()){
             try{
             a = a.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(cmp));
+            lit.add(a);
             } catch (ContextualError e){}
             sig2.add(a.verifyExpr(compiler, localEnv, currentClass));
             cmp++;
         }
+        this.lstExpr = lit;
         if (!(sig.equals(sig2))){
             throw new ContextualError("Wrong signature for method : " + this.ident.getName(), this.ident.getLocation());
         }

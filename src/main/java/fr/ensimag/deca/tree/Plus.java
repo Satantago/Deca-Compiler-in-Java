@@ -19,11 +19,10 @@ public class Plus extends AbstractOpArith {
 
     public void codeGenBinaryOp(DecacCompiler compiler,int lefReg,int rightReg ){
         compiler.addInstruction(new ADD(Register.getR(compiler.getRegisterAllocator().popRegister()),Register.getR(compiler.getRegisterAllocator().getLastButOne())));
-        if(super.getType().isFloat()){
+        if(super.getType().isFloat() && !compiler.getCompilerOptions().getnoCheck()){
             compiler.addInstruction(new BOV(new Label("opArith")));
         }
         compiler.getRegisterAllocator().freeRegistre(compiler);
-
     } 
 
     @Override

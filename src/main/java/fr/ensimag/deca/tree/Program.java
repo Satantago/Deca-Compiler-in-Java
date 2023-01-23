@@ -85,12 +85,13 @@ public class Program extends AbstractProgram {
             compiler.addInstruction(new WSTR("Erreur :Stack Overflow"));
             compiler.addInstruction(new WNL());
             compiler.addInstruction(new ERROR());
-
-            compiler.addLabel(new Label("dereferencement_null"));
+        }
+        
+        compiler.addLabel(new Label("dereferencement_null"));
             compiler.addInstruction(new WSTR("Erreur : Dereferencement Null"));
             compiler.addInstruction(new WNL());
             compiler.addInstruction(new ERROR());
-        }
+
         compiler.addLabel(new Label("code.object.equals"));
         compiler.addInstruction(new RTS());
     }
