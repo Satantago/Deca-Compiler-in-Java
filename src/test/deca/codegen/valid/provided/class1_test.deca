@@ -1,15 +1,17 @@
 class A{
-    int x;
+    int x = 5;
     int getx(){
         return x;
     }
-    void setx(int v){
-        int y = getx();
-        x = v;
+    void setx(int tt){
+       this.x = tt;  // +getx()   ==> chenger le truc !:
     }
 }
 
-{   
- 
-   
+{  
+    A aa= new A(); 
+
+    println(aa.getx());
+    aa.setx(10);
+    println(aa.getx());
 }

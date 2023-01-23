@@ -222,21 +222,34 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
        if(getExpDefinition().isField()){
-        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
-        compiler.addInstruction(new LOAD(new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())),Register.getR(compiler.getRegisterAllocator().popRegister())));
+        compiler.addComment("bbbbb");
+
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
+            compiler.addInstruction(new LOAD(new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())),Register.getR(compiler.getRegisterAllocator().popRegister())));
        }
-       else
-            compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
-    }
+       else{
+        compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+
+       }
+       
+        }
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
         Label l = new Label("FinIF" + compiler.getCmptLabel());
-         compiler.addInstruction(new LOAD(0, Register.R0));
-        compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
+        compiler.addInstruction(new LOAD(0, Register.R0));
+         if(getExpDefinition().isField()){
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
+            compiler.addInstruction(new LOAD(new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())),Register.getR(compiler.getRegisterAllocator().popRegister())));
+       
+        }
+        else
+            compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
         compiler.addInstruction(new BEQ(l));
         compiler.addDqueLabel(l);
         compiler.incCmptLabel();
+        System.out.println("null");
+
     }
     @Override
     protected void codeGen(DecacCompiler compiler) {
@@ -313,7 +326,7 @@ public class Identifier extends AbstractIdentifier {
 
         s.print(name.toString());
     }
-    
+
     @Override
     String prettyPrintNode() {
         return "Identifier (" + getName() + ")";

@@ -55,8 +55,9 @@ public class DeclMethod extends AbstractDeclMethod{
         s.println("}");
         //throw new UnsupportedOperationException("not yet implemented");
     }
-
-    protected void codeGenDeclMethod(DecacCompiler compiler,String s){
+// ICI
+    protected void codeGenDeclMethod(DecacCompiler compiler,String s,DAddr adresseClass){
+        methodName.getMethodDefinition().setClassAdresse(adresseClass);
         compiler.addLabel(new Label("code."+s+"."+methodName.getName().getName()));
         listParametres.codeGenListDeclParam(compiler);
         body.codeGenMethodBody(compiler);

@@ -27,8 +27,6 @@ public class This extends AbstractExpr {
     }
    
 
-   
-
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
@@ -44,17 +42,14 @@ public class This extends AbstractExpr {
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("this");
-        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        //bool.iter(f);
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        //bool.prettyPrint(s, prefix, true);
     }
 
     @Override
