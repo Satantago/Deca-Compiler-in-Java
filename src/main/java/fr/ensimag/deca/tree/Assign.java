@@ -45,7 +45,7 @@ public class Assign extends AbstractBinaryExpr {
 
     @Override
     public void codeGenInst(DecacCompiler compiler){
-        super.getRightOperand().codeGen(compiler);
+        super.getRightOperand().codeGen(compiler);;
         super.getLeftOperand().codeGenStore(compiler);
         compiler.getRegisterAllocator().freeRegistre(compiler);
     }

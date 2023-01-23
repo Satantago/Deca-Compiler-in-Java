@@ -106,7 +106,7 @@ public class DeclField extends AbstractDeclField{
         assert(veriftype != null);
         this.type.setType(veriftype);
         if (veriftype.isVoid()){
-            throw new ContextualError("type different de void", this.type.getLocation());
+            throw new ContextualError("You can't use void as a type", this.type.getLocation());
         }
 
         /******************Initialisation *************/
@@ -121,7 +121,7 @@ public class DeclField extends AbstractDeclField{
         ExpDefinition superfield = classEnv.get(fieldName.getName());
         if (!(superfield == null)){
             if (!(superfield.isField())){
-                throw new ContextualError("A method or param is already defined by " + fieldName.getName(), this.fieldName.getLocation());
+                throw new ContextualError("A method is already defined by " + fieldName.getName(), this.fieldName.getLocation());
             }
         /*
             //If a param has the same name of the field in the current class

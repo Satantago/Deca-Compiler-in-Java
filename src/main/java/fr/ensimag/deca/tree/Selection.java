@@ -73,10 +73,10 @@ public class Selection extends AbstractLValue {
     try{
     type = this.expr.verifyExpr(compiler, localEnv, currentClass);
     } catch (ContextualError e) {
-        throw new ContextualError("selection exp must be a class", this.expr.getLocation());
+        throw new ContextualError("Expecting a class", this.expr.getLocation());
     }
     if (!type.isClass()) {
-        throw new ContextualError("selection exp must be a class", this.expr.getLocation());
+        throw new ContextualError("Expecting a class", this.expr.getLocation());
     }
 
     ClassType classtyp = (ClassType) type;
@@ -117,8 +117,24 @@ public class Selection extends AbstractLValue {
         compiler.addInstruction(new BEQ(new Label("dereferencement_null")));
         compiler.addInstruction(new LOAD(new RegisterOffset(ident.getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())) ,(Register.getR(compiler.getRegisterAllocator().popRegister()))));
     }
-    protected void codeGen(DecacCompiler compiler) {
+    protected void codeGen(DecacCompiler compiler) {        
         codeGenInst(compiler);  
+    }
+    @Override
+    protected void codeGenStore(DecacCompiler compiler) {
+        if(ident.getExpDefinition().isField()){
+            compiler.addComment("null");
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(ident.getFieldDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
+            compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
+
+
+        }
+        else{
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),ident.getExpDefinition().getOperand()));
+
+        }
+        
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
@@ -131,7 +147,6 @@ public class Selection extends AbstractLValue {
         expr.decompile(s);
         s.print('.');
         ident.decompile(s);
-        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

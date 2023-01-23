@@ -1,0 +1,21 @@
+class A{
+    int x=1;
+    void g(int a){
+        x = x + a ;
+        //println(x);
+        println(a);
+        //println(x*a*a*x);
+    }
+    void p(){
+
+    }
+}
+
+
+
+{
+
+  A aa =  new A();
+  aa.g(4);
+  //println("a = ",aa.z);
+}

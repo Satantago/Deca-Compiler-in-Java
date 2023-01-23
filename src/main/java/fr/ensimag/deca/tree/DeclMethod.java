@@ -55,7 +55,7 @@ public class DeclMethod extends AbstractDeclMethod{
         s.println("}");
         //throw new UnsupportedOperationException("not yet implemented");
     }
-
+// ICI
     protected void codeGenDeclMethod(DecacCompiler compiler,String s,DAddr adresseClass){
         methodName.getMethodDefinition().setClassAdresse(adresseClass);
         compiler.addLabel(new Label("code."+s+"."+methodName.getName().getName()));
@@ -146,7 +146,7 @@ public class DeclMethod extends AbstractDeclMethod{
         
         if (expdef != null) {
             if (!(expdef.isMethod())) {
-                throw new ContextualError("A field or param is already defined by " + methodName.getName(), methodName.getLocation());
+                throw new ContextualError("A field is already defined by " + methodName.getName(), methodName.getLocation());
             }
             MethodDefinition expdef2 = (MethodDefinition) expdef;
             if (!signature.equals(expdef2.getSignature())){

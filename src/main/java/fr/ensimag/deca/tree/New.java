@@ -53,7 +53,7 @@ public class New extends AbstractExpr {
         newtype.decompile(s);
         s.print("()");
     }
-    
+
     @Override
     public void codeGen(DecacCompiler compiler) {
         compiler.addInstruction(new NEW(newtype.getClassDefinition().getNumberOfFields()+1, Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
@@ -80,3 +80,4 @@ public class New extends AbstractExpr {
         return "new";
     }
 }
+//slash_123

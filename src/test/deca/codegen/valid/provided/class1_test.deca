@@ -3,15 +3,15 @@ class A{
     int getx(){
         return x;
     }
-    void setx(int v){
-        x = getx();
+    void setx(int tt){
+        x = tt;  // +getx()   ==> chenger le truc !:
     }
 }
 
 {  
     A aa= new A(); 
-    
+
     println(aa.getx());
-    aa.setx(1);
-    //println(aa.getx());
+    aa.setx(10);
+    println(aa.getx());
 }
