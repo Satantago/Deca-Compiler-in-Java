@@ -116,12 +116,8 @@ public class CompilerOptions {
             if(verify && decompiler ){
                 throw new CLIException("-v et -p sont incompatibles");
             }
-            if( printBanner && !sourceFiles.isEmpty() ){
-                throw new CLIException("Avec -b on peut pas compiler de fichier ou vous utilisez une autre option avec ");
-            }
-            if(printBanner && (verify || decompiler ||parallel ||register || debug != 0 || nocheck)){
-                throw new CLIException("Avec -b avec une autre option avec ");
-            }
+        
+           
 
 
         Logger logger = Logger.getRootLogger();
