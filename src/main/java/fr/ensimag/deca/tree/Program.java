@@ -65,7 +65,6 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new HALT());
         classes.codGenListDeclClassInit(compiler); //Init field + methode squellete
 
-        if(!compiler.getCompilerOptions().getnoCheck()){
             Label pile = new Label("pile_pleine");
             compiler.addFirst(new ADDSP(new ImmediateInteger(compiler.getRegisterAllocator().getNbGB()-1)));
             compiler.addFirst(new BOV(pile));
@@ -85,7 +84,7 @@ public class Program extends AbstractProgram {
             compiler.addInstruction(new WSTR("Erreur :Stack Overflow"));
             compiler.addInstruction(new WNL());
             compiler.addInstruction(new ERROR());
-        }
+        
         
         compiler.addLabel(new Label("dereferencement_null"));
             compiler.addInstruction(new WSTR("Erreur : Dereferencement Null"));

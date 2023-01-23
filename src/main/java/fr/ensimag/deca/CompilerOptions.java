@@ -26,6 +26,11 @@ public class CompilerOptions {
         return debug;
     }
 
+    public boolean getnoCheck(){ 
+        return nocheck;
+        
+    }
+
     public boolean getParallel() {
         return parallel;
     }
@@ -33,9 +38,6 @@ public class CompilerOptions {
         return register;
     }
 
-    public boolean getnoCheck() {
-        return noCheck;
-    }
     public boolean getDecompiler() {
         return decompiler;
     }
@@ -61,30 +63,13 @@ public class CompilerOptions {
     private boolean printBanner = false;
     private boolean register = false;
     private int nb_register = 0;
-    private boolean noCheck = false;
-
-
+    private boolean nocheck = false;
+    private int error_options = 0;
     private List<File> sourceFiles = new ArrayList<File>();
 
     
     public void parseArgs(String[] args) throws CLIException {
 
-        //le fichier entré doit être un .deca sinon il est rejeté
-        
-        
-
-/*
-        for(int i = 0 ; i <args.length ; i++){
-            // if we find -v and -p error options = 1
-            if(args[i].equals("-v")){
-                error_options = 1;
-            }
-            else if(args[i].equals("-p")){
-                error_options = 1;
-            }
-
-       
-        }*/
         for(int i = 0 ; i <args.length ; i++){
             if(args[i].equals("-b")){
                 printBanner = true;
@@ -101,9 +86,10 @@ public class CompilerOptions {
             else if(args[i].equals("-v")) {
                 verify = true  ;
             }
-            else if(args[i].equals("-n")) {
-                noCheck = true  ;
-            }
+            else if(args[i].equals("-n")){
+                nocheck = true  ;  
+            }  
+            
             else if(args[i].equals("-r")){ 
                 register = true ; 
                 try{
@@ -124,17 +110,17 @@ public class CompilerOptions {
                     throw new CLIException("Le fichier entré n'est pas un .deca");
                 }
             }
-/*
-            else if(args[i].equals("-n")){
-                nocheck = true  ;  
-            }  
-            */
+
+         
             }
             if(verify && decompiler ){
                 throw new CLIException("-v et -p sont incompatibles");
             }
-            if(! printBanner && sourceFiles.isEmpty()){
-                throw new CLIException("Pas de fichier a compiler");
+            if( printBanner && !sourceFiles.isEmpty() ){
+                throw new CLIException("Avec -b on peut pas compiler de fichier ou vous utilisez une autre option avec ");
+            }
+            if(printBanner && (verify || decompiler ||parallel ||register || debug != 0 || nocheck)){
+                throw new CLIException("Avec -b avec une autre option avec ");
             }
 
 
