@@ -1,1 +1,4 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 4: Cannot apply an arithmetic operationto this type
 {int x = 2 + true;}

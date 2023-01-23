@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 8 : A field is already defined by hmida
 class A{
     int hmida;
 }

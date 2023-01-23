@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 25: x is already used as a param
 class A{
     protected int x;
 }

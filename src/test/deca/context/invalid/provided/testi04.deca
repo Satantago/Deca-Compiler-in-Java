@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 8 : A method is already defined by x
 class A{
     void x(){}
 }

@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 8: type class expects a field or a method
 class A {}
 {
 int x = 0;

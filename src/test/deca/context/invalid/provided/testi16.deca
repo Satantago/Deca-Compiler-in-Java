@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 15: Right value doesn't match the expected type
 class A{
 }
 class B extends A{

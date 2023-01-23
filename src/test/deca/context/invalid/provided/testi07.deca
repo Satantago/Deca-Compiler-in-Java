@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 8 : returntype of the child is not a subtype of the parent's
 class A{
     int methody(boolean a){}
 }

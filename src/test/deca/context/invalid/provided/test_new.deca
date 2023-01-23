@@ -1,3 +1,7 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 6 : Right value doesn't match the expected type
+
 class A {}
 {
 int x = new A();

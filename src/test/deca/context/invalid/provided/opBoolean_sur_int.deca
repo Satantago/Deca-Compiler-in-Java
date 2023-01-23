@@ -1,1 +1,4 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 4: Can be applied only to booleans
 {int x = 1 && 2;}

@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 6 : Can't use void as a Type
 class A {
   int x;
   void setX(void x) {this.x = x;}

@@ -1,4 +1,6 @@
-//greater
+//Resultats :
+//Erreur contextuelle
+//Ligne 10: x Print only accepts strings, ints and floats
 {
     boolean bool = 1>=2;
     if (bool){

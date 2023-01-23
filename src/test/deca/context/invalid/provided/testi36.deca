@@ -1,3 +1,7 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 9 : Wrong signature for method : groosse
+
 class A{
     void groosse(float x, int y, boolean t){}
 }

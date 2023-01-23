@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 6 : expecting a class
 {
 int x = 0;
 println(x.y);

@@ -1,1 +1,4 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 4 : non defined type
 class A extends nada{}

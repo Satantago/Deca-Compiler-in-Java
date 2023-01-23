@@ -1,4 +1,6 @@
-// void
+//Resultats :
+//Erreur contextuelle
+//Ligne 5 : Void can't be used as a Type
 {
 void x;
 }

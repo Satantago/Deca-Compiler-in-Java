@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 10 : type class expects a field or a method
 class A{
     boolean b;
 }

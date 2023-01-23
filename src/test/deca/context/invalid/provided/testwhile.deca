@@ -1,3 +1,6 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 7 : u is undefined
 {
     int a = 2, b=0;
 
