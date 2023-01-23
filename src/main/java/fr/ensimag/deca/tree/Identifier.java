@@ -211,7 +211,6 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenStore(DecacCompiler compiler) {
         if(getExpDefinition().isField()){
-            compiler.addComment("bbbbb");
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(getExpDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
             compiler.getRegisterAllocator().freeRegistre(compiler);
@@ -228,10 +227,15 @@ public class Identifier extends AbstractIdentifier {
        }
        else{
         compiler.addInstruction(new LOAD(getExpDefinition().getOperand() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
-
+            if(getExpDefinition().getType().isClass()){
+                compiler.getRegisterAllocator().setClassIndex(getExpDefinition().getIndex() );
+            }
+            
+        }
+        
        }
        
-        }
+        
 
     @Override
     protected void codeGenIter(DecacCompiler compiler) {
@@ -244,10 +248,9 @@ public class Identifier extends AbstractIdentifier {
         }
         else
             compiler.addInstruction(new CMP(getExpDefinition().getOperand(),Register.R0));
-        compiler.addInstruction(new BEQ(l));
-        compiler.addDqueLabel(l);
-        compiler.incCmptLabel();
-        System.out.println("null");
+            compiler.addInstruction(new BEQ(l));
+            compiler.addDqueLabel(l);
+            compiler.incCmptLabel();
 
     }
     @Override

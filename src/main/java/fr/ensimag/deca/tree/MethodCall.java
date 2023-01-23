@@ -120,7 +120,7 @@ public class MethodCall extends AbstractExpr{
             expr.codeGenInst(compiler);
         }
         else{
-            compiler.addInstruction(new LOAD(ident.getMethodDefinition().getClassAdresse() ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
+            compiler.addInstruction(new LOAD(new RegisterOffset(compiler.getRegisterAllocator().getClassIndex(), Register.GB) ,Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
             
         }
         compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),new RegisterOffset(0, Register.SP)));

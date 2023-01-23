@@ -41,13 +41,17 @@ public class DeclField extends AbstractDeclField{
 
     @Override
     public void decompile(IndentPrintStream s) {
+        if(visibility!= null){
+            s.print(visibility.name().toLowerCase() +" ");
+        }
+        else 
+            s.print("public ");
 
-            type.decompile(s);
-            s.print(" ");
-            fieldName.decompile(s);
-            initialization.decompile(s);
-            s.println(";");
-            //throw new UnsupportedOperationException("not yet implemented");
+        type.decompile(s);
+        s.print(" ");
+        fieldName.decompile(s);
+        initialization.decompile(s);
+        s.println(";");
     }
 
     @Override
@@ -59,9 +63,7 @@ public class DeclField extends AbstractDeclField{
                 compiler.addInstruction(new LOAD(0,Register.R0));
             }
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB ),Register.R1));
-            // System.out.println(compiler.getRegisterAllocator().getCmptInitClass());
             compiler.addInstruction(new STORE(Register.R0,new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1)));
-            // System.out.println(1+compiler.getRegisterAllocator().getCmptInitClass());
             fieldName.getFieldDefinition().setOperand(new RegisterOffset(1+compiler.getRegisterAllocator().getCmptInitClass(),Register.R1));
             fieldName.getFieldDefinition().setIndex(1+compiler.getRegisterAllocator().getCmptInitClass());
             fieldName.getFieldDefinition().setisField(true);

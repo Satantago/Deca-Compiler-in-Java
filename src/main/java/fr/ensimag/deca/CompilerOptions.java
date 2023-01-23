@@ -33,6 +33,9 @@ public class CompilerOptions {
         return register;
     }
 
+    public boolean getnoCheck() {
+        return noCheck;
+    }
     public boolean getDecompiler() {
         return decompiler;
     }
@@ -58,8 +61,8 @@ public class CompilerOptions {
     private boolean printBanner = false;
     private boolean register = false;
     private int nb_register = 0;
-    private boolean nocheck = false;
-    private int error_options = 0;
+    private boolean noCheck = false;
+
 
     private List<File> sourceFiles = new ArrayList<File>();
 
@@ -97,6 +100,9 @@ public class CompilerOptions {
             }
             else if(args[i].equals("-v")) {
                 verify = true  ;
+            }
+            else if(args[i].equals("-n")) {
+                noCheck = true  ;
             }
             else if(args[i].equals("-r")){ 
                 register = true ; 

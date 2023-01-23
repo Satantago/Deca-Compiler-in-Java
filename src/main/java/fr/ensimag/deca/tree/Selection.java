@@ -112,10 +112,8 @@ public class Selection extends AbstractLValue {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         if(expr instanceof This){
-            System.out.println("SSSSSSSSSSSSSSSSSSSSSsssss");
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
             compiler.addInstruction(new LOAD(new RegisterOffset(ident.getFieldDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister())),Register.getR(compiler.getRegisterAllocator().popRegister())));
-            //compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
         }
         else{
             expr.codeGenInst(compiler);
@@ -135,12 +133,9 @@ public class Selection extends AbstractLValue {
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().getLastButOne()),new RegisterOffset(ident.getFieldDefinition().getIndex(),Register.getR(compiler.getRegisterAllocator().popRegister()))));
             compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
-
-
         }
         else{
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),ident.getExpDefinition().getOperand()));
-
         }
         
     }

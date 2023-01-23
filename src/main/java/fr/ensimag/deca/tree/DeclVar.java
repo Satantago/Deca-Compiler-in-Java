@@ -70,6 +70,7 @@ public class DeclVar extends AbstractDeclVar {
     protected void codeGenDeclVar(DecacCompiler compiler){
         initialization.codeGenInitialization(compiler);
         DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
+        this.varName.getExpDefinition().setIndex(compiler.getRegisterAllocator().getNbGB()-1);
         this.varName.getExpDefinition().setOperand(GBAdresse);
         if(initialization.isInit()){
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
@@ -98,7 +99,6 @@ public class DeclVar extends AbstractDeclVar {
         varName.decompile(s);
         initialization.decompile(s);
         s.println(";");
-        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

@@ -20,12 +20,14 @@ public class RegisterAllocator {
     private int maxSP;// Nombre de registre max dans la pile utilise
     private int cmptInitClass;
     private int cmptInitParam;
+    private int classIndex;
     private int b;
     
     // Constructeur
     public RegisterAllocator(){
         this.b = 0;
         this.nbrGB = 1;
+        this.classIndex = 0;
         this.nbrSP = 1;
         this.maxSP = 2;
         this.nbrClass = 1;
@@ -41,6 +43,10 @@ public class RegisterAllocator {
             this.registerStatus[i]=false;
         }
     }
+
+    public int getClassIndex() {return classIndex;}
+
+    public void setClassIndex(int i) { classIndex = i;}
 
 
     public void incFMA() {
