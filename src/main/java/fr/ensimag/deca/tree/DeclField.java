@@ -72,6 +72,8 @@ public class DeclField extends AbstractDeclField{
       
     }
 
+ 
+
     @Override
     protected 
     void iterChildren(TreeFunction f) {
@@ -81,10 +83,14 @@ public class DeclField extends AbstractDeclField{
     }
 
     @Override
+    String prettyPrintNode() {
+        return "[visibility=" + visibility + "] " + "DeclField";
+    }
+    @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
+        prettyPrintNode();
         type.prettyPrint(s, prefix, false);
         fieldName.prettyPrint(s, prefix, false);
-
         initialization.prettyPrint(s, prefix, true);
     }
 
