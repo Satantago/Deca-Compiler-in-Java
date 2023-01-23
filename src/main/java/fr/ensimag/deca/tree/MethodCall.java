@@ -169,8 +169,6 @@ public class MethodCall extends AbstractExpr{
         compiler.addInstruction(new BSR(new RegisterOffset(indice+1,Register.getR(compiler.getRegisterAllocator().popRegister())) )); // OFFSET !!!!!!
         Label label = new Label("FinIF" + compiler.getCmptLabel());
         compiler.addInstruction(new CMP(0,Register.R0));
-        // compiler.addInstruction(new CMP(0,Register.getR(compiler.getRegisterAllocator().popRegister())));
-        // compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new BEQ(label));
         compiler.addDqueLabel(label);
         compiler.incCmptLabel();

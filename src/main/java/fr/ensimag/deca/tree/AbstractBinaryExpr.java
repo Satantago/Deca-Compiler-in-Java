@@ -55,86 +55,84 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        if (this instanceof Divide){
-            getLeftOperand().codeGen(compiler);
-            int lefReg = compiler.getRegisterAllocator().popRegister();
-            getRightOperand().codeGen(compiler);
-            int rightReg = compiler.getRegisterAllocator().popRegister();
-            codeGenBinaryOp(compiler,lefReg,rightReg);
-        }
-        else if(this instanceof Plus){
+                if ( (leftOperand.getType() != null && leftOperand.getType().isInt())  || this instanceof Divide || this instanceof Modulo || this instanceof Minus){
+                    getLeftOperand().codeGen(compiler);
+                    int lefReg = compiler.getRegisterAllocator().popRegister();
+                    getRightOperand().codeGen(compiler);
+                    int rightReg = compiler.getRegisterAllocator().popRegister();
+                    codeGenBinaryOp(compiler,lefReg,rightReg);
+                }
+                else if(this instanceof Plus){
+                    if (getLeftOperand() instanceof Multiply) {
+                        compiler.getRegisterAllocator().incFMA();
+                        System.out.println("Entrée 1");
+                        getLeftOperand().codeGen(compiler);
+                        compiler.getRegisterAllocator().decFMA();
 
-             if (getLeftOperand() instanceof Multiply) {
-                compiler.getRegisterAllocator().incFMA();
-                System.out.println("Entrée 1");
-                getLeftOperand().codeGen(compiler);
-                compiler.getRegisterAllocator().decFMA();
-
-                getRightOperand().codeGen(compiler);
-                compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()), Register.R1));
-                compiler.getRegisterAllocator().freeRegistre(compiler);
-
-
-                compiler.addInstruction(new FMA(Register.getR(compiler.getRegisterAllocator().getLastButOne()),Register.getR(compiler.getRegisterAllocator().popRegister())));
-                 compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
-                System.out.println("Sortie 1");
+                        getRightOperand().codeGen(compiler);
+                        compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()), Register.R1));
+                        compiler.getRegisterAllocator().freeRegistre(compiler);
 
 
-            }
-            else if (getRightOperand() instanceof Multiply) {
-                compiler.getRegisterAllocator().incFMA();
-                System.out.println("Entrée 2");
+                        compiler.addInstruction(new FMA(Register.getR(compiler.getRegisterAllocator().getLastButOne()),Register.getR(compiler.getRegisterAllocator().popRegister())));
+                        compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
+                        System.out.println("Sortie 1");
 
-               
-                getRightOperand().codeGen(compiler);
 
-                getLeftOperand().codeGen(compiler);
-                compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()), Register.R1));
-                compiler.getRegisterAllocator().freeRegistre(compiler);
-                compiler.getRegisterAllocator().decFMA();
-                
-                compiler.addInstruction(new FMA(Register.getR(compiler.getRegisterAllocator().getLastButOne()),Register.getR(compiler.getRegisterAllocator().popRegister())));
-                compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().getLastButOne());
-                compiler.getRegisterAllocator().freeRegistre(compiler);
-                System.out.println("Sortie 2");
+                    }
+                    else if (getRightOperand() instanceof Multiply) {
+                        compiler.getRegisterAllocator().incFMA();
+                        System.out.println("Entrée 2");
 
-            }
-            else {
-                System.out.println("Entrée 3.0");
+                    
+                        getRightOperand().codeGen(compiler);
 
-                // compiler.getRegisterAllocator().setFMA(true);
-                System.out.println("Entrée 3.1");
-                getLeftOperand().codeGen(compiler);
-                System.out.println("Entrée 3.2");
-                int lefReg = compiler.getRegisterAllocator().popRegister();
-                getRightOperand().codeGen(compiler);
-                int rightReg = compiler.getRegisterAllocator().popRegister();
-                codeGenBinaryOp(compiler,lefReg,rightReg);
-                //  compiler.getRegisterAllocator().setFMA(false);
-                System.out.println("Sortie 3");
+                        getLeftOperand().codeGen(compiler);
+                        compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()), Register.R1));
+                        compiler.getRegisterAllocator().freeRegistre(compiler);
+                        compiler.getRegisterAllocator().decFMA();
+                        
+                        compiler.addInstruction(new FMA(Register.getR(compiler.getRegisterAllocator().getLastButOne()),Register.getR(compiler.getRegisterAllocator().popRegister())));
+                        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().getLastButOne());
+                        compiler.getRegisterAllocator().freeRegistre(compiler);
+                        System.out.println("Sortie 2");
 
-                
-            }
-        }
-        else { 
-            System.out.println("Entrée finale");
+                    }
+                    else {
+                        System.out.println("Entrée 3.0");
 
-            System.out.println("vvvvv   " + compiler.getRegisterAllocator().getFMA());
-            getLeftOperand().codeGen(compiler);
-            int lefReg = compiler.getRegisterAllocator().popRegister();
-            getRightOperand().codeGen(compiler);
-            int rightReg = compiler.getRegisterAllocator().popRegister();
-            System.out.println("hhhhh   " + compiler.getRegisterAllocator().getFMA());
-            System.out.println("Sorite finale avant if");
+                        // compiler.getRegisterAllocator().setFMA(true);
+                        System.out.println("Entrée 3.1");
+                        getLeftOperand().codeGen(compiler);
+                        System.out.println("Entrée 3.2");
+                        int lefReg = compiler.getRegisterAllocator().popRegister();
+                        getRightOperand().codeGen(compiler);
+                        int rightReg = compiler.getRegisterAllocator().popRegister();
+                        codeGenBinaryOp(compiler,lefReg,rightReg);
+                        //  compiler.getRegisterAllocator().setFMA(false);
+                        System.out.println("Sortie 3");
 
-            if (compiler.getRegisterAllocator().getFMA() == 0){
-                System.out.println("Sorite finale après if1");
-                codeGenBinaryOp(compiler,lefReg,rightReg);
-                System.out.println("Sorite finale après if");
+                        
+                    }
+                }
+                else { 
+                    System.out.println("Entrée finale       22");
 
-            }
+                    System.out.println("vvvvv   " + compiler.getRegisterAllocator().getFMA());
+                    getLeftOperand().codeGen(compiler);
+                    int lefReg = compiler.getRegisterAllocator().popRegister();
+                    getRightOperand().codeGen(compiler);
+                    int rightReg = compiler.getRegisterAllocator().popRegister();
+                    System.out.println("hhhhh   " + compiler.getRegisterAllocator().getFMA());
+                    System.out.println("Sorite finale avant if");
 
-        }
+                    if (compiler.getRegisterAllocator().getFMA() == 0){
+                        System.out.println("Sorite finale après if1");
+                        codeGenBinaryOp(compiler,lefReg,rightReg);
+                        System.out.println("Sorite finale après if");
+
+                    }
+                }
     }
 
     protected void codeGenFMA(DecacCompiler compiler) {
