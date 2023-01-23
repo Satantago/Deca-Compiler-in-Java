@@ -1,0 +1,8 @@
+#include "Math.decah"
+
+{
+ Math m = new Math();
+ float x = 2.0;
+ float resultat = m.sin(x);
+ println(resultat);
+}
