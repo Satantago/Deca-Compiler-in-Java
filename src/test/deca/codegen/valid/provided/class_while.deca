@@ -1,0 +1,21 @@
+class A{
+    int x=1;
+    int g(int a){
+        while(a!=2){
+        a = a-1;
+        }
+        print(a);
+    }
+    void p(){
+
+    }
+}
+
+
+
+{
+
+  A aa =  new A();
+  aa.g(4);
+  //println("a = ",aa.z);
+}

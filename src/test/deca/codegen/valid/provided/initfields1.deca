@@ -1,0 +1,16 @@
+// initfields with no initialization
+class A
+    {
+    int d;
+    boolean e;
+    float f;
+
+    void a(){}
+    void b(){}
+    void c(){}
+    }
+
+class B extends A
+    {
+    int g;
+}

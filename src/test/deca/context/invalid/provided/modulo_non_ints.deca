@@ -1,0 +1,4 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 4: can only be applied to ints
+{float x = 3.2 % 1.6;}

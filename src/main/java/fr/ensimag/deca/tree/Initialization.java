@@ -26,21 +26,25 @@ public class Initialization extends AbstractInitialization {
         this.expression = expression;
     }
 
+    @Override
+    protected void codeGenInitFields(DecacCompiler compiler) {
+        expression.codeGenInitFields(compiler);
+    }
+
+
+
+
+
+
     public Initialization(AbstractExpr expression) {
-        Validate.notNull(expression);
-        this.expression = expression;
+        setExpression(expression);
     }
 
     @Override
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-                this.expression.verifyRValue(compiler, localEnv, currentClass, t);
-                if(t.isFloat()&& this.expression.getType().isInt()) { 
-                    this.expression = new ConvFloat(this.expression);
-                    this.expression.verifyRValue(compiler, localEnv, currentClass, t);
-
-                }
+                setExpression(this.getExpression().verifyRValue(compiler, localEnv, currentClass, t));
     }
 
 @Override

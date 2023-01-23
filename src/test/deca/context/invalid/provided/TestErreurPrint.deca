@@ -1,4 +1,6 @@
-//erreur print
+//Resultats :
+//Erreur contextuelle
+//Ligne 6: Print only accepts strings, ints and floats
 {
     boolean bool = true;
     println(bool);

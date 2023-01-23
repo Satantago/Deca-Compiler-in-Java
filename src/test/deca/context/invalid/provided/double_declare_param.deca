@@ -1,0 +1,7 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 6: x is already used as a param
+class A {
+  int x = 0;
+  void setX(int x, float x) {this.x = x;}
+}

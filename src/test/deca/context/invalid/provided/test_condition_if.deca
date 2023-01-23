@@ -1,4 +1,6 @@
-//if condition not bool
+//Resultats :
+//Erreur contextuelle
+//Ligne 6 : Condition does not return a boolean
 
 {
     int x = 1 ;

@@ -1,4 +1,6 @@
-// convfloat
+//Resultats :
+//Erreur contextuelle
+//Ligne 6 : Right value doesn't match the expected type
 {
     int x = 5;
     x = readFloat();

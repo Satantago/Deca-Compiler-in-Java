@@ -1,0 +1,21 @@
+class A{
+    protected float y;
+    protected int x;
+    protected boolean z;
+    int w;
+    float glob(int a, float b, boolean c){
+        b = a + y + x;
+        a = this.x + a + w;
+        b = readFloat();
+        a = readInt();
+        a = (int)(b);
+        b = a;
+        b = -b + a;
+    }
+}
+class B extends A{
+    void test(){
+        print(this.y);
+        println(this.y);
+    }
+}

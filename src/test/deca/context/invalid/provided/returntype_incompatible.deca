@@ -1,0 +1,7 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 6: Right value doesn't match the expected type
+class A {
+  float x;
+  int getX() {return this.x;}
+}

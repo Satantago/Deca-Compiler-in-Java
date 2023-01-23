@@ -1,0 +1,21 @@
+class A{
+    int x=1;
+    void g(int a){
+        x = this.x + a ;  // this not in store 
+        //println(x);
+        println(a);
+        //println(x*a*a*x);
+    }
+    void p(){
+
+    }
+}
+
+
+
+{
+
+  A aa =  new A();
+  aa.g(4);
+  //println("a = ",aa.z);
+}

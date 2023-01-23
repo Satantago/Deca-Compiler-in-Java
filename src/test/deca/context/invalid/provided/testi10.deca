@@ -1,0 +1,10 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 9 : Signature of overriden method setX doesn't match the method 
+class A{
+    protected int x;
+    void setX(int x){}
+}
+class B extends A{
+    void setX(float x){}
+}

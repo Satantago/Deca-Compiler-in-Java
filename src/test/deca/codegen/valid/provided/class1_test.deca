@@ -1,0 +1,21 @@
+class A{
+    int x = 5;
+    int getx(){
+        return x;
+    }
+    void setx(int tt){
+        int a = 2*tt;
+        x = a + getx() ;  //==> chenger le truc !:
+    }
+}
+
+{  
+    A aa= new A(); 
+    A bb= new A();
+
+
+
+    println(aa.getx());
+    aa.setx(10);
+    println(aa.getx());
+}

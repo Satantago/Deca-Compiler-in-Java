@@ -1,0 +1,11 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 10 : type class expects a field or a method
+class A{
+    boolean b;
+}
+{
+    int x;
+    A a = new A();
+    print(a.x);
+}

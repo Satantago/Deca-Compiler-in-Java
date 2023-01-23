@@ -1,0 +1,12 @@
+class A {
+ int x;
+ int getX() {return this.x;}
+ void setX(int x) {this. x = x;}
+}
+
+{
+ A a = new A();
+ a.setX(2);
+ println(a.x);
+ println(a.getX());
+}

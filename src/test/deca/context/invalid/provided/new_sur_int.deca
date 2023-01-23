@@ -1,0 +1,4 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 4: new is used on classes
+{int x = new int();}

@@ -1,0 +1,9 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 8 : Invalid cast
+class A{}
+{
+    float x;
+    A a = new A();
+    x = (float)(a);
+}

@@ -12,6 +12,8 @@ import org.apache.commons.lang.Validate;
 
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 /**
@@ -44,7 +46,7 @@ public class DeclVar extends AbstractDeclVar {
         assert(type != null);
         this.type.setType(veriftype);
         if (veriftype.isVoid()){
-            throw new ContextualError("type different de void", this.type.getLocation());
+            throw new ContextualError("Void can't be used as a Type", this.type.getLocation());
         }
 
         /*****************Inialization non terminal *************/
@@ -61,7 +63,6 @@ public class DeclVar extends AbstractDeclVar {
         this.varName.setDefinition(defvar);
         this.varName.verifyExpr(compiler, localEnv, currentClass);
 
-
     }
 
     
@@ -69,12 +70,28 @@ public class DeclVar extends AbstractDeclVar {
     protected void codeGenDeclVar(DecacCompiler compiler){
         initialization.codeGenInitialization(compiler);
         DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
+        this.varName.getExpDefinition().setIndex(compiler.getRegisterAllocator().getNbGB()-1);
         this.varName.getExpDefinition().setOperand(GBAdresse);
         if(initialization.isInit()){
             compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
             compiler.getRegisterAllocator().freeRegistre(compiler);
         }
     }
+
+    @Override
+    protected void codeGenDeclVarMethod(DecacCompiler compiler){
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(compiler.getRegisterAllocator().newRegister(compiler))));  
+        initialization.codeGenInitialization(compiler);
+        DAddr GBAdresse = compiler.getRegisterAllocator().newGBRegistre();
+        this.varName.getExpDefinition().setOperand(GBAdresse);
+
+        if(initialization.isInit()){
+            compiler.addInstruction(new STORE(Register.getR(compiler.getRegisterAllocator().popRegister()),GBAdresse));
+            compiler.getRegisterAllocator().freeRegistre(compiler);
+        }
+    }
+
+
     @Override
     public void decompile(IndentPrintStream s) {
         type.decompile(s);
@@ -82,7 +99,6 @@ public class DeclVar extends AbstractDeclVar {
         varName.decompile(s);
         initialization.decompile(s);
         s.println(";");
-        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

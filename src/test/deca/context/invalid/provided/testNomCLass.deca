@@ -1,0 +1,9 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 7 : A is already defined
+class A{
+int x;
+}
+class A{
+int y;
+}

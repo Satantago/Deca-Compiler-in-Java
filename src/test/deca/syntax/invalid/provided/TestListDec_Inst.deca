@@ -1,4 +1,8 @@
-//Erreur listdecl + listinst + listdecl
+// Description:
+//   Programme qui ne respecte pas la grammaire concrète
+// Résultats:
+//   Erreur listdecl + listinst + listdecl
+//   :5:10: no viable alternative at input 'y'
 {
     int x = 2 ;
     x = 6;

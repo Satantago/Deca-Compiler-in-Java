@@ -1,0 +1,12 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 11 : returntype of the child is not a subtype of the parent's
+class X{
+    X boomy(float x){}
+}
+class Z {
+    X boomy(float x){}
+}
+class Y extends X{
+    Z boomy(float x){}
+}

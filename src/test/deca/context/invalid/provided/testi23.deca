@@ -1,0 +1,14 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 11: boolean is undefined
+class A{
+}
+class B{}
+{   
+    int x;
+    A a = null;
+    B b = new B();
+    if (a instanceof boolean){
+        print("il marche il marche encoree ...");
+    }
+}

@@ -1,0 +1,4 @@
+class A {
+ void func() 
+ asm("load -1(lb), r0  ; x");
+}

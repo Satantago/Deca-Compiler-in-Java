@@ -1,0 +1,11 @@
+// Description:
+//  Test d'addition et déclaration qui marche pas syntaxiquement
+//
+// Résultats:
+//   Erreur syntaxique
+//       {5:17}: no viable alternative at input 'y'
+
+
+{int x = 2 + int y = 6 ;
+println("erreur");
+}

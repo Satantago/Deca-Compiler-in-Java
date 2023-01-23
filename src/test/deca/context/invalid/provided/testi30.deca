@@ -1,0 +1,11 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 9 : type class expects a field or a method
+class A{
+    protected boolean b;
+}
+class B{
+    void setB(int b){
+        this.b = b;
+    }
+}

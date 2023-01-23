@@ -36,7 +36,20 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-            System.out.println("Groupe 32 Boulahfa Erazki Gaoua Lachiri Sekkal");
+
+            System.out.println("888888ba                                          .88888.                                                   d8888b. d8888b.");  
+            System.out.println("88    `8b                                        d8'   `88                                                      `88     `88 ");
+            System.out.println("88     88 .d8888b. .d8888b. .d8888b. .d8888b.    88        88d888b. .d8888b. dP    dP  88d888b. .d8888b.     aaad8' .aaadP'");
+            System.out.println("88     88 88ooood8 88'  \"  88'  `88 88'  `\"\"     88   YP88 88'  `88 88'  `88 88    88  88'  `88 88ooood8        `88 88'" );    
+            System.out.println("88    .8P 88.  ... 88.  ... 88.  .88 88.  ...    Y8.   .88 88       88.  .88 88.  .88  88.  .88 88.  ...        .88 88.");    
+            System.out.println("8888888P  `88888P' `88888P' `88888P8 `88888P'     `88888'  dP       `88888P' `88888P'  88Y888P' `88888P'    d88888P Y88888P"); 
+            System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo~88~oooooooooooooooooooooooooooooooooo");
+            System.out.println("                                                                                       dP                                  ");  
+                 
+            System.out.println("Boulahfa Erazki Gaoua Lachiri Sekkal");
+
+
+
             if (options.getSourceFiles().isEmpty()) {
                 return;
             }
@@ -52,7 +65,10 @@ public class DecacMain {
                 compiler.compile();
                 compiler.displayIMAProgram();  
             } 
-        }        
+        }       
+
+
+
 
         if (options.getParallel()) {
             // A FAIRE : instancier DecacCompiler pour chaque fichier à

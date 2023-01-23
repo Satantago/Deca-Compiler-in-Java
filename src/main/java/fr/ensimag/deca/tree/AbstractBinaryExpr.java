@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.FMA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
@@ -52,15 +53,59 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
         this.rightOperand = rightOperand;
     }
 
-
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        getLeftOperand().codeGen(compiler);
-        int lefReg = compiler.getRegisterAllocator().popRegister();
-        getRightOperand().codeGen(compiler);
-        int rightReg = compiler.getRegisterAllocator().popRegister();
-        codeGenBinaryOp(compiler,lefReg,rightReg);
+                if ( (leftOperand.getType() != null && leftOperand.getType().isInt())  || this instanceof Divide || this instanceof Modulo || this instanceof Minus){
+                    getLeftOperand().codeGen(compiler);
+                    int lefReg = compiler.getRegisterAllocator().popRegister();
+                    getRightOperand().codeGen(compiler);
+                    int rightReg = compiler.getRegisterAllocator().popRegister();
+                    codeGenBinaryOp(compiler,lefReg,rightReg);
+                }
+                else if(this instanceof Plus){
+                    if (getLeftOperand() instanceof Multiply) {
+                        compiler.getRegisterAllocator().incFMA();
+                        getLeftOperand().codeGen(compiler);
+                        compiler.getRegisterAllocator().decFMA();
+                        getRightOperand().codeGen(compiler);
+                        compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()), Register.R1));
+                        compiler.getRegisterAllocator().freeRegistre(compiler);
+                        compiler.addInstruction(new FMA(Register.getR(compiler.getRegisterAllocator().getLastButOne()),Register.getR(compiler.getRegisterAllocator().popRegister())));
+                        compiler.getRegisterAllocator().freeRegistreLastButOne(compiler);
+                    }
+                    else if (getRightOperand() instanceof Multiply) {
+                        compiler.getRegisterAllocator().incFMA();
+                        getRightOperand().codeGen(compiler);
+                        getLeftOperand().codeGen(compiler);
+                        compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()), Register.R1));
+                        compiler.getRegisterAllocator().freeRegistre(compiler);
+                        compiler.getRegisterAllocator().decFMA();
+                        compiler.addInstruction(new FMA(Register.getR(compiler.getRegisterAllocator().getLastButOne()),Register.getR(compiler.getRegisterAllocator().popRegister())));
+                        compiler.getRegisterAllocator().triRegister(compiler.getRegisterAllocator().getLastButOne());
+                        compiler.getRegisterAllocator().freeRegistre(compiler);
+
+                    }
+                    else {
+                        getLeftOperand().codeGen(compiler);
+                        int lefReg = compiler.getRegisterAllocator().popRegister();
+                        getRightOperand().codeGen(compiler);
+                        int rightReg = compiler.getRegisterAllocator().popRegister();
+                        codeGenBinaryOp(compiler,lefReg,rightReg);
+                    }
+                }
+                else { 
+                    getLeftOperand().codeGen(compiler);
+                    int lefReg = compiler.getRegisterAllocator().popRegister();
+                    getRightOperand().codeGen(compiler);
+                    int rightReg = compiler.getRegisterAllocator().popRegister();
+                    if (compiler.getRegisterAllocator().getFMA() == 0){
+                        codeGenBinaryOp(compiler,lefReg,rightReg);
+                    }
+                }
     }
+
+
+
     @Override
     protected void codeGen(DecacCompiler compiler) {
         codeGenInst(compiler);
@@ -83,13 +128,16 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
             compiler.addInstruction(new WFLOAT());
         else if(super.getType().isInt())
             compiler.addInstruction(new WINT());
-
     }
     @Override
     protected void codeGenPrintX(DecacCompiler compiler) { 
         compiler.addInstruction(new LOAD(Register.getR(compiler.getRegisterAllocator().popRegister()) ,Register.R1));
         compiler.getRegisterAllocator().freeRegistre(compiler);
         compiler.addInstruction(new WFLOATX());
+    }
+
+    protected void codeGenInitFields(DecacCompiler compiler){
+        codeGen(compiler);
     }
     /** 
      * @param compiler

@@ -46,7 +46,7 @@ public class BooleanLiteral extends AbstractExpr {
     protected void codeGenIter(DecacCompiler compiler) {
         Label l =  new Label("FinIF"+compiler.getCmptLabel());
         compiler.addInstruction(new CMP(Register.R0,Register.R0));
-        if(value)
+        if(getValue())
             compiler.addInstruction(new BNE(l));
         else
             compiler.addInstruction(new BEQ(l));

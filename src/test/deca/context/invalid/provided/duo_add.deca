@@ -1,6 +1,0 @@
-
-{int x = 2 + int y = 6 ;
-println("erreur");
-}
-
-/*  Commentaire  */

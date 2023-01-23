@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -68,6 +69,33 @@ public abstract class AbstractExpr extends AbstractInst {
                                     EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError;
 
+    /*
+     * Verifies if type1 is subtype of type2
+    */
+    /**
+     * @param compiler
+     * @param type1
+     * @param type2
+     * @return
+     */
+    protected boolean assign_compatible(DecacCompiler compiler, Type type1, Type type2) {
+        if (type1.isNull() && type2.isClass()){
+            return true;
+        }
+        try {
+            ClassType newtype1 = (ClassType) type1;
+            ClassType newtype2 = (ClassType) type2;
+            return newtype1.isSubClassOf(newtype2);
+        }
+        catch (ClassCastException e) {
+        }
+        boolean b = ((type2.isFloat()) && (type1.isInt()));
+        if ((b || type1.sameType(type2))){
+            return true;
+        }
+        return false;
+        }
+
     /**
      * Verify the expression in right hand-side of (implicit) assignments
      *
@@ -85,10 +113,15 @@ public abstract class AbstractExpr extends AbstractInst {
             throws ContextualError {
         Type type2 = this.verifyExpr(compiler, localEnv, currentClass);
         boolean b = ((expectedType.isFloat()) && (type2.isInt()));
-        if (!(b || expectedType.sameType(type2))) {
-            throw new ContextualError("incompatible types", this.getLocation());
+        if (b){
+            ConvFloat con = new ConvFloat(this);
+            con.verifyExpr(compiler, localEnv, currentClass);
+            return con;
         }
-        return this;
+        if ((assign_compatible(compiler, type2, expectedType))){
+            return this;
+        }
+        throw new ContextualError("Right value doesn't match the expected type", this.getLocation());
     }
 
     @Override
@@ -141,12 +174,18 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
     }
 
+
     /**
      * Methode permet de generer l'instruction STORE, utilise pour les variables
      * @param compiler
      */
     protected void codeGenStore(DecacCompiler compiler) {}
 
+    protected void codeGenInitFields(DecacCompiler compiler){
+    }
+    protected void codeGenSuperClass(DecacCompiler compiler,AbstractIdentifier className) {}
+    protected void codeGenClass(DecacCompiler compiler,AbstractIdentifier className) {}
+    protected void codeGenLabel(DecacCompiler compiler){}
     /**
      * Methode permet de generer le code dans les condition d'iterration de if/while
      * @param compiler

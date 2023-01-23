@@ -40,7 +40,7 @@ public abstract class AbstractPrint extends AbstractInst {
             Type t = a.verifyExpr(compiler, localEnv, currentClass);
             //verifies the types accepted in a print
             if (!(t.isString() || t.isInt() || t.isFloat())) {
-                throw new ContextualError("Faute dans print", a.getLocation());
+                throw new ContextualError("Print only accepts strings, ints and floats", a.getLocation());
         }
                         
         }
@@ -76,9 +76,9 @@ public abstract class AbstractPrint extends AbstractInst {
             s.print("x");
         }
         s.print("(");
-        s.print('"');
-        getArguments().decompile(s);
-        s.print('"');
+        //s.print('"');
+        arguments.decompile(s);
+        //s.print('"');
         s.print(");");
     }
 

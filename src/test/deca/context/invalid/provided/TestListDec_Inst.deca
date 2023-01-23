@@ -1,6 +1,0 @@
-//Erreur listdecl + listinst + listdecl
-{
-    int x = 2 ;
-    x = 6;
-    float y = 7;
-}

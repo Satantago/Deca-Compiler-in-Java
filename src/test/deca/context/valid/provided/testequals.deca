@@ -1,0 +1,3 @@
+class A {
+boolean equals(A a){}
+}

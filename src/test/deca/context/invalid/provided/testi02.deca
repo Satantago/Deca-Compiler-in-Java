@@ -1,0 +1,4 @@
+//Resultats :
+//Erreur contextuelle
+//Ligne 4 : int is definetely not a class
+class A extends int{}

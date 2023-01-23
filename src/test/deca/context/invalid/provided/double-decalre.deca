@@ -1,7 +1,7 @@
-
+//Resultats :
+//Erreur contextuelle
+//Ligne 6: variable already defined
 {int x = 2;
 int x = 4 ;
-
 }
 
-/*  Commentaire  */

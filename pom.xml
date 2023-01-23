@@ -228,12 +228,71 @@
                         <goals>
                             <goal>java</goal>
                         </goals>
+                    
+                    </execution>
+                    <execution>
+                        <!-- run a unit test by defining our own class with a main
+                        function -->
+                        <!-- warning: java assertions are not enabled -->
+                        <id>unit-test-gencode</id>
+                        <configuration>
+                            <mainClass>fr.ensimag.deca.tree.ManualTestInitialGencode</mainClass>
+                            <classpathScope>test</classpathScope>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
 
                     </execution>
                     <execution>
                         <id>test_context_decac</id>
                         <configuration>
-                            <executable>test_context.sh</executable>
+                            <executable>./src/test/script/test_context.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    
+                    </execution>
+                    <execution>
+                        <id>test_alloptions</id>
+                        <configuration>
+                            <executable>./src/test/script/test_decac_alloptions.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_display_usage</id>
+                        <configuration>
+                            <executable>./src/test/script/test_decac_vide.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    
+                    </execution>
+                    <execution>
+                        <id>test_decac_-v</id>
+                        <configuration>
+                            <executable>./src/test/script/test_decac_-v.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_ima-s</id>
+                        <configuration>
+                            <executable>./src/test/script/test_ima_-s.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>
@@ -244,7 +303,7 @@
                     <execution>
                         <id>test_syntax_decac</id>
                         <configuration>
-                            <executable>test_syntax.sh</executable>
+                            <executable>./src/test/script/test_syntax.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>
@@ -255,7 +314,7 @@
                     <execution>
                         <id>test_syntax_invalid_decac</id>
                         <configuration>
-                            <executable>test_syntax_invalid.sh</executable>
+                            <executable>./src/test/script/test_syntax_invalid.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>
@@ -266,7 +325,7 @@
                     <execution>
                         <id>test_context_invalid</id>
                         <configuration>
-                            <executable>test_context_invalid.sh</executable>
+                            <executable>./src/test/script/test_context_invalid.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>
@@ -276,7 +335,18 @@
                     <execution>
                         <id>test_decac</id>
                         <configuration>
-                            <executable>test_decac.sh</executable>
+                            <executable>./src/test/script/test_decac.sh</executable>
+                        </configuration>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                    </execution>
+                    <execution>
+                        <id>test_extension</id>
+                        <configuration>
+                            <executable>./src/test/script/test_extension.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>
@@ -285,11 +355,12 @@
 
 
 
+
                     </execution>
                     <execution>
                         <id>test_ima</id>
                         <configuration>
-                            <executable>test_ima.sh</executable>
+                            <executable>./src/test/script/test_ima.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>
@@ -300,7 +371,7 @@
                     <execution>
                         <id>test_decac_-p</id>
                         <configuration>
-                            <executable>test_decac_-p.sh</executable>
+                            <executable>./src/test/script/test_decac_-p.sh</executable>
                         </configuration>
                         <phase>test</phase>
                         <goals>

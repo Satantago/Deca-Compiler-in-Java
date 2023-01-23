@@ -1,10 +1,9 @@
-// Description:
-//   
+ 
 // Resultats:
-//    
-//
-// Historique:
-//    cree le 06/01/2023
+//Erreur contextuelle
+//Ligne 9: non defined type
+
+ cree le 06/01/2023
 
 {
     string z = "T && I = L";

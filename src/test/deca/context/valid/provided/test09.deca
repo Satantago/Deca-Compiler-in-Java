@@ -1,0 +1,11 @@
+class A {
+    int fatagh(){
+        
+    }
+    boolean equals(A a){
+        if(this == a){
+            return true;
+        }
+        return false;
+    }
+}

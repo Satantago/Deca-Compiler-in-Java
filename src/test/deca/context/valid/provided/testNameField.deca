@@ -1,0 +1,4 @@
+class A{
+int setX(int x , float y, boolean b){
+}
+}

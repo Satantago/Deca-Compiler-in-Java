@@ -1,10 +1,11 @@
 //sortie testtest
-{int x = 2;
-x = 5;
-print("test"); 
-printx("test") ;
-println("test") ;
-printlnx("x"); 
+{int x = 5;
+float y = 13.2;
+
+print(x, y); 
+printx(y) ;
+println(x,y) ;
+printlnx(y); 
 }
 
 /*  Commentaire  */
