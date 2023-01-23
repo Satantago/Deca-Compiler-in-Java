@@ -1,7 +1,8 @@
 // Description:
 //    Programme pour verifier tout les elements a implementer dans lexer.
 //
-
+// Résultats:
+//    Erreur syntaxique: :10:0: mismatched input 'asm' expecting ...
 //
 // Historique:
 //    cree le 05/01/2023
