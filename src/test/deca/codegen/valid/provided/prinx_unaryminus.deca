@@ -1,3 +1,0 @@
-{float x = 3.2;
-float y = -x;
-printx(-x);}

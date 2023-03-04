@@ -1,9 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 8 : returntype of the child is not a subtype of the parent's
-class X{
-    boolean is_int(){}
-}
-class Y extends X{
-    int is_int(){}
-}

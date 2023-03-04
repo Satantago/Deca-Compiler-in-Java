@@ -1,6 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 5: You can't use void as a type
-class A{
-    void x;
-}

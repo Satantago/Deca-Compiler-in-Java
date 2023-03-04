@@ -1,7 +1,0 @@
-//test readfloat
-
-{
-    float y = 0.2;
-    y = readFloat();
-    println("readfloat fonctionne");
-}

@@ -1,7 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 6: x is already used
-{
-int x = 2;
-int x = 3;
-}

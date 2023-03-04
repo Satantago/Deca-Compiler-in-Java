@@ -1,9 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 5: Right value doesn't match the expected type
-{int x = 2;
-int z = 2.6  ; 
-float y = 3 ;
-}
-
-/*  Commentaire  */

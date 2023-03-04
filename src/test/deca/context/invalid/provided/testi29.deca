@@ -1,8 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 7: Expecting a class
-{
-    int x;
-    int y;
-    y.x = x;
-}

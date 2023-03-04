@@ -1,4 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 4 : cannot apply the NotOperator to this type
-{int x = !(2);}

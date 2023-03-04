@@ -1,7 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 6 : new is used on classes
-class A{}
-{
-    A a = new float();
-}

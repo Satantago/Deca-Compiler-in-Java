@@ -1,8 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 6 : Cannot be applied to this types :int & boolean
-{
-if (1 == true) {
-	println("1 is equal to true");
-}
-}

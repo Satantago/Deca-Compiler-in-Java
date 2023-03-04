@@ -1,7 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 6 : Expecting a class
-{
-int x;
-this.x = x;
-}

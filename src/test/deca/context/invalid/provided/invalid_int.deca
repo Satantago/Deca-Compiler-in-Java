@@ -1,9 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 6: Right value doesn't match the expected type
-{int x = 2;
-//int x = 5;
-int y = readFloat();
-}
-
-/*  Commentaire  */

@@ -1,6 +1,0 @@
-{
-	println("ok");
-	print("ok");
-	println();
-}
-

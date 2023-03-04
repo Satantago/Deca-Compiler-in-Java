@@ -1,6 +1,0 @@
-{
-	float x = 0x1.99999ap1;
-	float y = -x;
-	printx(-x);
-}
-

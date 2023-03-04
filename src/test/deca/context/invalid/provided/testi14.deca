@@ -1,8 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 14 : Right value doesn't match the expected type
-class X{
-    void methody(float y){
-        int x = y;
-    }
-}

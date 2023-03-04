@@ -1,6 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 5: Right value doesn't match the expected type
-{
-    int x = -5.2;
-}

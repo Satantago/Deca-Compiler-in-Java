@@ -1,4 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 4 : only applied to ints & floats
-{boolean f = true < false;}

@@ -1,5 +1,0 @@
-// affichage en flottant de la moitié du carré d'un entier
-{
-float x = 9.8 ;
-println(x) ;
-}

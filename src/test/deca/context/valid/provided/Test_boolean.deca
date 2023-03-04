@@ -1,7 +1,0 @@
-//boolean
-{
-boolean bool = true;
-if (bool){
-    println("baaam");
-}
-}

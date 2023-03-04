@@ -1,7 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 6 : Print only accepts strings, ints and floats
-{
-    boolean zero = false;
-    println(zero);
-}

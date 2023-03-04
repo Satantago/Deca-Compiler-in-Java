@@ -1,8 +1,0 @@
-class C{
-    float x = 3.9f;
-    int b = 6;
-    float z = 0x5452.1p+5f;
-    void setX(int x){
-        this.x = x;
-    }
-}

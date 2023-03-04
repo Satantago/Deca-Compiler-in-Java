@@ -1,8 +1,0 @@
-// Description:
-//   Print string sans fermer la parenthèse
-//
-// Résultats:
-//   :3:12: token recognition error at: '"anaaaaas);\n}'
-{
-    println("anaaaaas);
-}

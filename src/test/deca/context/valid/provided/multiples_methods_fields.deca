@@ -1,6 +1,0 @@
-class A {
- int x;
- void setX(int x) {this.x = x;}
- float y;
- int getX(int x) {return this.x;}
-}

@@ -1,8 +1,0 @@
-#include "Math.decah"
-
-{
- Math m = new Math();
- float x = 0.5;
- float resultat = m.asin(x);
- println(resultat);
-}

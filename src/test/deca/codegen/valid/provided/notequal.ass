@@ -1,7 +1,0 @@
-{
-	if(5 != 4){
-		println("ça marche");
-	}
-
-}
-

@@ -1,8 +1,0 @@
-{
-	boolean bool = true;
-	if(bool){
-		println("ça marche");
-	}
-
-}
-

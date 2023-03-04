@@ -1,8 +1,0 @@
-//division
-//Resultat : 1.2857142857142858
-{
-    float a = 9;
-    float b = 7;
-    a = a/b;
-    println(a);
-}

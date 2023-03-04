@@ -1,6 +1,0 @@
-class C{
-    float y = 3;
-    void setX(int x){
-        y = x;
-    }
-}

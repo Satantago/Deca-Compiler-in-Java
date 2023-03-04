@@ -1,7 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 6: In order to return, returntype should be different than void
-class A {
- int x;
- void setX(int x) {return x;}
-}

@@ -1,7 +1,0 @@
-//negation
-{
-boolean bool = true;
-if (bool){
-    println("baaam");
-}
-}

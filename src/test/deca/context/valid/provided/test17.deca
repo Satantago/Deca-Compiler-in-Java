@@ -1,5 +1,0 @@
-class A{
-    float sakofa7(int x){
-        return x;
-    }
-}

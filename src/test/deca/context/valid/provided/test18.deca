@@ -1,8 +1,0 @@
-{
-    int x;
-    float y;
-    print(x*y);
-    print(x/y);
-    print(x-y);
-    print(x+y);
-}

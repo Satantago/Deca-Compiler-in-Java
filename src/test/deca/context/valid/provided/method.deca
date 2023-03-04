@@ -1,4 +1,0 @@
-class A {
- int x = 0;
- int getX() {return this.x;}
-}

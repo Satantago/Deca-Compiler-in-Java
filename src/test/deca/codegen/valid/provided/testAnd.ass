@@ -1,9 +1,0 @@
-{
-	boolean x = true;
-	boolean y = true;
-	if(x && y){
-		println("and ça marche");
-	}
-
-}
-

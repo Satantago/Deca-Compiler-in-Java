@@ -1,9 +1,0 @@
-// Description
-//   Include non-existing file
-//
-// Résultats:
-//    :1:28: doesnt_exist.deca: include file not found
-
-#include "doesnt_exist.deca"
-
-{println("doenst exist");}

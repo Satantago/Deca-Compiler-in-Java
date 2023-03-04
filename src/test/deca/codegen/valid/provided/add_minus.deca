@@ -1,9 +1,0 @@
-//tester declaration des floats et affiche 14, -5
-{
-    float a = 5;
-    float c = 9;
-    a = a+c;
-    c = c - a;
-    println(a);
-    println(c);
-}

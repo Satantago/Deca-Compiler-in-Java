@@ -1,9 +1,0 @@
-//Resultats :
-//Erreur contextuelle
-//Ligne 8 : Signature of overriden method testa doesn't match the method 
-class A{
-    int testa(float x){}
-}
-class B extends A{
-    int testa(int x){}
-}
