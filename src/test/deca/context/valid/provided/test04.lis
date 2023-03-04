@@ -1,0 +1,64 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:49) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:53) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:56) - verify listmeth: start
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:60) - verify listmeth: end
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [1, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [1, 0] DeclClass
+   |      +> [1, 6] Identifier (C)
+   |      |  definition: type defined at [1, 6], type=C
+   |      +> [1, 0] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 1 elements]
+   |      |  []> [2, 10] [visibility=PUBLIC] DeclField
+   |      |      +> [2, 4] Identifier (float)
+   |      |      |  definition: type (builtin), type=float
+   |      |      +> [2, 10] Identifier (y)
+   |      |      |  definition: field defined at [2, 10], type=float
+   |      |      `> [2, 12] Initialization
+   |      |         `> ConvFloat
+   |      |            type: float
+   |      |            `> [2, 14] Int (3)
+   |      |               type: int
+   |      `> ListDeclMethod [List with 1 elements]
+   |         []> [3, 4] DeclMethod
+   |             +> [3, 4] Identifier (void)
+   |             |  definition: type (builtin), type=void
+   |             +> [3, 9] Identifier (setX)
+   |             |  definition: method defined at [3, 4], type=void
+   |             +> ListDeclParam [List with 1 elements]
+   |             |  []> [3, 14] DeclParam
+   |             |      +> [3, 14] Identifier (int)
+   |             |      |  definition: type (builtin), type=int
+   |             |      `> [3, 18] Identifier (x)
+   |             |         definition: parameter defined at [3, 14], type=int
+   |             `> [3, 20] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [4, 10] Assign
+   |                       type: float
+   |                       +> [4, 8] Identifier (y)
+   |                       |  definition: field defined at [2, 10], type=float
+   |                       `> ConvFloat
+   |                          type: float
+   |                          `> [4, 12] Identifier (x)
+   |                             definition: parameter defined at [3, 14], type=int
+   `> EmptyMain

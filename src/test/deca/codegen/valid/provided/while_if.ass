@@ -1,0 +1,18 @@
+{
+	int x = 1;
+	while (x == 1) {
+		x = x + 1;
+		if(false){
+			while (x == 2) {
+				println("noo");
+				x = x + 1;
+			}
+			println("NOOOOOOOOON");
+		}
+		else if(x == 2){
+			println("ça");
+		}
+	}
+	println("marche");
+}
+

@@ -1,0 +1,17 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:49) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:53) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:56) - verify listmeth: start
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end

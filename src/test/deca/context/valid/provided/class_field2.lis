@@ -1,0 +1,42 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:49) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:53) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:56) - verify listmeth: start
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:60) - verify listmeth: end
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [1, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [1, 0] DeclClass
+   |      +> [1, 6] Identifier (A)
+   |      |  definition: type defined at [1, 6], type=A
+   |      +> [1, 0] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 2 elements]
+   |      |  []> [2, 6] [visibility=PUBLIC] DeclField
+   |      |  ||  +> [2, 2] Identifier (int)
+   |      |  ||  |  definition: type (builtin), type=int
+   |      |  ||  +> [2, 6] Identifier (x)
+   |      |  ||  |  definition: field defined at [2, 6], type=int
+   |      |  ||  `> [2, 8] Initialization
+   |      |  ||     `> [2, 10] Int (0)
+   |      |  ||        type: int
+   |      |  []> [3, 8] [visibility=PUBLIC] DeclField
+   |      |      +> [3, 2] Identifier (float)
+   |      |      |  definition: type (builtin), type=float
+   |      |      +> [3, 8] Identifier (y)
+   |      |      |  definition: field defined at [3, 8], type=float
+   |      |      `> [3, 10] Initialization
+   |      |         `> [3, 12] Float (2.3)
+   |      |            type: float
+   |      `> ListDeclMethod [List with 0 elements]
+   `> EmptyMain

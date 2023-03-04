@@ -1,0 +1,17 @@
+class A extends Object{
+	public int d;
+	public boolean e;
+	public float f;
+	void a () {
+	}
+	void b () {
+	}
+	void c () {
+	}
+}
+
+class B extends A{
+	public int g;
+}
+
+

@@ -1,0 +1,12 @@
+{
+	boolean tanjaoui = false;
+	if(tanjaoui = true){
+		println("nothing");
+	}
+
+	if(tanjaoui){
+		println("tanjaoui");
+	}
+
+}
+

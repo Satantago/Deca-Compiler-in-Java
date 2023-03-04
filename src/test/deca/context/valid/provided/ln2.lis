@@ -1,0 +1,231 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:29) - verify Main: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:36) - verify Main: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [12, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [12, 0] Main
+      +> ListDeclVar [List with 6 elements]
+      |  []> [13, 10] DeclVar
+      |  ||  +> [13, 4] Identifier (float)
+      |  ||  |  definition: type (builtin), type=float
+      |  ||  +> [13, 10] Identifier (g)
+      |  ||  |  definition: variable defined at [13, 10], type=float
+      |  ||  `> [13, 14] Initialization
+      |  ||     `> [13, 14] Float (0.0)
+      |  ||        type: float
+      |  []> [13, 20] DeclVar
+      |  ||  +> [13, 4] Identifier (float)
+      |  ||  |  definition: type (builtin), type=float
+      |  ||  +> [13, 20] Identifier (d)
+      |  ||  |  definition: variable defined at [13, 20], type=float
+      |  ||  `> [13, 24] Initialization
+      |  ||     `> [13, 24] Float (1.0)
+      |  ||        type: float
+      |  []> [14, 10] DeclVar
+      |  ||  +> [14, 4] Identifier (float)
+      |  ||  |  definition: type (builtin), type=float
+      |  ||  +> [14, 10] Identifier (fg)
+      |  ||  |  definition: variable defined at [14, 10], type=float
+      |  ||  `> [14, 15] Initialization
+      |  ||     `> [14, 15] UnaryMinus
+      |  ||        type: float
+      |  ||        `> [14, 16] Float (1.0)
+      |  ||           type: float
+      |  []> [14, 28] DeclVar
+      |  ||  +> [14, 22] Identifier (float)
+      |  ||  |  definition: type (builtin), type=float
+      |  ||  +> [14, 28] Identifier (fd)
+      |  ||  |  definition: variable defined at [14, 28], type=float
+      |  ||  `> [14, 33] Initialization
+      |  ||     `> [14, 33] Float (0.718284)
+      |  ||        type: float
+      |  []> [15, 10] DeclVar
+      |  ||  +> [15, 4] Identifier (float)
+      |  ||  |  definition: type (builtin), type=float
+      |  ||  +> [15, 10] Identifier (m)
+      |  ||  |  definition: variable defined at [15, 10], type=float
+      |  ||  `> NoInitialization
+      |  []> [15, 13] DeclVar
+      |      +> [15, 4] Identifier (float)
+      |      |  definition: type (builtin), type=float
+      |      +> [15, 13] Identifier (fm)
+      |      |  definition: variable defined at [15, 13], type=float
+      |      `> NoInitialization
+      `> ListInst [List with 3 elements]
+         []> [17, 4] While
+         ||  +> [17, 12] GreaterOrEqual
+         ||  |  type: boolean
+         ||  |  +> [17, 11] Identifier (d)
+         ||  |  |  definition: variable defined at [13, 20], type=float
+         ||  |  `> [17, 16] Plus
+         ||  |     type: float
+         ||  |     +> [17, 15] Identifier (g)
+         ||  |     |  definition: variable defined at [13, 10], type=float
+         ||  |     `> [17, 17] Float (1.1920929E-7)
+         ||  |        type: float
+         ||  `> ListInst [List with 3 elements]
+         ||     []> [18, 3] Assign
+         ||     ||  type: float
+         ||     ||  +> [18, 1] Identifier (m)
+         ||     ||  |  definition: variable defined at [15, 10], type=float
+         ||     ||  `> [18, 11] Divide
+         ||     ||     type: float
+         ||     ||     +> [18, 7] Plus
+         ||     ||     |  type: float
+         ||     ||     |  +> [18, 6] Identifier (g)
+         ||     ||     |  |  definition: variable defined at [13, 10], type=float
+         ||     ||     |  `> [18, 8] Identifier (d)
+         ||     ||     |     definition: variable defined at [13, 20], type=float
+         ||     ||     `> [18, 13] Float (2.0)
+         ||     ||        type: float
+         ||     []> [19, 5] Assign
+         ||     ||  type: float
+         ||     ||  +> [19, 2] Identifier (fm)
+         ||     ||  |  definition: variable defined at [15, 13], type=float
+         ||     ||  `> [19, 122] Minus
+         ||     ||     type: float
+         ||     ||     +> [19, 9] Multiply
+         ||     ||     |  type: float
+         ||     ||     |  +> [19, 7] Identifier (m)
+         ||     ||     |  |  definition: variable defined at [15, 10], type=float
+         ||     ||     |  `> [19, 115] Plus
+         ||     ||     |     type: float
+         ||     ||     |     +> [19, 14] Multiply
+         ||     ||     |     |  type: float
+         ||     ||     |     |  +> [19, 12] Identifier (m)
+         ||     ||     |     |  |  definition: variable defined at [15, 10], type=float
+         ||     ||     |     |  `> [19, 104] Plus
+         ||     ||     |     |     type: float
+         ||     ||     |     |     +> [19, 19] Multiply
+         ||     ||     |     |     |  type: float
+         ||     ||     |     |     |  +> [19, 17] Identifier (m)
+         ||     ||     |     |     |  |  definition: variable defined at [15, 10], type=float
+         ||     ||     |     |     |  `> [19, 93] Plus
+         ||     ||     |     |     |     type: float
+         ||     ||     |     |     |     +> [19, 24] Multiply
+         ||     ||     |     |     |     |  type: float
+         ||     ||     |     |     |     |  +> [19, 22] Identifier (m)
+         ||     ||     |     |     |     |  |  definition: variable defined at [15, 10], type=float
+         ||     ||     |     |     |     |  `> [19, 81] Plus
+         ||     ||     |     |     |     |     type: float
+         ||     ||     |     |     |     |     +> [19, 29] Multiply
+         ||     ||     |     |     |     |     |  type: float
+         ||     ||     |     |     |     |     |  +> [19, 27] Identifier (m)
+         ||     ||     |     |     |     |     |  |  definition: variable defined at [15, 10], type=float
+         ||     ||     |     |     |     |     |  `> [19, 68] Plus
+         ||     ||     |     |     |     |     |     type: float
+         ||     ||     |     |     |     |     |     +> [19, 34] Multiply
+         ||     ||     |     |     |     |     |     |  type: float
+         ||     ||     |     |     |     |     |     |  +> [19, 32] Identifier (m)
+         ||     ||     |     |     |     |     |     |  |  definition: variable defined at [15, 10], type=float
+         ||     ||     |     |     |     |     |     |  `> [19, 55] Plus
+         ||     ||     |     |     |     |     |     |     type: float
+         ||     ||     |     |     |     |     |     |     +> [19, 40] Multiply
+         ||     ||     |     |     |     |     |     |     |  type: float
+         ||     ||     |     |     |     |     |     |     |  +> [19, 38] Identifier (m)
+         ||     ||     |     |     |     |     |     |     |  |  definition: variable defined at [15, 10], type=float
+         ||     ||     |     |     |     |     |     |     |  `> [19, 46] Divide
+         ||     ||     |     |     |     |     |     |     |     type: float
+         ||     ||     |     |     |     |     |     |     |     +> [19, 43] Float (1.0)
+         ||     ||     |     |     |     |     |     |     |     |  type: float
+         ||     ||     |     |     |     |     |     |     |     `> [19, 47] Float (5040.0)
+         ||     ||     |     |     |     |     |     |     |        type: float
+         ||     ||     |     |     |     |     |     |     `> [19, 60] Divide
+         ||     ||     |     |     |     |     |     |        type: float
+         ||     ||     |     |     |     |     |     |        +> [19, 57] Float (1.0)
+         ||     ||     |     |     |     |     |     |        |  type: float
+         ||     ||     |     |     |     |     |     |        `> [19, 61] Float (720.0)
+         ||     ||     |     |     |     |     |     |           type: float
+         ||     ||     |     |     |     |     |     `> [19, 73] Divide
+         ||     ||     |     |     |     |     |        type: float
+         ||     ||     |     |     |     |     |        +> [19, 70] Float (1.0)
+         ||     ||     |     |     |     |     |        |  type: float
+         ||     ||     |     |     |     |     |        `> [19, 74] Float (120.0)
+         ||     ||     |     |     |     |     |           type: float
+         ||     ||     |     |     |     |     `> [19, 86] Divide
+         ||     ||     |     |     |     |        type: float
+         ||     ||     |     |     |     |        +> [19, 83] Float (1.0)
+         ||     ||     |     |     |     |        |  type: float
+         ||     ||     |     |     |     |        `> [19, 87] Float (24.0)
+         ||     ||     |     |     |     |           type: float
+         ||     ||     |     |     |     `> [19, 98] Divide
+         ||     ||     |     |     |        type: float
+         ||     ||     |     |     |        +> [19, 95] Float (1.0)
+         ||     ||     |     |     |        |  type: float
+         ||     ||     |     |     |        `> [19, 99] Float (6.0)
+         ||     ||     |     |     |           type: float
+         ||     ||     |     |     `> [19, 109] Divide
+         ||     ||     |     |        type: float
+         ||     ||     |     |        +> [19, 106] Float (1.0)
+         ||     ||     |     |        |  type: float
+         ||     ||     |     |        `> [19, 110] Float (2.0)
+         ||     ||     |     |           type: float
+         ||     ||     |     `> [19, 117] Float (1.0)
+         ||     ||     |        type: float
+         ||     ||     `> ConvFloat
+         ||     ||        type: float
+         ||     ||        `> [19, 123] Int (1)
+         ||     ||           type: int
+         ||     []> [20, 1] IfThenElse
+         ||         +> [20, 8] Greater
+         ||         |  type: boolean
+         ||         |  +> [20, 5] Identifier (fm)
+         ||         |  |  definition: variable defined at [15, 13], type=float
+         ||         |  `> [20, 10] Float (0.0)
+         ||         |     type: float
+         ||         +> ListInst [List with 2 elements]
+         ||         |  []> [21, 7] Assign
+         ||         |  ||  type: float
+         ||         |  ||  +> [21, 5] Identifier (d)
+         ||         |  ||  |  definition: variable defined at [13, 20], type=float
+         ||         |  ||  `> [21, 9] Identifier (m)
+         ||         |  ||     definition: variable defined at [15, 10], type=float
+         ||         |  []> [22, 8] Assign
+         ||         |      type: float
+         ||         |      +> [22, 5] Identifier (fd)
+         ||         |      |  definition: variable defined at [14, 28], type=float
+         ||         |      `> [22, 10] Identifier (fm)
+         ||         |         definition: variable defined at [15, 13], type=float
+         ||         `> [23, 3] IfThenElse
+         ||            +> [23, 3] BooleanLiteral (true)
+         ||            |  type: boolean
+         ||            +> ListInst [List with 2 elements]
+         ||            |  []> [24, 6] Assign
+         ||            |  ||  type: float
+         ||            |  ||  +> [24, 5] Identifier (g)
+         ||            |  ||  |  definition: variable defined at [13, 10], type=float
+         ||            |  ||  `> [24, 7] Identifier (m)
+         ||            |  ||     definition: variable defined at [15, 10], type=float
+         ||            |  []> [25, 8] Assign
+         ||            |      type: float
+         ||            |      +> [25, 5] Identifier (fg)
+         ||            |      |  definition: variable defined at [14, 10], type=float
+         ||            |      `> [25, 10] Identifier (fm)
+         ||            |         definition: variable defined at [15, 13], type=float
+         []> [28, 4] Print
+         ||  `> ListExpr [List with 2 elements]
+         ||     []> [28, 11] Identifier (g)
+         ||     ||  definition: variable defined at [13, 10], type=float
+         ||     []> [28, 14] StringLiteral ( = )
+         ||         type: string
+         []> [28, 22] Println
+             `> ListExpr [List with 1 elements]
+                []> [28, 31] Identifier (g)
+                    definition: variable defined at [13, 10], type=float

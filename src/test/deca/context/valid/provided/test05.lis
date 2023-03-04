@@ -1,0 +1,173 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:49) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:53) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:56) - verify listmeth: start
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:60) - verify listmeth: end
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [1, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [1, 0] DeclClass
+   |      +> [1, 6] Identifier (A)
+   |      |  definition: type defined at [1, 6], type=A
+   |      +> [1, 0] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 1 elements]
+   |      |  []> [2, 18] [visibility=PROTECTED] DeclField
+   |      |      +> [2, 14] Identifier (int)
+   |      |      |  definition: type (builtin), type=int
+   |      |      +> [2, 18] Identifier (y)
+   |      |      |  definition: field defined at [2, 18], type=int
+   |      |      `> [2, 20] Initialization
+   |      |         `> [2, 22] Int (5)
+   |      |            type: int
+   |      `> ListDeclMethod [List with 5 elements]
+   |         []> [3, 4] DeclMethod
+   |         ||  +> [3, 4] Identifier (void)
+   |         ||  |  definition: type (builtin), type=void
+   |         ||  +> [3, 9] Identifier (somme)
+   |         ||  |  definition: method defined at [3, 4], type=void
+   |         ||  +> ListDeclParam [List with 1 elements]
+   |         ||  |  []> [3, 15] DeclParam
+   |         ||  |      +> [3, 15] Identifier (int)
+   |         ||  |      |  definition: type (builtin), type=int
+   |         ||  |      `> [3, 19] Identifier (x)
+   |         ||  |         definition: parameter defined at [3, 15], type=int
+   |         ||  `> [3, 21] MethodBody
+   |         ||     +> ListDeclVar [List with 0 elements]
+   |         ||     `> ListInst [List with 1 elements]
+   |         ||        []> [4, 8] Println
+   |         ||            `> ListExpr [List with 1 elements]
+   |         ||               []> [4, 17] Plus
+   |         ||                   type: int
+   |         ||                   +> [4, 16] Identifier (x)
+   |         ||                   |  definition: parameter defined at [3, 15], type=int
+   |         ||                   `> [4, 18] Identifier (y)
+   |         ||                      definition: field defined at [2, 18], type=int
+   |         []> [6, 4] DeclMethod
+   |         ||  +> [6, 4] Identifier (int)
+   |         ||  |  definition: type (builtin), type=int
+   |         ||  +> [6, 8] Identifier (sommex)
+   |         ||  |  definition: method defined at [6, 4], type=int
+   |         ||  +> ListDeclParam [List with 1 elements]
+   |         ||  |  []> [6, 15] DeclParam
+   |         ||  |      +> [6, 15] Identifier (int)
+   |         ||  |      |  definition: type (builtin), type=int
+   |         ||  |      `> [6, 19] Identifier (x)
+   |         ||  |         definition: parameter defined at [6, 15], type=int
+   |         ||  `> [6, 21] MethodBody
+   |         ||     +> ListDeclVar [List with 0 elements]
+   |         ||     `> ListInst [List with 1 elements]
+   |         ||        []> [7, 8] Return
+   |         ||            `> [7, 17] Plus
+   |         ||               type: int
+   |         ||               +> [7, 15] Identifier (x)
+   |         ||               |  definition: parameter defined at [6, 15], type=int
+   |         ||               `> [7, 19] Identifier (y)
+   |         ||                  definition: field defined at [2, 18], type=int
+   |         []> [9, 4] DeclMethod
+   |         ||  +> [9, 4] Identifier (float)
+   |         ||  |  definition: type (builtin), type=float
+   |         ||  +> [9, 10] Identifier (sommey)
+   |         ||  |  definition: method defined at [9, 4], type=float
+   |         ||  +> ListDeclParam [List with 1 elements]
+   |         ||  |  []> [9, 17] DeclParam
+   |         ||  |      +> [9, 17] Identifier (float)
+   |         ||  |      |  definition: type (builtin), type=float
+   |         ||  |      `> [9, 23] Identifier (x)
+   |         ||  |         definition: parameter defined at [9, 17], type=float
+   |         ||  `> [9, 25] MethodBody
+   |         ||     +> ListDeclVar [List with 0 elements]
+   |         ||     `> ListInst [List with 1 elements]
+   |         ||        []> [10, 8] Return
+   |         ||            `> [10, 16] Plus
+   |         ||               type: float
+   |         ||               +> [10, 15] Identifier (x)
+   |         ||               |  definition: parameter defined at [9, 17], type=float
+   |         ||               `> ConvFloat
+   |         ||                  type: float
+   |         ||                  `> [10, 17] Identifier (y)
+   |         ||                     definition: field defined at [2, 18], type=int
+   |         []> [12, 4] DeclMethod
+   |         ||  +> [12, 4] Identifier (boolean)
+   |         ||  |  definition: type (builtin), type=boolean
+   |         ||  +> [12, 12] Identifier (is_int)
+   |         ||  |  definition: method defined at [12, 4], type=boolean
+   |         ||  +> ListDeclParam [List with 0 elements]
+   |         ||  `> [12, 20] MethodBody
+   |         ||     +> ListDeclVar [List with 0 elements]
+   |         ||     `> ListInst [List with 1 elements]
+   |         ||        []> [13, 8] Return
+   |         ||            `> [13, 21] Equals
+   |         ||               type: boolean
+   |         ||               +> [13, 19] Selection
+   |         ||               |  type: int
+   |         ||               |  +> [13, 15] This
+   |         ||               |  |  type: A
+   |         ||               |  `> [13, 20] Identifier (y)
+   |         ||               |     definition: field defined at [2, 18], type=int
+   |         ||               `> [13, 23] Int (5)
+   |         ||                  type: int
+   |         []> [15, 4] DeclMethod
+   |             +> [15, 4] Identifier (A)
+   |             |  definition: type defined at [1, 6], type=A
+   |             +> [15, 6] Identifier (const)
+   |             |  definition: method defined at [15, 4], type=A
+   |             +> ListDeclParam [List with 1 elements]
+   |             |  []> [15, 12] DeclParam
+   |             |      +> [15, 12] Identifier (int)
+   |             |      |  definition: type (builtin), type=int
+   |             |      `> [15, 16] Identifier (x)
+   |             |         definition: parameter defined at [15, 12], type=int
+   |             `> [15, 18] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [16, 8] Return
+   |                       `> [16, 15] This
+   |                          type: A
+   `> EmptyMain

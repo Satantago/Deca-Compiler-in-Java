@@ -1,0 +1,15 @@
+class A extends Object{
+	public int x = 1;
+	void g (int a) {
+		x = this.x + a;
+		println(a);
+	}
+	void p () {
+	}
+}
+
+{
+	A aa =  new A();
+	aa.g(4);
+}
+

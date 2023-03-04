@@ -1,0 +1,498 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:49) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclField.verifyListDeclField(ListDeclField.java:53) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:56) - verify listmeth: start
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:53) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclParam.verifyListDeclParam(ListDeclParam.java:58) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.ListDeclMethod.verifyListDeclMethod(ListDeclMethod.java:60) - verify listmeth: end
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [1, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [1, 0] DeclClass
+   |      +> [1, 6] Identifier (A)
+   |      |  definition: type defined at [1, 6], type=A
+   |      +> [1, 0] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 0 elements]
+   |      `> ListDeclMethod [List with 2 elements]
+   |         []> [2, 4] DeclMethod
+   |         ||  +> [2, 4] Identifier (boolean)
+   |         ||  |  definition: type (builtin), type=boolean
+   |         ||  +> [2, 12] Identifier (methodglobal)
+   |         ||  |  definition: method defined at [2, 4], type=boolean
+   |         ||  +> ListDeclParam [List with 3 elements]
+   |         ||  |  []> [2, 25] DeclParam
+   |         ||  |  ||  +> [2, 25] Identifier (int)
+   |         ||  |  ||  |  definition: type (builtin), type=int
+   |         ||  |  ||  `> [2, 29] Identifier (a)
+   |         ||  |  ||     definition: parameter defined at [2, 25], type=int
+   |         ||  |  []> [2, 32] DeclParam
+   |         ||  |  ||  +> [2, 32] Identifier (boolean)
+   |         ||  |  ||  |  definition: type (builtin), type=boolean
+   |         ||  |  ||  `> [2, 40] Identifier (b)
+   |         ||  |  ||     definition: parameter defined at [2, 32], type=boolean
+   |         ||  |  []> [2, 43] DeclParam
+   |         ||  |      +> [2, 43] Identifier (float)
+   |         ||  |      |  definition: type (builtin), type=float
+   |         ||  |      `> [2, 49] Identifier (x)
+   |         ||  |         definition: parameter defined at [2, 43], type=float
+   |         ||  `> [2, 51] MethodBody
+   |         ||     +> ListDeclVar [List with 6 elements]
+   |         ||     |  []> [3, 12] DeclVar
+   |         ||     |  ||  +> [3, 8] Identifier (int)
+   |         ||     |  ||  |  definition: type (builtin), type=int
+   |         ||     |  ||  +> [3, 12] Identifier (d)
+   |         ||     |  ||  |  definition: variable defined at [3, 12], type=int
+   |         ||     |  ||  `> [3, 16] Initialization
+   |         ||     |  ||     `> [3, 16] Int (5)
+   |         ||     |  ||        type: int
+   |         ||     |  []> [4, 12] DeclVar
+   |         ||     |  ||  +> [4, 8] Identifier (int)
+   |         ||     |  ||  |  definition: type (builtin), type=int
+   |         ||     |  ||  +> [4, 12] Identifier (dd)
+   |         ||     |  ||  |  definition: variable defined at [4, 12], type=int
+   |         ||     |  ||  `> NoInitialization
+   |         ||     |  []> [5, 16] DeclVar
+   |         ||     |  ||  +> [5, 8] Identifier (boolean)
+   |         ||     |  ||  |  definition: type (builtin), type=boolean
+   |         ||     |  ||  +> [5, 16] Identifier (f)
+   |         ||     |  ||  |  definition: variable defined at [5, 16], type=boolean
+   |         ||     |  ||  `> [5, 20] Initialization
+   |         ||     |  ||     `> [5, 20] BooleanLiteral (true)
+   |         ||     |  ||        type: boolean
+   |         ||     |  []> [6, 16] DeclVar
+   |         ||     |  ||  +> [6, 8] Identifier (boolean)
+   |         ||     |  ||  |  definition: type (builtin), type=boolean
+   |         ||     |  ||  +> [6, 16] Identifier (ff)
+   |         ||     |  ||  |  definition: variable defined at [6, 16], type=boolean
+   |         ||     |  ||  `> NoInitialization
+   |         ||     |  []> [7, 14] DeclVar
+   |         ||     |  ||  +> [7, 8] Identifier (float)
+   |         ||     |  ||  |  definition: type (builtin), type=float
+   |         ||     |  ||  +> [7, 14] Identifier (g)
+   |         ||     |  ||  |  definition: variable defined at [7, 14], type=float
+   |         ||     |  ||  `> NoInitialization
+   |         ||     |  []> [8, 14] DeclVar
+   |         ||     |      +> [8, 8] Identifier (float)
+   |         ||     |      |  definition: type (builtin), type=float
+   |         ||     |      +> [8, 14] Identifier (gg)
+   |         ||     |      |  definition: variable defined at [8, 14], type=float
+   |         ||     |      `> [8, 19] Initialization
+   |         ||     |         `> [8, 19] Float (690754.0)
+   |         ||     |            type: float
+   |         ||     `> ListInst [List with 20 elements]
+   |         ||        []> [9, 10] Assign
+   |         ||        ||  type: float
+   |         ||        ||  +> [9, 8] Identifier (g)
+   |         ||        ||  |  definition: variable defined at [7, 14], type=float
+   |         ||        ||  `> ConvFloat
+   |         ||        ||     type: float
+   |         ||        ||     `> [9, 12] Identifier (d)
+   |         ||        ||        definition: variable defined at [3, 12], type=int
+   |         ||        []> [10, 11] Assign
+   |         ||        ||  type: float
+   |         ||        ||  +> [10, 8] Identifier (gg)
+   |         ||        ||  |  definition: variable defined at [8, 14], type=float
+   |         ||        ||  `> [10, 16] Plus
+   |         ||        ||     type: float
+   |         ||        ||     +> [10, 13] Identifier (gg)
+   |         ||        ||     |  definition: variable defined at [8, 14], type=float
+   |         ||        ||     `> ConvFloat
+   |         ||        ||        type: float
+   |         ||        ||        `> [10, 18] Identifier (a)
+   |         ||        ||           definition: parameter defined at [2, 25], type=int
+   |         ||        []> [11, 11] Assign
+   |         ||        ||  type: boolean
+   |         ||        ||  +> [11, 8] Identifier (ff)
+   |         ||        ||  |  definition: variable defined at [6, 16], type=boolean
+   |         ||        ||  `> [11, 15] Or
+   |         ||        ||     type: boolean
+   |         ||        ||     +> [11, 13] Identifier (f)
+   |         ||        ||     |  definition: variable defined at [5, 16], type=boolean
+   |         ||        ||     `> [11, 18] Identifier (b)
+   |         ||        ||        definition: parameter defined at [2, 32], type=boolean
+   |         ||        []> [12, 10] Assign
+   |         ||        ||  type: boolean
+   |         ||        ||  +> [12, 8] Identifier (f)
+   |         ||        ||  |  definition: variable defined at [5, 16], type=boolean
+   |         ||        ||  `> [12, 36] Or
+   |         ||        ||     type: boolean
+   |         ||        ||     +> [12, 30] Or
+   |         ||        ||     |  type: boolean
+   |         ||        ||     |  +> [12, 25] Or
+   |         ||        ||     |  |  type: boolean
+   |         ||        ||     |  |  +> [12, 20] And
+   |         ||        ||     |  |  |  type: boolean
+   |         ||        ||     |  |  |  +> [12, 15] And
+   |         ||        ||     |  |  |  |  type: boolean
+   |         ||        ||     |  |  |  |  +> [12, 12] Identifier (ff)
+   |         ||        ||     |  |  |  |  |  definition: variable defined at [6, 16], type=boolean
+   |         ||        ||     |  |  |  |  `> [12, 18] Identifier (b)
+   |         ||        ||     |  |  |  |     definition: parameter defined at [2, 32], type=boolean
+   |         ||        ||     |  |  |  `> [12, 23] Identifier (f)
+   |         ||        ||     |  |  |     definition: variable defined at [5, 16], type=boolean
+   |         ||        ||     |  |  `> [12, 28] Identifier (f)
+   |         ||        ||     |  |     definition: variable defined at [5, 16], type=boolean
+   |         ||        ||     |  `> [12, 33] Identifier (ff)
+   |         ||        ||     |     definition: variable defined at [6, 16], type=boolean
+   |         ||        ||     `> [12, 39] Identifier (b)
+   |         ||        ||        definition: parameter defined at [2, 32], type=boolean
+   |         ||        []> [13, 10] Assign
+   |         ||        ||  type: float
+   |         ||        ||  +> [13, 8] Identifier (x)
+   |         ||        ||  |  definition: parameter defined at [2, 43], type=float
+   |         ||        ||  `> ConvFloat
+   |         ||        ||     type: float
+   |         ||        ||     `> [13, 13] Divide
+   |         ||        ||        type: int
+   |         ||        ||        +> [13, 12] Identifier (d)
+   |         ||        ||        |  definition: variable defined at [3, 12], type=int
+   |         ||        ||        `> [13, 14] Identifier (a)
+   |         ||        ||           definition: parameter defined at [2, 25], type=int
+   |         ||        []> [14, 10] Assign
+   |         ||        ||  type: float
+   |         ||        ||  +> [14, 8] Identifier (x)
+   |         ||        ||  |  definition: parameter defined at [2, 43], type=float
+   |         ||        ||  `> ConvFloat
+   |         ||        ||     type: float
+   |         ||        ||     `> [14, 13] Multiply
+   |         ||        ||        type: int
+   |         ||        ||        +> [14, 12] Identifier (d)
+   |         ||        ||        |  definition: variable defined at [3, 12], type=int
+   |         ||        ||        `> [14, 14] Identifier (a)
+   |         ||        ||           definition: parameter defined at [2, 25], type=int
+   |         ||        []> [15, 10] Assign
+   |         ||        ||  type: float
+   |         ||        ||  +> [15, 8] Identifier (x)
+   |         ||        ||  |  definition: parameter defined at [2, 43], type=float
+   |         ||        ||  `> ConvFloat
+   |         ||        ||     type: float
+   |         ||        ||     `> [15, 14] Minus
+   |         ||        ||        type: int
+   |         ||        ||        +> [15, 12] Identifier (d)
+   |         ||        ||        |  definition: variable defined at [3, 12], type=int
+   |         ||        ||        `> [15, 16] Identifier (a)
+   |         ||        ||           definition: parameter defined at [2, 25], type=int
+   |         ||        []> [16, 8] Print
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [16, 14] Identifier (x)
+   |         ||        ||         definition: parameter defined at [2, 43], type=float
+   |         ||        []> [17, 8] Print
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [17, 15] Divide
+   |         ||        ||         type: int
+   |         ||        ||         +> [17, 14] Identifier (d)
+   |         ||        ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||         `> [17, 16] Identifier (a)
+   |         ||        ||            definition: parameter defined at [2, 25], type=int
+   |         ||        []> [18, 8] Print
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [18, 16] Divide
+   |         ||        ||         type: float
+   |         ||        ||         +> [18, 14] Identifier (gg)
+   |         ||        ||         |  definition: variable defined at [8, 14], type=float
+   |         ||        ||         `> ConvFloat
+   |         ||        ||            type: float
+   |         ||        ||            `> [18, 17] Identifier (d)
+   |         ||        ||               definition: variable defined at [3, 12], type=int
+   |         ||        []> [19, 8] Print
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [19, 16] Multiply
+   |         ||        ||         type: float
+   |         ||        ||         +> [19, 14] Identifier (gg)
+   |         ||        ||         |  definition: variable defined at [8, 14], type=float
+   |         ||        ||         `> ConvFloat
+   |         ||        ||            type: float
+   |         ||        ||            `> [19, 17] Identifier (d)
+   |         ||        ||               definition: variable defined at [3, 12], type=int
+   |         ||        []> [20, 8] Println
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [20, 16] Identifier (x)
+   |         ||        ||         definition: parameter defined at [2, 43], type=float
+   |         ||        []> [21, 8] Println
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [21, 17] Divide
+   |         ||        ||         type: int
+   |         ||        ||         +> [21, 16] Identifier (d)
+   |         ||        ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||         `> [21, 18] Identifier (a)
+   |         ||        ||            definition: parameter defined at [2, 25], type=int
+   |         ||        []> [22, 8] Print
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [22, 15] Minus
+   |         ||        ||         type: int
+   |         ||        ||         +> [22, 14] Identifier (d)
+   |         ||        ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||         `> [22, 16] Identifier (a)
+   |         ||        ||            definition: parameter defined at [2, 25], type=int
+   |         ||        []> [23, 8] Println
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [23, 17] Minus
+   |         ||        ||         type: int
+   |         ||        ||         +> [23, 16] Identifier (d)
+   |         ||        ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||         `> [23, 18] Identifier (a)
+   |         ||        ||            definition: parameter defined at [2, 25], type=int
+   |         ||        []> [24, 8] Println
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [24, 18] Divide
+   |         ||        ||         type: float
+   |         ||        ||         +> [24, 16] Identifier (gg)
+   |         ||        ||         |  definition: variable defined at [8, 14], type=float
+   |         ||        ||         `> ConvFloat
+   |         ||        ||            type: float
+   |         ||        ||            `> [24, 19] Identifier (d)
+   |         ||        ||               definition: variable defined at [3, 12], type=int
+   |         ||        []> [25, 8] Println
+   |         ||        ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     []> [25, 18] Multiply
+   |         ||        ||         type: float
+   |         ||        ||         +> [25, 16] Identifier (gg)
+   |         ||        ||         |  definition: variable defined at [8, 14], type=float
+   |         ||        ||         `> ConvFloat
+   |         ||        ||            type: float
+   |         ||        ||            `> [25, 19] Identifier (d)
+   |         ||        ||               definition: variable defined at [3, 12], type=int
+   |         ||        []> [26, 8] IfThenElse
+   |         ||        ||  +> [26, 12] Identifier (ff)
+   |         ||        ||  |  definition: variable defined at [6, 16], type=boolean
+   |         ||        ||  +> ListInst [List with 1 elements]
+   |         ||        ||  |  []> [27, 12] Print
+   |         ||        ||  |      `> ListExpr [List with 1 elements]
+   |         ||        ||  |         []> [27, 18] StringLiteral (ca marche)
+   |         ||        ||  |             type: string
+   |         ||        ||  `> [29, 8] IfThenElse
+   |         ||        ||     +> [29, 8] BooleanLiteral (true)
+   |         ||        ||     |  type: boolean
+   |         ||        ||     +> ListInst [List with 1 elements]
+   |         ||        ||     |  []> [30, 12] Print
+   |         ||        ||     |      `> ListExpr [List with 1 elements]
+   |         ||        ||     |         []> [30, 18] StringLiteral (ca marche pas)
+   |         ||        ||     |             type: string
+   |         ||        []> [32, 8] While
+   |         ||        ||  +> [32, 15] Identifier (f)
+   |         ||        ||  |  definition: variable defined at [5, 16], type=boolean
+   |         ||        ||  `> ListInst [List with 18 elements]
+   |         ||        ||     []> [33, 12] Println
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [33, 20] StringLiteral (boooom)
+   |         ||        ||     ||         type: string
+   |         ||        ||     []> [34, 14] Assign
+   |         ||        ||     ||  type: float
+   |         ||        ||     ||  +> [34, 12] Identifier (g)
+   |         ||        ||     ||  |  definition: variable defined at [7, 14], type=float
+   |         ||        ||     ||  `> ConvFloat
+   |         ||        ||     ||     type: float
+   |         ||        ||     ||     `> [34, 16] Identifier (d)
+   |         ||        ||     ||        definition: variable defined at [3, 12], type=int
+   |         ||        ||     []> [35, 15] Assign
+   |         ||        ||     ||  type: float
+   |         ||        ||     ||  +> [35, 12] Identifier (gg)
+   |         ||        ||     ||  |  definition: variable defined at [8, 14], type=float
+   |         ||        ||     ||  `> [35, 20] Plus
+   |         ||        ||     ||     type: float
+   |         ||        ||     ||     +> [35, 17] Identifier (gg)
+   |         ||        ||     ||     |  definition: variable defined at [8, 14], type=float
+   |         ||        ||     ||     `> ConvFloat
+   |         ||        ||     ||        type: float
+   |         ||        ||     ||        `> [35, 22] Identifier (a)
+   |         ||        ||     ||           definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [36, 15] Assign
+   |         ||        ||     ||  type: boolean
+   |         ||        ||     ||  +> [36, 12] Identifier (ff)
+   |         ||        ||     ||  |  definition: variable defined at [6, 16], type=boolean
+   |         ||        ||     ||  `> [36, 19] Or
+   |         ||        ||     ||     type: boolean
+   |         ||        ||     ||     +> [36, 17] Identifier (f)
+   |         ||        ||     ||     |  definition: variable defined at [5, 16], type=boolean
+   |         ||        ||     ||     `> [36, 22] Identifier (b)
+   |         ||        ||     ||        definition: parameter defined at [2, 32], type=boolean
+   |         ||        ||     []> [37, 14] Assign
+   |         ||        ||     ||  type: boolean
+   |         ||        ||     ||  +> [37, 12] Identifier (f)
+   |         ||        ||     ||  |  definition: variable defined at [5, 16], type=boolean
+   |         ||        ||     ||  `> [37, 40] Or
+   |         ||        ||     ||     type: boolean
+   |         ||        ||     ||     +> [37, 34] Or
+   |         ||        ||     ||     |  type: boolean
+   |         ||        ||     ||     |  +> [37, 29] Or
+   |         ||        ||     ||     |  |  type: boolean
+   |         ||        ||     ||     |  |  +> [37, 24] And
+   |         ||        ||     ||     |  |  |  type: boolean
+   |         ||        ||     ||     |  |  |  +> [37, 19] And
+   |         ||        ||     ||     |  |  |  |  type: boolean
+   |         ||        ||     ||     |  |  |  |  +> [37, 16] Identifier (ff)
+   |         ||        ||     ||     |  |  |  |  |  definition: variable defined at [6, 16], type=boolean
+   |         ||        ||     ||     |  |  |  |  `> [37, 22] Identifier (b)
+   |         ||        ||     ||     |  |  |  |     definition: parameter defined at [2, 32], type=boolean
+   |         ||        ||     ||     |  |  |  `> [37, 27] Identifier (f)
+   |         ||        ||     ||     |  |  |     definition: variable defined at [5, 16], type=boolean
+   |         ||        ||     ||     |  |  `> [37, 32] Identifier (f)
+   |         ||        ||     ||     |  |     definition: variable defined at [5, 16], type=boolean
+   |         ||        ||     ||     |  `> [37, 37] Identifier (ff)
+   |         ||        ||     ||     |     definition: variable defined at [6, 16], type=boolean
+   |         ||        ||     ||     `> [37, 43] Identifier (b)
+   |         ||        ||     ||        definition: parameter defined at [2, 32], type=boolean
+   |         ||        ||     []> [38, 14] Assign
+   |         ||        ||     ||  type: float
+   |         ||        ||     ||  +> [38, 12] Identifier (x)
+   |         ||        ||     ||  |  definition: parameter defined at [2, 43], type=float
+   |         ||        ||     ||  `> ConvFloat
+   |         ||        ||     ||     type: float
+   |         ||        ||     ||     `> [38, 17] Divide
+   |         ||        ||     ||        type: int
+   |         ||        ||     ||        +> [38, 16] Identifier (d)
+   |         ||        ||     ||        |  definition: variable defined at [3, 12], type=int
+   |         ||        ||     ||        `> [38, 18] Identifier (a)
+   |         ||        ||     ||           definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [39, 14] Assign
+   |         ||        ||     ||  type: float
+   |         ||        ||     ||  +> [39, 12] Identifier (x)
+   |         ||        ||     ||  |  definition: parameter defined at [2, 43], type=float
+   |         ||        ||     ||  `> ConvFloat
+   |         ||        ||     ||     type: float
+   |         ||        ||     ||     `> [39, 17] Multiply
+   |         ||        ||     ||        type: int
+   |         ||        ||     ||        +> [39, 16] Identifier (d)
+   |         ||        ||     ||        |  definition: variable defined at [3, 12], type=int
+   |         ||        ||     ||        `> [39, 18] Identifier (a)
+   |         ||        ||     ||           definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [40, 14] Assign
+   |         ||        ||     ||  type: float
+   |         ||        ||     ||  +> [40, 12] Identifier (x)
+   |         ||        ||     ||  |  definition: parameter defined at [2, 43], type=float
+   |         ||        ||     ||  `> ConvFloat
+   |         ||        ||     ||     type: float
+   |         ||        ||     ||     `> [40, 18] Minus
+   |         ||        ||     ||        type: int
+   |         ||        ||     ||        +> [40, 16] Identifier (d)
+   |         ||        ||     ||        |  definition: variable defined at [3, 12], type=int
+   |         ||        ||     ||        `> [40, 20] Identifier (a)
+   |         ||        ||     ||           definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [41, 12] Print
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [41, 18] Identifier (x)
+   |         ||        ||     ||         definition: parameter defined at [2, 43], type=float
+   |         ||        ||     []> [42, 12] Print
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [42, 19] Divide
+   |         ||        ||     ||         type: int
+   |         ||        ||     ||         +> [42, 18] Identifier (d)
+   |         ||        ||     ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||     ||         `> [42, 20] Identifier (a)
+   |         ||        ||     ||            definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [43, 12] Print
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [43, 20] Divide
+   |         ||        ||     ||         type: float
+   |         ||        ||     ||         +> [43, 18] Identifier (gg)
+   |         ||        ||     ||         |  definition: variable defined at [8, 14], type=float
+   |         ||        ||     ||         `> ConvFloat
+   |         ||        ||     ||            type: float
+   |         ||        ||     ||            `> [43, 21] Identifier (d)
+   |         ||        ||     ||               definition: variable defined at [3, 12], type=int
+   |         ||        ||     []> [44, 12] Print
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [44, 20] Multiply
+   |         ||        ||     ||         type: float
+   |         ||        ||     ||         +> [44, 18] Identifier (gg)
+   |         ||        ||     ||         |  definition: variable defined at [8, 14], type=float
+   |         ||        ||     ||         `> ConvFloat
+   |         ||        ||     ||            type: float
+   |         ||        ||     ||            `> [44, 21] Identifier (d)
+   |         ||        ||     ||               definition: variable defined at [3, 12], type=int
+   |         ||        ||     []> [45, 12] Println
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [45, 20] Identifier (x)
+   |         ||        ||     ||         definition: parameter defined at [2, 43], type=float
+   |         ||        ||     []> [46, 12] Println
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [46, 21] Divide
+   |         ||        ||     ||         type: int
+   |         ||        ||     ||         +> [46, 20] Identifier (d)
+   |         ||        ||     ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||     ||         `> [46, 22] Identifier (a)
+   |         ||        ||     ||            definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [47, 12] Print
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [47, 19] Minus
+   |         ||        ||     ||         type: int
+   |         ||        ||     ||         +> [47, 18] Identifier (d)
+   |         ||        ||     ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||     ||         `> [47, 20] Identifier (a)
+   |         ||        ||     ||            definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [48, 12] Println
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [48, 21] Minus
+   |         ||        ||     ||         type: int
+   |         ||        ||     ||         +> [48, 20] Identifier (d)
+   |         ||        ||     ||         |  definition: variable defined at [3, 12], type=int
+   |         ||        ||     ||         `> [48, 22] Identifier (a)
+   |         ||        ||     ||            definition: parameter defined at [2, 25], type=int
+   |         ||        ||     []> [49, 12] Println
+   |         ||        ||     ||  `> ListExpr [List with 1 elements]
+   |         ||        ||     ||     []> [49, 22] Divide
+   |         ||        ||     ||         type: float
+   |         ||        ||     ||         +> [49, 20] Identifier (gg)
+   |         ||        ||     ||         |  definition: variable defined at [8, 14], type=float
+   |         ||        ||     ||         `> ConvFloat
+   |         ||        ||     ||            type: float
+   |         ||        ||     ||            `> [49, 23] Identifier (d)
+   |         ||        ||     ||               definition: variable defined at [3, 12], type=int
+   |         ||        ||     []> [50, 12] Println
+   |         ||        ||         `> ListExpr [List with 1 elements]
+   |         ||        ||            []> [50, 22] Multiply
+   |         ||        ||                type: float
+   |         ||        ||                +> [50, 20] Identifier (gg)
+   |         ||        ||                |  definition: variable defined at [8, 14], type=float
+   |         ||        ||                `> ConvFloat
+   |         ||        ||                   type: float
+   |         ||        ||                   `> [50, 23] Identifier (d)
+   |         ||        ||                      definition: variable defined at [3, 12], type=int
+   |         ||        []> [52, 8] Return
+   |         ||            `> [52, 15] BooleanLiteral (true)
+   |         ||               type: boolean
+   |         []> [54, 4] DeclMethod
+   |             +> [54, 4] Identifier (void)
+   |             |  definition: type (builtin), type=void
+   |             +> [54, 9] Identifier (vide)
+   |             |  definition: method defined at [54, 4], type=void
+   |             +> ListDeclParam [List with 0 elements]
+   |             `> [54, 15] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 0 elements]
+   `> EmptyMain

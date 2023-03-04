@@ -1,0 +1,16 @@
+`> [2, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [2, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [3, 8] DeclVar
+      |      +> [3, 4] Identifier (int)
+      |      +> [3, 8] Identifier (x)
+      |      `> [3, 12] Initialization
+      |         `> [3, 12] Int (9)
+      `> ListInst [List with 2 elements]
+         []> [4, 6] Assign
+         ||  +> [4, 4] Identifier (x)
+         ||  `> [4, 8] ReadInt
+         []> [5, 4] Println
+             `> ListExpr [List with 1 elements]
+                []> [5, 12] StringLiteral (readint ça marche)

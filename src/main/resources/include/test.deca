@@ -1,0 +1,5 @@
+{
+    float pi3 = 0x1.0C1524p0 // pi/3 (just over, real is 1.04C152382D7...)
+    //println(0x1.0C1524p0);    
+    //float pi3 = 1.0471975512;
+}

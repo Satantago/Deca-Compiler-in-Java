@@ -1,0 +1,10 @@
+{
+	boolean bool = true;
+	if(!bool){
+		println("ça marche pas");
+	}
+	else{
+		println("ça marche");
+	}
+}
+

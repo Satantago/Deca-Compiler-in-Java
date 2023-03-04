@@ -1,0 +1,16 @@
+`> [3, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [3, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [4, 10] DeclVar
+      |      +> [4, 4] Identifier (float)
+      |      +> [4, 10] Identifier (y)
+      |      `> [4, 14] Initialization
+      |         `> [4, 14] Float (0.2)
+      `> ListInst [List with 2 elements]
+         []> [5, 6] Assign
+         ||  +> [5, 4] Identifier (y)
+         ||  `> [5, 8] ReadFloat
+         []> [6, 4] Println
+             `> ListExpr [List with 1 elements]
+                []> [6, 12] StringLiteral (readfloat fonctionne)

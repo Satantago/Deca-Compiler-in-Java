@@ -1,0 +1,11 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [9, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 1 elements]
+         []> [10, 8] IfThenElse
+             +> [10, 11] BooleanLiteral (true)
+             +> ListInst [List with 1 elements]
+             |  []> [11, 12] Println
+             |      `> ListExpr [List with 1 elements]
+             |         []> [11, 20] StringLiteral (SEKKKAL)

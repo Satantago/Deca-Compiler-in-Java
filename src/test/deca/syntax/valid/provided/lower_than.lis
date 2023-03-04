@@ -1,0 +1,13 @@
+`> [1, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [1, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 1 elements]
+         []> [2, 1] IfThenElse
+             +> [2, 7] Lower
+             |  +> [2, 5] Int (2)
+             |  `> [2, 9] Int (3)
+             +> ListInst [List with 1 elements]
+             |  []> [2, 13] Println
+             |      `> ListExpr [List with 1 elements]
+             |         []> [2, 21] StringLiteral (2 is lowe than 3)

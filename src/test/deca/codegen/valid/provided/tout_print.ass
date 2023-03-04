@@ -1,0 +1,9 @@
+{
+	int x = 5;
+	float y = 0x1.a66666p3;
+	print(x, y);
+	printx(y);
+	println(x, y);
+	printlnx(y);
+}
+

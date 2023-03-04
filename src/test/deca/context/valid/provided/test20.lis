@@ -1,0 +1,43 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:29) - verify Main: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:36) - verify Main: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [1, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [1, 0] Main
+      +> ListDeclVar [List with 2 elements]
+      |  []> [2, 8] DeclVar
+      |  ||  +> [2, 4] Identifier (int)
+      |  ||  |  definition: type (builtin), type=int
+      |  ||  +> [2, 8] Identifier (a)
+      |  ||  |  definition: variable defined at [2, 8], type=int
+      |  ||  `> NoInitialization
+      |  []> [3, 10] DeclVar
+      |      +> [3, 4] Identifier (float)
+      |      |  definition: type (builtin), type=float
+      |      +> [3, 10] Identifier (b)
+      |      |  definition: variable defined at [3, 10], type=float
+      |      `> NoInitialization
+      `> ListInst [List with 1 elements]
+         []> [4, 4] IfThenElse
+             +> [4, 9] GreaterOrEqual
+             |  type: boolean
+             |  +> ConvFloat
+             |  |  type: float
+             |  |  `> [4, 8] Identifier (a)
+             |  |     definition: variable defined at [2, 8], type=int
+             |  `> [4, 11] Identifier (b)
+             |     definition: variable defined at [3, 10], type=float
+             +> ListInst [List with 1 elements]
+             |  []> [5, 8] Print
+             |      `> ListExpr [List with 1 elements]
+             |         []> [5, 14] StringLiteral (zooom)
+             |             type: string

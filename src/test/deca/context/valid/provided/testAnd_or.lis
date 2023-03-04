@@ -1,0 +1,81 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:29) - verify Main: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:36) - verify Main: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [3, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [3, 0] Main
+      +> ListDeclVar [List with 4 elements]
+      |  []> [4, 12] DeclVar
+      |  ||  +> [4, 4] Identifier (boolean)
+      |  ||  |  definition: type (builtin), type=boolean
+      |  ||  +> [4, 12] Identifier (moi)
+      |  ||  |  definition: variable defined at [4, 12], type=boolean
+      |  ||  `> [4, 18] Initialization
+      |  ||     `> [4, 18] BooleanLiteral (true)
+      |  ||        type: boolean
+      |  []> [5, 12] DeclVar
+      |  ||  +> [5, 4] Identifier (boolean)
+      |  ||  |  definition: type (builtin), type=boolean
+      |  ||  +> [5, 12] Identifier (non)
+      |  ||  |  definition: variable defined at [5, 12], type=boolean
+      |  ||  `> [5, 18] Initialization
+      |  ||     `> [5, 18] BooleanLiteral (false)
+      |  ||        type: boolean
+      |  []> [6, 12] DeclVar
+      |  ||  +> [6, 4] Identifier (boolean)
+      |  ||  |  definition: type (builtin), type=boolean
+      |  ||  +> [6, 12] Identifier (sata)
+      |  ||  |  definition: variable defined at [6, 12], type=boolean
+      |  ||  `> [6, 19] Initialization
+      |  ||     `> [6, 23] And
+      |  ||        type: boolean
+      |  ||        +> [6, 19] Identifier (moi)
+      |  ||        |  definition: variable defined at [4, 12], type=boolean
+      |  ||        `> [6, 26] Identifier (non)
+      |  ||           definition: variable defined at [5, 12], type=boolean
+      |  []> [7, 12] DeclVar
+      |      +> [7, 4] Identifier (boolean)
+      |      |  definition: type (builtin), type=boolean
+      |      +> [7, 12] Identifier (satax)
+      |      |  definition: variable defined at [7, 12], type=boolean
+      |      `> [7, 20] Initialization
+      |         `> [7, 24] Or
+      |            type: boolean
+      |            +> [7, 20] Identifier (moi)
+      |            |  definition: variable defined at [4, 12], type=boolean
+      |            `> [7, 27] Identifier (non)
+      |               definition: variable defined at [5, 12], type=boolean
+      `> ListInst [List with 1 elements]
+         []> [8, 4] IfThenElse
+             +> [8, 19] And
+             |  type: boolean
+             |  +> [8, 12] Equals
+             |  |  type: boolean
+             |  |  +> [8, 8] Identifier (sata)
+             |  |  |  definition: variable defined at [6, 12], type=boolean
+             |  |  `> [8, 14] BooleanLiteral (true)
+             |  |     type: boolean
+             |  `> [8, 28] Equals
+             |     type: boolean
+             |     +> [8, 22] Identifier (satax)
+             |     |  definition: variable defined at [7, 12], type=boolean
+             |     `> [8, 31] BooleanLiteral (true)
+             |        type: boolean
+             +> ListInst [List with 1 elements]
+             |  []> [9, 8] Println
+             |      `> ListExpr [List with 1 elements]
+             |         []> [9, 16] StringLiteral (saaaam was here)
+             |             type: string

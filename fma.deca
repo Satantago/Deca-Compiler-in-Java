@@ -1,0 +1,7 @@
+{
+float a = 2*1;
+float x = 3+0;
+float b = 6*0+6.0;
+float c = (a*(x/b+x) + b)+10;
+println("c: ",c);
+}

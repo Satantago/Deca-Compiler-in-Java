@@ -1,0 +1,87 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:27) - verify listClass: start
+DEBUG fr.ensimag.deca.tree.ListDeclClass.verifyListClass(ListDeclClass.java:33) - verify listClass: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:29) - verify Main: start
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:44) - verify listdec: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:200) - verify verftype non terminal: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:207) - verify verftype non terminal: sortie
+DEBUG fr.ensimag.deca.tree.ListDeclVar.verifyListDeclVariable(ListDeclVar.java:48) - verify listdec: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:36) - verify Main: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:54) - verify program: end
+`> [11, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [11, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [12, 4] DeclVar
+      |      +> [12, 0] Identifier (int)
+      |      |  definition: type (builtin), type=int
+      |      +> [12, 4] Identifier (x)
+      |      |  definition: variable defined at [12, 4], type=int
+      |      `> [12, 8] Initialization
+      |         `> [12, 8] Int (1)
+      |            type: int
+      `> ListInst [List with 2 elements]
+         []> [13, 0] While
+         ||  +> [13, 8] Equals
+         ||  |  type: boolean
+         ||  |  +> [13, 6] Identifier (x)
+         ||  |  |  definition: variable defined at [12, 4], type=int
+         ||  |  `> [13, 11] Int (1)
+         ||  |     type: int
+         ||  `> ListInst [List with 2 elements]
+         ||     []> [14, 2] Assign
+         ||     ||  type: int
+         ||     ||  +> [14, 0] Identifier (x)
+         ||     ||  |  definition: variable defined at [12, 4], type=int
+         ||     ||  `> [14, 6] Plus
+         ||     ||     type: int
+         ||     ||     +> [14, 4] Identifier (x)
+         ||     ||     |  definition: variable defined at [12, 4], type=int
+         ||     ||     `> [14, 8] Int (1)
+         ||     ||        type: int
+         ||     []> [15, 0] IfThenElse
+         ||         +> [15, 3] BooleanLiteral (false)
+         ||         |  type: boolean
+         ||         +> ListInst [List with 2 elements]
+         ||         |  []> [16, 0] While
+         ||         |  ||  +> [16, 8] Equals
+         ||         |  ||  |  type: boolean
+         ||         |  ||  |  +> [16, 6] Identifier (x)
+         ||         |  ||  |  |  definition: variable defined at [12, 4], type=int
+         ||         |  ||  |  `> [16, 11] Int (2)
+         ||         |  ||  |     type: int
+         ||         |  ||  `> ListInst [List with 2 elements]
+         ||         |  ||     []> [17, 0] Println
+         ||         |  ||     ||  `> ListExpr [List with 1 elements]
+         ||         |  ||     ||     []> [17, 8] StringLiteral (noo)
+         ||         |  ||     ||         type: string
+         ||         |  ||     []> [18, 2] Assign
+         ||         |  ||         type: int
+         ||         |  ||         +> [18, 0] Identifier (x)
+         ||         |  ||         |  definition: variable defined at [12, 4], type=int
+         ||         |  ||         `> [18, 6] Plus
+         ||         |  ||            type: int
+         ||         |  ||            +> [18, 4] Identifier (x)
+         ||         |  ||            |  definition: variable defined at [12, 4], type=int
+         ||         |  ||            `> [18, 8] Int (1)
+         ||         |  ||               type: int
+         ||         |  []> [20, 0] Println
+         ||         |      `> ListExpr [List with 1 elements]
+         ||         |         []> [20, 8] StringLiteral (NOOOOOOOOON)
+         ||         |             type: string
+         ||         `> [22, 0] IfThenElse
+         ||            +> [22, 10] Equals
+         ||            |  type: boolean
+         ||            |  +> [22, 8] Identifier (x)
+         ||            |  |  definition: variable defined at [12, 4], type=int
+         ||            |  `> [22, 13] Int (2)
+         ||            |     type: int
+         ||            +> ListInst [List with 1 elements]
+         ||            |  []> [23, 0] Println
+         ||            |      `> ListExpr [List with 1 elements]
+         ||            |         []> [23, 8] StringLiteral (ça)
+         ||            |             type: string
+         []> [29, 0] Println
+             `> ListExpr [List with 1 elements]
+                []> [29, 8] StringLiteral (marche)
+                    type: string

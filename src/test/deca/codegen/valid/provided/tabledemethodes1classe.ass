@@ -1,0 +1,10 @@
+class A extends Object{
+	void a () {
+	}
+	void b () {
+	}
+	void c () {
+	}
+}
+
+

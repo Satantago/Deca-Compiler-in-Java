@@ -1,0 +1,5 @@
+{
+	float x = 0x1.39999ap3;
+	println(x);
+}
+
